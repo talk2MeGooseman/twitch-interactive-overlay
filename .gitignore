@@ -1,0 +1,14 @@
+.*
+*.log
+Thumbs.db
+
+dist/
+build/
+node_modules/
+
+!.git*
+!.babelrc
+!.eslint*
+!.yo-rc.json
+!.editorconfig
+game-assets/

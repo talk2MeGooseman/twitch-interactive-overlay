@@ -1,0 +1,776 @@
+{
+	"textures": [
+		{
+			"image": "characters.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 548,
+				"h": 255
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Peasant/attack/peasant_attack2_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 123,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 123,
+						"h": 83
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 123,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/attack/peasant_attack2_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 113
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 113
+					},
+					"frame": {
+						"x": 1,
+						"y": 86,
+						"w": 78,
+						"h": 113
+					}
+				},
+				{
+					"filename": "Peasant/attack/peasant_attack2_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 86
+					},
+					"frame": {
+						"x": 126,
+						"y": 1,
+						"w": 77,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/attack/peasant_attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 59,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 59,
+						"h": 86
+					},
+					"frame": {
+						"x": 205,
+						"y": 1,
+						"w": 59,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/attack/peasant_attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 86
+					},
+					"frame": {
+						"x": 266,
+						"y": 1,
+						"w": 53,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/die/peasant_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 83
+					},
+					"frame": {
+						"x": 321,
+						"y": 1,
+						"w": 56,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/hit/peasant_hit_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 83
+					},
+					"frame": {
+						"x": 321,
+						"y": 1,
+						"w": 56,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 83
+					},
+					"frame": {
+						"x": 379,
+						"y": 1,
+						"w": 56,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/die/peasant_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 437,
+						"y": 1,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/hit/peasant_hit_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 437,
+						"y": 1,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/jump/peasant_jump_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 492,
+						"y": 1,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/jump/peasant_jump_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 492,
+						"y": 1,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/die/peasant_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 47
+					},
+					"frame": {
+						"x": 1,
+						"y": 201,
+						"w": 83,
+						"h": 47
+					}
+				},
+				{
+					"filename": "Peasant/die/peasant_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 47
+					},
+					"frame": {
+						"x": 1,
+						"y": 201,
+						"w": 83,
+						"h": 47
+					}
+				},
+				{
+					"filename": "Peasant/jump/peasant_jump_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 89
+					},
+					"frame": {
+						"x": 81,
+						"y": 89,
+						"w": 50,
+						"h": 89
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 74
+					},
+					"frame": {
+						"x": 86,
+						"y": 180,
+						"w": 62,
+						"h": 74
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 133,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 133,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 133,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 133,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/jump/peasant_jump_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 77
+					},
+					"frame": {
+						"x": 150,
+						"y": 177,
+						"w": 53,
+						"h": 77
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 185,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 185,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 237,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 71
+					},
+					"frame": {
+						"x": 205,
+						"y": 177,
+						"w": 65,
+						"h": 71
+					}
+				},
+				{
+					"filename": "Peasant/run/peasant_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 289,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/standing/peasant.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 341,
+						"y": 86,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 393,
+						"y": 86,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 393,
+						"y": 86,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 445,
+						"y": 86,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 445,
+						"y": 86,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "Peasant/crouch/peasant_crouch_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 83
+					},
+					"frame": {
+						"x": 497,
+						"y": 86,
+						"w": 50,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Peasant/crouch/peasant_crouch_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 71
+					},
+					"frame": {
+						"x": 272,
+						"y": 177,
+						"w": 53,
+						"h": 71
+					}
+				},
+				{
+					"filename": "Peasant/attack/peasant_attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 80
+					},
+					"frame": {
+						"x": 341,
+						"y": 174,
+						"w": 53,
+						"h": 80
+					}
+				},
+				{
+					"filename": "Peasant/die/peasant_die_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 47
+					},
+					"frame": {
+						"x": 396,
+						"y": 174,
+						"w": 83,
+						"h": 47
+					}
+				},
+				{
+					"filename": "Peasant/walk/peasant_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 83
+					},
+					"frame": {
+						"x": 497,
+						"y": 171,
+						"w": 50,
+						"h": 83
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:2b3046cad6061bd25ff2c2733f258af4:c674dccf7eb36350a0bfac3b25f57658:a5fe7db4b869eb0f3e0b2940b9577ea8$"
+	}
+}

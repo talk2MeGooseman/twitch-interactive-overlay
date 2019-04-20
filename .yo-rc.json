@@ -1,0 +1,21 @@
+{
+  "generator-phaser-plus": {
+    "meta": {
+      "createdWith": "3.0.0-beta.7",
+      "creationDate": "2019-04-14T05:20:54.499Z"
+    },
+    "objects": {
+      "dest": "app/scripts/objects/"
+    },
+    "plugins": {
+      "dest": "app/scripts/plugins/"
+    },
+    "scenes": {
+      "dest": "app/scripts/scenes/",
+      "index": {
+        "name": "app/scripts/scenes/index.js",
+        "requirePath": "./"
+      }
+    }
+  }
+}
