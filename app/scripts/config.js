@@ -7,6 +7,7 @@
 
 //  Import created game scenes.
 import * as scenes from '@/scenes';
+import GameScalePlugin from 'phaser-plugin-game-scale';
 
 //  HINT: Import plugins, custom or trusted third-party ones, here.
 // import ExamplePlugin from 'example-plugin';
@@ -17,12 +18,12 @@ export const debug = true;
 /**
  *  Game canvas width.
  */
-export const width = 640;
+export const width = 2560;
 
 /**
  *  Game canvas height.
  */
-export const height = 480;
+export const height = 1440;
 
 /**
  *  Adjust zoom factor.
@@ -83,7 +84,7 @@ export const physics = {
    *  This engine becomes available under a `physics` property on game scenes.
    */
   arcade: {
-    debug: false,
+    debug: true,
     gravity: {
       y: 400,
     },
@@ -153,6 +154,18 @@ export const plugins = {
     //   //  `this.plugins.start('<key>')`.
     //   start: true
     // },
+    {
+      key: 'GameScalePlugin',
+      plugin: GameScalePlugin,
+      mapping: 'gameScale',
+      data: {
+        maxHeight: Infinity,
+        maxWidth: Infinity,
+        minHeight: 0,
+        minWidth: 0,
+        mode: 'fit',
+      },
+    },
   ],
 
   scene: [

@@ -1,6 +1,8 @@
-import Logo from '@/objects/logo';
 import UserSprite from '@/objects/UserSprite';
-var ComfyJS = require('comfy.js');
+import ComfyJS from 'comfy.js';
+import Coin from '@/objects/Coin';
+import { OAUTH_TOKEN } from '@/secrets';
+
 
 export default class Game extends Phaser.Scene {
   /**
@@ -20,17 +22,7 @@ export default class Game extends Phaser.Scene {
    *  @param {object} data Initialization parameters.
    */
   create(/* data */) {
-    ComfyJS.onCommand = (user, command, message, flags) => {
-      if (command == 'join') {
-        this.addUserSprite(user, flags);
-      }
-
-      if (command == 'run') {
-        this.setRunUserSprite(user, flags);
-      }
-    };
-
-    ComfyJS.Init('talk2megooseman');
+    this.initComfy();
 
     this.userGroup = this.physics.add.group({
       bounceX: 1,
@@ -38,11 +30,79 @@ export default class Game extends Phaser.Scene {
       collideWorldBounds: true,
     });
 
+    this.coinsGroup = this.physics.add.group({
+      bounceX: 1,
+      bounceY: 0.5,
+      collideWorldBounds: true,
+    });
+
     // Add in dummy sprite
     this.addUserSprite();
+    this.setupAudio();
+  }
+
+  setupAudio() {
+    this.raidAlert = this.sound.add('raid_alert');
+    this.victoryShort = this.sound.add('victory_short');
+  }
+
+  initComfy() {
+    ComfyJS.Init('talk2megooseman', OAUTH_TOKEN);
+
+    ComfyJS.onCommand = (user, command, message, flags) => {
+      if (command == 'join') {
+        this.addUserSprite(user, flags);
+      } else if (command == 'run') {
+        this.setRunUserSprite(user, flags);
+      } else if (command == 'jump') {
+        this.jumpUserSprite(user, flags);
+      } else if (command === 'alert' && flags.broadcaster) {
+        this.raidAlert.play();
+      } else if (command === 'hype' && flags.broadcaster) {
+        this.victoryShort.play();
+      }
+    };
+
+    ComfyJS.onJoin = (user, self) => {
+      this.addUserSprite(user);
+    };
+
+    ComfyJS.onChat = (user, message, flags, self, extra) => (this.addUserSprite(user, flags));
+
+    ComfyJS.onCheer = (message, bits, extra) => (this.addCoins(bits));
+
+
+    ComfyJS.onHosted = ( user, viewers, autohost ) => {
+    };
+
+    ComfyJS.onRaid = ( user, viewers ) => {
+      this.raidAlert.play();
+    };
+
+    ComfyJS.onPart = ( user ) => {
+    };
+
+    ComfyJS.onSub = ( user, message, subTierInfo, extra ) => (this.victoryShort.play());
+    ComfyJS.onResub = ( user, message, streamMonths, cumulativeMonths, subTierInfo, extra ) => (this.victoryShort.play());
+    ComfyJS.onSubGift = ( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra ) => (this.victoryShort.play());
+    ComfyJS.onSubMysteryGift = ( gifterUser, numbOfSubs, senderCount, subTierInfo, extra ) => (this.victoryShort.play());
+    ComfyJS.onGiftSubContinue = ( user, sender, extra ) => (this.victoryShort.play());
+  }
+
+  addCoins(amount) {
+    for(var i = 0; i < amount; i++) {
+      const coin = new Coin(this);
+      this.coinsGroup.add(coin);
+    }
+
+    this.physics.add.collider(this.coinsGroup, this.userGroup);
   }
 
   addUserSprite(user, flags) {
+    if (this.userExists(user)) {
+      return;
+    }
+
     const spriteConfig = {
       scene: this,
       key: 'characters',
@@ -57,6 +117,18 @@ export default class Game extends Phaser.Scene {
     // Update Physics collider with new sprites
     this.physics.add.collider(this.userGroup);
     newUser.walk();
+  }
+
+  userExists(user) {
+    return this.userGroup.getChildren().find(sprite => (sprite.user === user));
+  }
+
+  jumpUserSprite(user) {
+    this.userGroup.getChildren().forEach(sprite => {
+      if (sprite.user === user) {
+        sprite.jump();
+      }
+    });
   }
 
   setRunUserSprite(user) {
@@ -79,6 +151,11 @@ export default class Game extends Phaser.Scene {
     // Call update on all sprites in our group
     this.userGroup.getChildren().forEach(user => {
       user.update();
+    });
+
+
+    this.coinsGroup.getChildren().forEach(coin => {
+      coin.update();
     });
   }
 }

@@ -23,6 +23,7 @@ export default class SplashScreen extends Phaser.Scene {
         }]
       }
     });
+
   }
 
   /**
@@ -38,6 +39,9 @@ export default class SplashScreen extends Phaser.Scene {
     //  HINT: Declare all game assets to be loaded here.
     this.load.image('logo');
     this.load.multiatlas('characters', 'characters.json');
+    this.load.multiatlas('items', 'items.json');
+    this.load.audio('raid_alert', 'alarm.wav');
+    this.load.audio('victory_short', 'short-tunes/BRPG_Victory_Stinger.wav');
   }
 
   /**

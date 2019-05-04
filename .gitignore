@@ -12,3 +12,4 @@ node_modules/
 !.yo-rc.json
 !.editorconfig
 game-assets/
+app/scripts/secrets.js

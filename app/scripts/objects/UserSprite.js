@@ -1,3 +1,6 @@
+const V_JUMP = -400;
+const RUN_THRESHOLD = 150;
+
 export default class UserSprite extends Phaser.GameObjects.Sprite {
   /**
       Potential cool physics body methods
@@ -34,21 +37,19 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
    *  @extends Phaser.GameObjects.Sprite
    */
   constructor(config) {
-    super(config.scene, 0, 0, config.key, config.frame);
+    const x = Phaser.Math.Between(0, 3000)
+    super(config.scene, x, 0, config.key, config.frame);
 
     config.scene.physics.world.enable(this);
     config.scene.add.existing(this);
 
-    const x = config.scene.cameras.main.width / 2;
-    const y = config.scene.cameras.main.height / 2;
-
     this.user = config.user;
     this.flags = config.flags;
+    this.stillFrame = config.frame;
 
     this.setSize(100, 200, true);
-    this.setScale(0.5);
-    this.setPosition(x, y);
     this.setOrigin(0.5);
+    this.anims.play('peasent_walk');
   }
 
   walk() {
@@ -56,25 +57,61 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   startRunning() {
-    this.body.setVelocityX(200);
+    let v = 200;
+    if(this.flipX) {
+      v *= -1;
+    }
+    this.body.setVelocityX(v);
+  }
+
+  jump() {
+    this.body.setVelocityY(V_JUMP);
   }
 
   /**
    *  Update sprite actions
    */
   update() {
-    const currentSpeed = Math.abs(this.body.velocity.x);
+    let anim;
+    this.body.setDragX(10);
+    const xSpeed = Math.abs(this.body.velocity.x);
+    const ySpeed = Math.abs(this.body.velocity.y);
 
-    if ( currentSpeed > 0 && currentSpeed < 200) {
-      this.anims.play('peasent_walk', true);
-    } else if(currentSpeed >= 200) {
-      this.anims.play('peasent_run', true);
+    if (ySpeed > 50 && !this.body.blocked.down) {
+      anim = 'peasent_jump';
     }
 
+    if (ySpeed < 50) {
+      if (xSpeed > 0 && xSpeed < RUN_THRESHOLD) {
+        anim = 'peasent_walk';
+      } else if (xSpeed >= RUN_THRESHOLD) {
+        anim  = 'peasent_run';
+      }
+    }
+
+    if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+      this.anims.stop();
+      this.setFrame(this.stillFrame);
+    }
+
+    this.setSpriteAnimation(anim);
     this.lookInWalkingDirection();
   }
 
+  setSpriteAnimation(anim) {
+    if (
+      this.anims.currentAnim.key !== anim
+    ) {
+      this.anims.play(anim);
+    }
+  }
+
   lookInWalkingDirection() {
+    // Dont flip sprite if standing still
+    if (this.body.velocity.x === 0) {
+      return;
+    }
+
     let flip = this.body.velocity.x < 0;
     this.setFlipX(flip);
   }

@@ -22,7 +22,33 @@ function createRunningAnimation(scene) {
   scene.anims.create({ key: 'peasent_run', frames: frameNames, frameRate: 10, repeat: -1 });
 }
 
+function createJumpAnimation(scene) {
+  var frameNames = scene.anims.generateFrameNames('characters', {
+    start: 1,
+    end: 4,
+    zeroPad: 3,
+    prefix: 'Peasant/jump/peasant_jump_',
+    suffix: '.png',
+  });
+
+  scene.anims.create({ key: 'peasent_jump', frames: frameNames, frameRate: 10, repeat: 0 });
+}
+
+function createCoinAnimation(scene) {
+  var frameNames = scene.anims.generateFrameNames('items', {
+    start: 1,
+    end: 24,
+    zeroPad: 4,
+    prefix: 'coin/',
+    suffix: '.png',
+  });
+
+  scene.anims.create({ key: 'coin_spin', frames: frameNames, frameRate: 10, repeat: -1 });
+}
+
 export default function animationsFactory(scene) {
   createWalkingAnimation(scene);
   createRunningAnimation(scene);
+  createJumpAnimation(scene);
+  createCoinAnimation(scene);
 }
