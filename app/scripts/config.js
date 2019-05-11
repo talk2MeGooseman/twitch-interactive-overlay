@@ -56,7 +56,7 @@ export const roundPixels = false;
 /**
  *  Whether to enable canvas transparency or not.
  */
-export const transparent = false;
+export const transparent = true;
 
 /**
  *  Apply some style to the canvas element.
@@ -66,7 +66,7 @@ export const canvasStyle = 'display: block; margin: 0 auto;';
 /**
  *  Define a default a background color.
  */
-export const backgroundColor = '#000000';
+// export const backgroundColor = '#000000';
 
 /**
  *  Configure physics engines global parameters.

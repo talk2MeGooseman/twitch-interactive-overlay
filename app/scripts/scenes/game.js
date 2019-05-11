@@ -3,7 +3,6 @@ import ComfyJS from 'comfy.js';
 import Coin from '@/objects/Coin';
 import { OAUTH_TOKEN } from '@/secrets';
 
-
 export default class Game extends Phaser.Scene {
   /**
    *  A sample Game scene, displaying the Phaser logo.
@@ -36,18 +35,24 @@ export default class Game extends Phaser.Scene {
       collideWorldBounds: true,
     });
 
+    // Update Physics collider with new sprites
+    this.physics.add.collider(this.userGroup);
+    this.physics.add.collider(this.coinsGroup);
+
+    // Check if user touches coin
+    this.physics.add.overlap(this.coinsGroup, this.userGroup, this.collectCoin);
     // Add in dummy sprite
-    this.addUserSprite();
     this.setupAudio();
   }
 
   setupAudio() {
-    this.raidAlert = this.sound.add('raid_alert');
-    this.victoryShort = this.sound.add('victory_short');
+    this.raidAlert = this.sound.add('raid_alert', { volume: 0.05 });
+    this.victoryShort = this.sound.add('victory_short', { volume: 0.10 });
+    this.collectCoinAudio = this.sound.add('collect_coin', { volume: 0.05 });
   }
 
   initComfy() {
-    ComfyJS.Init('talk2megooseman', OAUTH_TOKEN);
+    ComfyJS.Init('talk2megooseman');
 
     ComfyJS.onCommand = (user, command, message, flags) => {
       if (command == 'join') {
@@ -55,7 +60,7 @@ export default class Game extends Phaser.Scene {
       } else if (command == 'run') {
         this.setRunUserSprite(user, flags);
       } else if (command == 'jump') {
-        this.jumpUserSprite(user, flags);
+        UserSprite.jumpUserSprite(this.userGroup, user);
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
       } else if (command === 'hype' && flags.broadcaster) {
@@ -63,43 +68,62 @@ export default class Game extends Phaser.Scene {
       }
     };
 
-    ComfyJS.onJoin = (user, self) => {
-      this.addUserSprite(user);
-    };
+    ComfyJS.onJoin = (user, self) => this.addUserSprite(user);
 
-    ComfyJS.onChat = (user, message, flags, self, extra) => (this.addUserSprite(user, flags));
+    ComfyJS.onPart = user => UserSprite.userParted(this.userGroup, user);
 
-    ComfyJS.onCheer = (message, bits, extra) => (this.addCoins(bits));
+    ComfyJS.onChat = (user, message, flags, self, extra) =>
+      this.addUserSprite(user, flags);
 
+    ComfyJS.onCheer = (message, bits, extra) => this.addCoins(bits);
 
-    ComfyJS.onHosted = ( user, viewers, autohost ) => {
-    };
+    ComfyJS.onHosted = (user, viewers, autohost) => {};
 
-    ComfyJS.onRaid = ( user, viewers ) => {
+    ComfyJS.onRaid = (user, viewers) => {
       this.raidAlert.play();
     };
 
-    ComfyJS.onPart = ( user ) => {
-    };
+    ComfyJS.onSub = (user, message, subTierInfo, extra) => this.victoryShort.play();
 
-    ComfyJS.onSub = ( user, message, subTierInfo, extra ) => (this.victoryShort.play());
-    ComfyJS.onResub = ( user, message, streamMonths, cumulativeMonths, subTierInfo, extra ) => (this.victoryShort.play());
-    ComfyJS.onSubGift = ( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra ) => (this.victoryShort.play());
-    ComfyJS.onSubMysteryGift = ( gifterUser, numbOfSubs, senderCount, subTierInfo, extra ) => (this.victoryShort.play());
-    ComfyJS.onGiftSubContinue = ( user, sender, extra ) => (this.victoryShort.play());
+    ComfyJS.onResub = (
+      user,
+      message,
+      streamMonths,
+      cumulativeMonths,
+      subTierInfo,
+      extra
+    ) => this.victoryShort.play();
+
+    ComfyJS.onSubGift = (
+      gifterUser,
+      streakMonths,
+      recipientUser,
+      senderCount,
+      subTierInfo,
+      extra
+    ) => this.victoryShort.play();
+
+    ComfyJS.onSubMysteryGift = (
+      gifterUser,
+      numbOfSubs,
+      senderCount,
+      subTierInfo,
+      extra
+    ) => this.victoryShort.play();
+
+    ComfyJS.onGiftSubContinue = (user, sender, extra) =>
+      this.victoryShort.play();
   }
 
   addCoins(amount) {
-    for(var i = 0; i < amount; i++) {
+    for (var i = 0; i < amount; i++) {
       const coin = new Coin(this);
       this.coinsGroup.add(coin);
     }
-
-    this.physics.add.collider(this.coinsGroup, this.userGroup);
   }
 
   addUserSprite(user, flags) {
-    if (this.userExists(user)) {
+    if (UserSprite.userExists(this.userGroup, user)) {
       return;
     }
 
@@ -110,33 +134,18 @@ export default class Game extends Phaser.Scene {
       user: user,
       flags: flags,
     };
-    
+
     let newUser = new UserSprite(spriteConfig);
-    
+
     this.userGroup.add(newUser);
-    // Update Physics collider with new sprites
-    this.physics.add.collider(this.userGroup);
     newUser.walk();
   }
 
-  userExists(user) {
-    return this.userGroup.getChildren().find(sprite => (sprite.user === user));
-  }
-
-  jumpUserSprite(user) {
-    this.userGroup.getChildren().forEach(sprite => {
-      if (sprite.user === user) {
-        sprite.jump();
-      }
-    });
-  }
-
   setRunUserSprite(user) {
-    this.userGroup.getChildren().forEach(sprite => {
-      if (sprite.user === user) {
-        sprite.startRunning();
-      }
-    });
+    const sprite = UserSprite.userExists(this.userGroup, user);
+    if(sprite) {
+      sprite.startRunning();
+    }
   }
 
   /**
@@ -150,12 +159,20 @@ export default class Game extends Phaser.Scene {
   update(/* t, dt */) {
     // Call update on all sprites in our group
     this.userGroup.getChildren().forEach(user => {
+      // this.physics.moveToObject()
       user.update();
     });
-
 
     this.coinsGroup.getChildren().forEach(coin => {
       coin.update();
     });
+  }
+
+  collectCoin(coinSprite, userSprite) {
+    coinSprite.grabbed();
+  }
+
+  userCollision(s1, s2) {
+    debugger;
   }
 }
