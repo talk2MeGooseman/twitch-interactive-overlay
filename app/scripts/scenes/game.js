@@ -26,23 +26,31 @@ export default class Game extends Phaser.Scene {
     this.userGroup = this.physics.add.group({
       bounceX: 1,
       bounceY: 0.5,
+      dragX: 10,
       collideWorldBounds: true,
     });
 
     this.coinsGroup = this.physics.add.group({
       bounceX: 1,
       bounceY: 0.5,
+      dragX: 10,
       collideWorldBounds: true,
     });
 
+    this.nameTextGroup = this.physics.add.staticGroup();
+
     // Update Physics collider with new sprites
     this.physics.add.collider(this.userGroup);
+    // this.physics.world.collide(this.userGroup, this.userCollision);
     this.physics.add.collider(this.coinsGroup);
 
     // Check if user touches coin
     this.physics.add.overlap(this.coinsGroup, this.userGroup, this.collectCoin);
-    // Add in dummy sprite
+    // Handle physics collisions
+    this.physics.world.on('collide', (sprite1, sprite2) => ( this.onCollision(sprite1, sprite2) ));
+    
     this.setupAudio();
+
   }
 
   setupAudio() {
@@ -58,9 +66,13 @@ export default class Game extends Phaser.Scene {
       if (command == 'join') {
         this.addUserSprite(user, flags);
       } else if (command == 'run') {
-        this.setRunUserSprite(user, flags);
+        UserSprite.runUserSprite(this.userGroup, user, flags);
       } else if (command == 'jump') {
         UserSprite.jumpUserSprite(this.userGroup, user);
+      } else if (command == 'dbag') {
+        UserSprite.dbagMode(this.userGroup, user);
+      } else if (command == 'booli2') {
+        UserSprite.tackle(this.userGroup, user, message);
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
       } else if (command === 'hype' && flags.broadcaster) {
@@ -141,13 +153,6 @@ export default class Game extends Phaser.Scene {
     newUser.walk();
   }
 
-  setRunUserSprite(user) {
-    const sprite = UserSprite.userExists(this.userGroup, user);
-    if(sprite) {
-      sprite.startRunning();
-    }
-  }
-
   /**
    *  Called when a scene is updated. Updates to game logic, physics and game
    *  objects are handled here.
@@ -172,7 +177,18 @@ export default class Game extends Phaser.Scene {
     coinSprite.grabbed();
   }
 
-  userCollision(s1, s2) {
-    debugger;
+  onTextOverlap(s1, s2) {
+    console.log('overlap happened', s1, s2);
+  }
+
+  onCollision(sprite1, sprite2) {
+    if (sprite1.type === 'user' && sprite2.type === 'user') {
+
+      if (sprite1.isDbag) {
+        sprite2.sendFlyingOnCollide();
+      } else if (sprite2.isDbag) {
+        sprite1.sendFlyingOnCollide();
+      }
+    }
   }
 }
