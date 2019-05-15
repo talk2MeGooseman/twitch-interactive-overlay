@@ -51,7 +51,7 @@ export function renderText(
 ) {
   const textObject = scene.add.text(position.x, position.y, text, {
     fontFamily: 'Arial',
-    fontSize: 64,
+    fontSize: 32,
     color: '#ffff00',
   });
   textObject.setOrigin(origin.x, origin.y);

@@ -5,6 +5,7 @@ import {
   renderText,
   setSpriteAnimation,
 } from '@/helpers/phaserHelpers';
+import { debug } from '../config';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -60,16 +61,31 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   /**
+   * Removes user for provided group
+   *
+   * @static
+   * @param {Phaser.Physics.Arcade.Group} userGroup
+   * @param {UserSprite} user
+   * @memberof UserSprite
+   */
+  static die(userGroup, user) {
+    const sprite = UserSprite.userExists(userGroup, user);
+    if (sprite) {
+      sprite.remove();
+    }
+  }
+
+  /**
    * Check if user exists is group
    *
    * @static
    * @param {Phaser.Physics.Arcade.Group} userGroup
    * @param {UserSprite} user
-   * @returns UserSprite
+   * @returns {UserSprite}
    * @memberof UserSprite
    */
   static userExists(userGroup, user) {
-    return findSpriteInGroup(userGroup, sprite => sprite.user === user);
+    return findSpriteInGroup(userGroup, sprite => sprite.user.toLowerCase() === user.toLowerCase());
   }
 
   /**
@@ -100,6 +116,38 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     if (sprite) {
       sprite.startRunning();
+    }
+  }
+
+  /**
+   * Spin user sprite
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} userGroup
+   * @param {UserSprite} user
+   * @memberof UserSprite
+   */
+  static spin(userGroup, user) {
+    const sprite = UserSprite.userExists(userGroup, user);
+
+    if (sprite) {
+      sprite.doSpin();
+    }
+  }
+
+  /**
+   * Make the sprite giant
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} userGroup
+   * @param {UserSprite} user
+   * @memberof UserSprite
+   */
+  static mushroom(userGroup, user) {
+    const sprite = UserSprite.userExists(userGroup, user);
+
+    if (sprite) {
+      sprite.makeGiant();
     }
   }
 
@@ -136,8 +184,8 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     const sprite = UserSprite.userExists(userGroup, user);
     const spriteTarget = UserSprite.userExists(userGroup, match[1]);
 
-    if (sprite) {
-      sprite.tackle(spriteTarget);
+    if (sprite && spriteTarget) {
+      sprite.doTackle(spriteTarget);
     }
   }
 
@@ -159,17 +207,22 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.flags = config.flags;
     this.stillFrame = config.frame;
     this.body.onCollide = true;
+    this.nameText;
+    this.spinEnabled = false;
+    this.isDead = false;
 
     this.setSize(100, 200, true);
     this.setOrigin(0.5);
-
     this.anims.play('peasent_walk');
 
-    this.displayNameText();
     this.initMovementTimer();
   }
 
   displayNameText() {
+    if (this.nameText) {
+      return;
+    }
+
     this.nameText = renderText(this.scene, this.user);
     this.nameText.setOrigin(0.5, 1);
     this.scene.nameTextGroup.add(this.nameText);
@@ -236,15 +289,35 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
   disableDbag() {
     this.isDbag = false;
-    this.body.setDragX(10);
+    this.body.setDragX(100);
     this.body.setImmovable(false);
   }
 
-  update() {
-    let anim;
+  doTackle(spriteTarget) {
+    this.body.setImmovable(true);
+    this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD, 1000);
+    this.scene.time.delayedCall(1100, () => (this.body.setImmovable(false)), [], this);
+  }
 
+  doSpin() {
+    this.spinEnabled = true;
+    this.scene.time.delayedCall(5000, () => (this.spinEnabled = false), [], this);
+  }
+
+  makeGiant() {
+    this.setScale(4);
+    this.scene.time.delayedCall(20000, () => (this.setScale(1)), [], this);
+  }
+
+  update() {
     const xSpeed = Math.abs(this.body.velocity.x);
     const ySpeed = Math.abs(this.body.velocity.y);
+
+    if (this.isDead) {
+      this.body.setVelocity(0,0);
+      this.selectAnimation();
+      return;
+    }
 
     if (isSomethingOnTop(this)) {
       let x = V_WALK;
@@ -254,14 +327,37 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       this.body.setVelocity(x, V_JUMP);
     }
 
-    this.selectAnimation(ySpeed, anim, xSpeed);
+    if (this.spinEnabled) {
+      const v = this.flipX ? -300 : 300;
+      this.body.setAngularAcceleration(v);
+    } else {
+      this.body.setAngularAcceleration(0);
+      this.setRotation(0);
+    }
+
+    this.selectAnimation(xSpeed, ySpeed);
     this.lookInWalkingDirection();
 
-    let yPosition = this.y - this.height * 0.5;
+    this.moveText();
+  }
+
+  moveText() {
+    if (!this.nameText) {
+      return;
+    }
+
+    const yPosition = this.y - this.height * 0.5;
     this.nameText.setPosition(this.x, yPosition);
   }
 
-  selectAnimation(ySpeed, anim, xSpeed) {
+  selectAnimation(xSpeed, ySpeed) {
+    let anim;
+    if (this.isDead) {
+      anim = 'peasent_die';
+      setSpriteAnimation(this, anim);
+      return;
+    }
+
     if (ySpeed > 50 && !this.body.onFloor()) {
       anim = 'peasent_jump';
     }
@@ -277,13 +373,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       this.setFrame(this.stillFrame);
     }
 
-    setSpriteAnimation(anim);
-  }
-
-  tackle(spriteTarget) {
-    this.body.setImmovable(true);
-    // TODO FIX THIS ISSUE WITH IT NOT MOVING TO OBJECT
-    this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD);
+    setSpriteAnimation(this, anim);
   }
 
   lookInWalkingDirection() {
@@ -297,8 +387,13 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   remove() {
-    this.scene.coinsGroup.remove(this);
-    this.timedEvent.destroy();
-    this.destroy();
+    this.isDead = true;
+
+    this.scene.time.delayedCall(10000, () => {
+      this.scene.userGroup.remove(this);
+      this.timedEvent.destroy();
+      this.scene.nameTextGroup.remove(this.nameText);
+      this.destroy();
+    }, [], this);
   }
 }

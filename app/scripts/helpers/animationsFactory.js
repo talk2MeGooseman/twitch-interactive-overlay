@@ -34,6 +34,18 @@ function createJumpAnimation(scene) {
   scene.anims.create({ key: 'peasent_jump', frames: frameNames, frameRate: 10, repeat: 0 });
 }
 
+function createDieAnimation(scene) {
+  var frameNames = scene.anims.generateFrameNames('characters', {
+    start: 1,
+    end: 5,
+    zeroPad: 3,
+    prefix: 'Peasant/die/peasant_die_',
+    suffix: '.png',
+  });
+
+  scene.anims.create({ key: 'peasent_die', frames: frameNames, frameRate: 10, repeat: 0 });
+}
+
 function createCoinAnimation(scene) {
   var frameNames = scene.anims.generateFrameNames('items', {
     start: 1,
@@ -51,4 +63,5 @@ export default function animationsFactory(scene) {
   createRunningAnimation(scene);
   createJumpAnimation(scene);
   createCoinAnimation(scene);
+  createDieAnimation(scene);
 }

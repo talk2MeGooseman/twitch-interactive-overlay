@@ -26,14 +26,14 @@ export default class Game extends Phaser.Scene {
     this.userGroup = this.physics.add.group({
       bounceX: 1,
       bounceY: 0.5,
-      dragX: 10,
+      dragX: 100,
       collideWorldBounds: true,
     });
 
     this.coinsGroup = this.physics.add.group({
       bounceX: 1,
       bounceY: 0.5,
-      dragX: 10,
+      dragX: 100,
       collideWorldBounds: true,
     });
 
@@ -41,22 +41,33 @@ export default class Game extends Phaser.Scene {
 
     // Update Physics collider with new sprites
     this.physics.add.collider(this.userGroup);
-    // this.physics.world.collide(this.userGroup, this.userCollision);
     this.physics.add.collider(this.coinsGroup);
 
     // Check if user touches coin
     this.physics.add.overlap(this.coinsGroup, this.userGroup, this.collectCoin);
-    // Handle physics collisions
-    this.physics.world.on('collide', (sprite1, sprite2) => ( this.onCollision(sprite1, sprite2) ));
-    
-    this.setupAudio();
 
+    this.physics.add.overlap(this.nameTextGroup, (s1, s2) => {
+      this.onTextOverlap(s1, s2);
+    });
+
+    // Handle physics collisions
+    this.physics.world.on('collide', (sprite1, sprite2) =>
+      this.onCollision(sprite1, sprite2)
+    );
+
+    this.setupAudio();
   }
 
   setupAudio() {
     this.raidAlert = this.sound.add('raid_alert', { volume: 0.05 });
-    this.victoryShort = this.sound.add('victory_short', { volume: 0.10 });
+    this.subAudio = this.sound.add('victory_short', { volume: 0.1 });
     this.collectCoinAudio = this.sound.add('collect_coin', { volume: 0.05 });
+    this.gameOverAudio = this.sound.add('game_over', { volume: 0.05 });
+    this.cheerAudio = this.sound.add('cheer', { volume: 0.15 });
+    this.helloAudio = this.sound.add('hello', { volume: 0.15 });
+    this.hostedAudio = this.sound.add('hosted', { volume: 0.15 });
+    this.errorAudio = this.sound.add('error', { volume: 0.15 });
+    this.victoryAudio = this.sound.add('victory', { volume: 0.10 });
   }
 
   initComfy() {
@@ -71,12 +82,30 @@ export default class Game extends Phaser.Scene {
         UserSprite.jumpUserSprite(this.userGroup, user);
       } else if (command == 'dbag') {
         UserSprite.dbagMode(this.userGroup, user);
-      } else if (command == 'booli2') {
+      } else if (command == 'booli') {
         UserSprite.tackle(this.userGroup, user, message);
+      } else if (command == 'spin') {
+        UserSprite.spin(this.userGroup, user);
+      } else if (command === 'die') {
+        UserSprite.die(this.userGroup, user);
+      } else if (command === 'mushroom') {
+        UserSprite.mushroom(this.userGroup, user);
+      } else if (command == 'gameover') {
+        this.gameOverAudio.play();
+      } else if (command == 'hello') {
+        this.helloAudio.play();
+      } else if (command == 'error') {
+        this.errorAudio.play();
+      } else if (command == 'victory') {
+        this.victoryAudio.play();
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
-      } else if (command === 'hype' && flags.broadcaster) {
-        this.victoryShort.play();
+      } else if (command === 'sub' && flags.broadcaster) {
+        this.subAudio.play();
+      } else if (command === 'cheer' && flags.broadcaster) {
+        this.cheerAudio.play();
+      } else if (command === 'hosted' && flags.broadcaster) {
+        this.hostedAudio.play();
       }
     };
 
@@ -87,15 +116,17 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onChat = (user, message, flags, self, extra) =>
       this.addUserSprite(user, flags);
 
-    ComfyJS.onCheer = (message, bits, extra) => this.addCoins(bits);
-
-    ComfyJS.onHosted = (user, viewers, autohost) => {};
-
-    ComfyJS.onRaid = (user, viewers) => {
-      this.raidAlert.play();
+    ComfyJS.onCheer = (message, bits, extra) => {
+      this.cheerAudio.play();
+      this.addCoins(bits);
     };
 
-    ComfyJS.onSub = (user, message, subTierInfo, extra) => this.victoryShort.play();
+    ComfyJS.onHosted = (user, viewers, autohost) => this.hostedAudio.play();
+
+    ComfyJS.onRaid = (user, viewers) => this.raidAlert.play();
+
+    ComfyJS.onSub = (user, message, subTierInfo, extra) =>
+      this.subAudio.play();
 
     ComfyJS.onResub = (
       user,
@@ -104,7 +135,7 @@ export default class Game extends Phaser.Scene {
       cumulativeMonths,
       subTierInfo,
       extra
-    ) => this.victoryShort.play();
+    ) => this.subAudio.play();
 
     ComfyJS.onSubGift = (
       gifterUser,
@@ -113,7 +144,7 @@ export default class Game extends Phaser.Scene {
       senderCount,
       subTierInfo,
       extra
-    ) => this.victoryShort.play();
+    ) => this.subAudio.play();
 
     ComfyJS.onSubMysteryGift = (
       gifterUser,
@@ -135,7 +166,10 @@ export default class Game extends Phaser.Scene {
   }
 
   addUserSprite(user, flags) {
-    if (UserSprite.userExists(this.userGroup, user)) {
+    const sprite = UserSprite.userExists(this.userGroup, user);
+
+    if (sprite) {
+      sprite.displayNameText();
       return;
     }
 
@@ -181,12 +215,18 @@ export default class Game extends Phaser.Scene {
     console.log('overlap happened', s1, s2);
   }
 
+  /**
+   *
+   *
+   * @param {Phaser.GameObjects.Sprite} sprite1
+   * @param {Phaser.GameObjects.Sprite} sprite2
+   * @memberof Game
+   */
   onCollision(sprite1, sprite2) {
     if (sprite1.type === 'user' && sprite2.type === 'user') {
-
-      if (sprite1.isDbag) {
+      if (sprite1.body.immovable) {
         sprite2.sendFlyingOnCollide();
-      } else if (sprite2.isDbag) {
+      } else if (sprite2.body.immovable) {
         sprite1.sendFlyingOnCollide();
       }
     }
