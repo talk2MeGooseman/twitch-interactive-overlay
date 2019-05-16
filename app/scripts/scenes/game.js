@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
 import Coin from '@/objects/Coin';
@@ -212,7 +213,6 @@ export default class Game extends Phaser.Scene {
   }
 
   onTextOverlap(s1, s2) {
-    console.log('overlap happened', s1, s2);
   }
 
   /**

@@ -5,7 +5,6 @@ import {
   renderText,
   setSpriteAnimation,
 } from '@/helpers/phaserHelpers';
-import { debug } from '../config';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -14,7 +13,7 @@ const V_RUN = 200;
 const RUN_THRESHOLD = 150;
 const WALK = 0;
 const RUN = 1;
-const JUMP = 2;
+// const JUMP = 2;
 
 export default class UserSprite extends Phaser.GameObjects.Sprite {
   /**
