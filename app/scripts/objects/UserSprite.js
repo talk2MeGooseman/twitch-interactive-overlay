@@ -392,6 +392,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       this.scene.userGroup.remove(this);
       this.timedEvent.destroy();
       this.scene.nameTextGroup.remove(this.nameText);
+      this.nameText.destroy();
       this.destroy();
     }, [], this);
   }
