@@ -8,7 +8,9 @@
     "dist": "gulp dist",
     "format": "eslint \"app/scripts/**/*.js\" --fix",
     "lint": "eslint \"app/scripts/**/*.js\"",
-    "start": "gulp"
+    "start": "gulp",
+    "predeploy": "yarn dist",
+    "deploy": "push-dir --dir=dist --branch=gh-pages"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
