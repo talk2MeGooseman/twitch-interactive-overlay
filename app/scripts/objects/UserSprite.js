@@ -5,6 +5,7 @@ import {
   renderText,
   setSpriteAnimation,
 } from '@/helpers/phaserHelpers';
+import SpeechBubble from './SpeechBubble';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -207,12 +208,15 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.stillFrame = config.frame;
     this.body.onCollide = true;
     this.nameText;
+    this.speechBubble;
     this.spinEnabled = false;
     this.isDead = false;
 
     this.setSize(100, 200, true);
     this.setOrigin(0.5);
     this.anims.play('peasent_walk');
+
+    this._timers = [];
 
     this.initMovementTimer();
   }
@@ -227,20 +231,42 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.scene.nameTextGroup.add(this.nameText);
   }
 
+  /**
+   *
+   *
+   * @param {string} message
+   * @param {object} extra
+   * @param {number} [duration=10000]
+   * @memberof UserSprite
+   */
+  displaySpeechBubble(message, extra, duration = 10000) {
+    if (this.speechBubble) {
+      this.speechBubble.destroy();
+    }
+
+    this.speechBubble = new SpeechBubble(this.scene, 0, 0, 125, 50, message, extra);
+
+    this._timers.push(
+      this.scene.time.delayedCall(duration, () => {
+        this.speechBubble ? this.speechBubble.destroy() : null;
+      })
+    );
+  }
+
   initMovementTimer() {
     const secDelay = Phaser.Math.Between(10000, 20000);
 
-    this.timedEvent = this.scene.time.addEvent({
-      delay: secDelay,
-      callback: this.randomMovement,
-      callbackScope: this,
-      loop: false,
-    });
+    this._timers.push(
+      this.scene.time.addEvent({
+        delay: secDelay,
+        callback: this.randomMovement,
+        callbackScope: this,
+        loop: false,
+      })
+    );
   }
 
   randomMovement() {
-    this.timedEvent.destroy();
-
     if (!isMoving(this)) {
       const action = Phaser.Math.Between(0, 2);
 
@@ -283,6 +309,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.body.setImmovable(true);
     this.startRunning();
     this.body.setDragX(0);
+    this.displaySpeechBubble('RAWRR!!!', null, 10000);
     this.scene.time.delayedCall(10000, this.disableDbag, [], this);
   }
 
@@ -295,11 +322,13 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   doTackle(spriteTarget) {
     this.body.setImmovable(true);
     this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD, 1000);
+    this.displaySpeechBubble('BOOLI!!!', null, 2000);
     this.scene.time.delayedCall(1100, () => (this.body.setImmovable(false)), [], this);
   }
 
   doSpin() {
     this.spinEnabled = true;
+    this.displaySpeechBubble('WEEEE!!!', null, 5000);
     this.scene.time.delayedCall(5000, () => (this.spinEnabled = false), [], this);
   }
 
@@ -341,12 +370,15 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   moveText() {
-    if (!this.nameText) {
-      return;
+    const yPosition = this.y - this.height * 0.5;
+
+    if (this.nameText) {
+      this.nameText.setPosition(this.x, yPosition);
     }
 
-    const yPosition = this.y - this.height * 0.5;
-    this.nameText.setPosition(this.x, yPosition);
+    if (this.speechBubble) {
+      this.speechBubble.setPosition(this.x, this.y - this.height);
+    }
   }
 
   selectAnimation(xSpeed, ySpeed) {
@@ -390,7 +422,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.scene.time.delayedCall(10000, () => {
       this.scene.userGroup.remove(this);
-      this.timedEvent.destroy();
+      this._timers.map((t) => t.destroy());
       if (this.nameText) {
         this.scene.nameTextGroup.remove(this.nameText);
         this.nameText.destroy();

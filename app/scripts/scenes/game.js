@@ -2,7 +2,6 @@
 import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
 import Coin from '@/objects/Coin';
-import { OAUTH_TOKEN } from '@/secrets';
 
 export default class Game extends Phaser.Scene {
   /**
@@ -114,8 +113,10 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onPart = user => UserSprite.userParted(this.userGroup, user);
 
-    ComfyJS.onChat = (user, message, flags, self, extra) =>
-      this.addUserSprite(user, flags);
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      const sprite = this.addUserSprite(user, flags);
+      sprite.displaySpeechBubble(message, extra);
+    };
 
     ComfyJS.onCheer = (message, bits, extra) => {
       this.cheerAudio.play();
@@ -166,12 +167,20 @@ export default class Game extends Phaser.Scene {
     }
   }
 
+  /**
+   * Creates and adds User Sprite if one doesn't already exist
+   *
+   * @param {string} user
+   * @param {*} flags
+   * @returns {UserSprite} sprite
+   * @memberof Game
+   */
   addUserSprite(user, flags) {
     const sprite = UserSprite.userExists(this.userGroup, user);
 
     if (sprite) {
       sprite.displayNameText();
-      return;
+      return sprite;
     }
 
     const spriteConfig = {
@@ -186,6 +195,8 @@ export default class Game extends Phaser.Scene {
 
     this.userGroup.add(newUser);
     newUser.walk();
+
+    return newUser;
   }
 
   /**
