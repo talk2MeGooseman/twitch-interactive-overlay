@@ -2,7 +2,7 @@ import {
   findSpriteInGroup,
 } from '@/helpers/phaserHelpers';
 import UserSprite from '@/objects/UserSprite';
-import { debug } from '../config';
+// import { debug } from '../config';
 
 export default class UserSpriteFactory {
 
