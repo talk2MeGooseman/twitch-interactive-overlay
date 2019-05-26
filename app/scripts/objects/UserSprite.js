@@ -1,11 +1,10 @@
 import {
   isMoving,
   isSomethingOnTop,
-  findSpriteInGroup,
   renderText,
   setSpriteAnimation,
 } from '@/helpers/phaserHelpers';
-import SpeechBubble from './SpeechBubble';
+import SpeechBubble from '@/objects/SpeechBubble';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -21,8 +20,8 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       Potential cool physics body methods
 
       blocked :ArcadeBodyCollision
-      Whether this Body is colliding with a tile or the world boundary. 
-    
+      Whether this Body is colliding with a tile or the world boundary.
+
       collideWorldBounds :boolean
       Whether this Body interacts with the world boundary.
 
@@ -45,149 +44,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       Sets acceleration, velocity, and speed to zero.
    */
 
-  /**
-   * Removes user for provided group
-   *
-   * @static
-   * @param {Phaser.Physics.Arcade.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static userParted(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-    if (sprite) {
-      sprite.remove();
-    }
-  }
-
-  /**
-   * Removes user for provided group
-   *
-   * @static
-   * @param {Phaser.Physics.Arcade.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static die(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-    if (sprite) {
-      sprite.remove();
-    }
-  }
-
-  /**
-   * Check if user exists is group
-   *
-   * @static
-   * @param {Phaser.Physics.Arcade.Group} userGroup
-   * @param {UserSprite} user
-   * @returns {UserSprite}
-   * @memberof UserSprite
-   */
-  static userExists(userGroup, user) {
-    return findSpriteInGroup(userGroup, sprite => sprite.user.toLowerCase() === user.toLowerCase());
-  }
-
-  /**
-   * Finds and triggers jump animation for sprite
-   *
-   * @static
-   * @param {Phaser.Physics.Arcade.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static jumpUserSprite(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-    if (sprite) {
-      sprite.jump();
-    }
-  }
-
-  /**
-   * Make the provided sprite in the group run
-   *
-   * @static
-   * @param {Phaser.GameObjects.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static runUserSprite(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-
-    if (sprite) {
-      sprite.startRunning();
-    }
-  }
-
-  /**
-   * Spin user sprite
-   *
-   * @static
-   * @param {Phaser.GameObjects.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static spin(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-
-    if (sprite) {
-      sprite.doSpin();
-    }
-  }
-
-  /**
-   * Make the sprite giant
-   *
-   * @static
-   * @param {Phaser.GameObjects.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static mushroom(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-
-    if (sprite) {
-      sprite.makeGiant();
-    }
-  }
-
-  /**
-   * Turn sprite in to a total dbag
-   *
-   * @static
-   * @param {Phaser.GameObjects.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static dbagMode(userGroup, user) {
-    const sprite = UserSprite.userExists(userGroup, user);
-
-    if (sprite) {
-      sprite.makeDbag();
-    }
-  }
-
-  /**
-   * Turn sprite in to a total dbag
-   *
-   * @static
-   * @param {Phaser.GameObjects.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static tackle(userGroup, user, message) {
-    const match = /@(\w+)/g.exec(message);
-    if (!match) {
-      return;
-    }
-
-    const sprite = UserSprite.userExists(userGroup, user);
-    const spriteTarget = UserSprite.userExists(userGroup, match[1]);
-
-    if (sprite && spriteTarget) {
-      sprite.doTackle(spriteTarget);
-    }
-  }
 
   /**
    *  A simple prefab (extended game object class), displaying a spinning
@@ -206,7 +62,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.user = config.user;
     this.flags = config.flags;
     this.stillFrame = config.frame;
+
     this.body.onCollide = true;
+    this.body.maxVelocity.x = V_RUN;
+
     this.nameText;
     this.speechBubble;
     this.spinEnabled = false;
@@ -321,9 +180,14 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
   doTackle(spriteTarget) {
     this.body.setImmovable(true);
+    this.body.maxVelocity.x = 10000000;
+
     this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD, 1000);
     this.displaySpeechBubble('BOOLI!!!', null, 2000);
-    this.scene.time.delayedCall(1100, () => (this.body.setImmovable(false)), [], this);
+    this.scene.time.delayedCall(1100, () => {
+      this.body.setImmovable(false);
+      this.body.maxVelocity.x = V_RUN;
+    }, [], this);
   }
 
   doSpin() {

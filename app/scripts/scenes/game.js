@@ -1,7 +1,12 @@
+/* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
 import Coin from '@/objects/Coin';
+import UserSpriteFactory from "@/helpers/UserSpriteFactory";
+
+// giftsub VIA robertables - lurking_kat
+// Resub - DannyKampsGamez
 
 export default class Game extends Phaser.Scene {
   /**
@@ -37,19 +42,18 @@ export default class Game extends Phaser.Scene {
       collideWorldBounds: true,
     });
 
-    this.nameTextGroup = this.physics.add.staticGroup();
+    this.nameTextGroup = this.physics.add.group({
+      allowGravity: false,
+      collideWorldBounds: true,
+    });
 
     // Update Physics collider with new sprites
     this.physics.add.collider(this.userGroup);
     this.physics.add.collider(this.coinsGroup);
+    this.physics.add.collider(this.nameTextGroup);
 
     // Check if user touches coin
     this.physics.add.overlap(this.coinsGroup, this.userGroup, this.collectCoin);
-
-    this.physics.add.overlap(this.nameTextGroup, (s1, s2) => {
-      this.onTextOverlap(s1, s2);
-    });
-
     // Handle physics collisions
     this.physics.world.on('collide', (sprite1, sprite2) =>
       this.onCollision(sprite1, sprite2)
@@ -76,27 +80,27 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onCommand = (user, command, message, flags) => {
       if (command == 'join') {
         this.addUserSprite(user, flags);
-      } else if (command == 'run') {
-        UserSprite.runUserSprite(this.userGroup, user, flags);
-      } else if (command == 'jump') {
-        UserSprite.jumpUserSprite(this.userGroup, user);
-      } else if (command == 'dbag') {
-        UserSprite.dbagMode(this.userGroup, user);
-      } else if (command == 'booli') {
-        UserSprite.tackle(this.userGroup, user, message);
-      } else if (command == 'spin') {
-        UserSprite.spin(this.userGroup, user);
+      } else if (command === 'run') {
+        UserSpriteFactory.runUserSprite(this.userGroup, user, flags);
+      } else if (command === 'jump') {
+        UserSpriteFactory.jumpUserSprite(this.userGroup, user);
+      } else if (command === 'dbag') {
+        UserSpriteFactory.dbagMode(this.userGroup, user);
+      } else if (command === 'booli') {
+        UserSpriteFactory.tackle(this.userGroup, user, message);
+      } else if (command === 'spin') {
+        UserSpriteFactory.spin(this.userGroup, user);
       } else if (command === 'die') {
-        UserSprite.die(this.userGroup, user);
+        UserSpriteFactory.die(this.userGroup, user);
       } else if (command === 'mushroom') {
-        UserSprite.mushroom(this.userGroup, user);
-      } else if (command == 'gameover') {
+        UserSpriteFactory.mushroom(this.userGroup, user);
+      } else if (command ===  'gameover') {
         this.gameOverAudio.play();
-      } else if (command == 'hello') {
+      } else if (command ===  'hello') {
         this.helloAudio.play();
-      } else if (command == 'error') {
+      } else if (command ===  'error') {
         this.errorAudio.play();
-      } else if (command == 'victory') {
+      } else if (command ===  'victory') {
         this.victoryAudio.play();
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
@@ -111,11 +115,18 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onJoin = (user, self) => this.addUserSprite(user);
 
-    ComfyJS.onPart = user => UserSprite.userParted(this.userGroup, user);
+    ComfyJS.onPart = user => UserSpriteFactory.userParted(this.userGroup, user);
 
     ComfyJS.onChat = (user, message, flags, self, extra) => {
       const sprite = this.addUserSprite(user, flags);
-      sprite.displaySpeechBubble(message, extra);
+      if (sprite) {
+        sprite.displayNameText();
+        sprite.displaySpeechBubble(message, extra);
+
+        if (message.toLowerCase() === 'hello' || message.toLowerCase() === 'hi' || message.toLowerCase() === 'hey') {
+          this.helloAudio.play();
+        }
+      }
     };
 
     ComfyJS.onCheer = (message, bits, extra) => {
@@ -167,36 +178,10 @@ export default class Game extends Phaser.Scene {
     }
   }
 
-  /**
-   * Creates and adds User Sprite if one doesn't already exist
-   *
-   * @param {string} user
-   * @param {*} flags
-   * @returns {UserSprite} sprite
-   * @memberof Game
-   */
   addUserSprite(user, flags) {
-    const sprite = UserSprite.userExists(this.userGroup, user);
-
-    if (sprite) {
-      sprite.displayNameText();
-      return sprite;
-    }
-
-    const spriteConfig = {
-      scene: this,
-      key: 'characters',
-      frame: 'Peasant/standing/peasant.png',
-      user: user,
-      flags: flags,
-    };
-
-    let newUser = new UserSprite(spriteConfig);
-
-    this.userGroup.add(newUser);
-    newUser.walk();
-
-    return newUser;
+    const sprite = UserSpriteFactory.createOrFindUser(this.userGroup, this, user, flags);
+    sprite.walk();
+    return sprite;
   }
 
   /**
