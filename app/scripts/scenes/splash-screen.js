@@ -41,15 +41,17 @@ export default class SplashScreen extends Phaser.Scene {
     this.load.multiatlas('characters', 'characters.json');
     this.load.multiatlas('items', 'items.json');
 
-    this.load.audio('raid_alert', 'alarm.wav');
+    this.load.audio('raid_alert', 'audio/alarm.wav');
     this.load.audio('victory_short', 'short-tunes/BRPG_Victory_Stinger.wav');
     this.load.audio('victory', 'short-tunes/BRPG_Victory_Music_Loop.wav');
-    this.load.audio('collect_coin', 'collect-coin.wav');
-    this.load.audio('game_over', 'game-over.wav');
-    this.load.audio('cheer', 'cheer.wav');
-    this.load.audio('hello', 'hello.wav');
-    this.load.audio('hosted', 'hosted.wav');
-    this.load.audio('error', 'error.wav');
+    this.load.audio('collect_coin', 'audio/collect-coin.wav');
+    this.load.audio('game_over', 'audio/game-over.wav');
+    this.load.audio('cheer', 'audio/cheer.wav');
+    this.load.audio('hello', 'audio/hello.wav');
+    this.load.audio('hosted', 'audio/hosted.wav');
+    this.load.audio('error', 'audio/error.wav');
+    this.load.audio('airhorn', 'audio/airhorn.mp3');
+    this.load.audio('quack', 'audio/quack.wav');
   }
 
   /**

@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
-import Coin from '@/objects/Coin';
 import UserSpriteFactory from "@/helpers/UserSpriteFactory";
+import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -16,6 +16,8 @@ export default class Game extends Phaser.Scene {
    */
   constructor() {
     super({ key: 'Game' });
+
+    this.bitTotal = 0;
   }
 
   /**
@@ -63,15 +65,17 @@ export default class Game extends Phaser.Scene {
   }
 
   setupAudio() {
-    this.raidAlert = this.sound.add('raid_alert', { volume: 0.05 });
-    this.subAudio = this.sound.add('victory_short', { volume: 0.1 });
+    this.raidAlert        = this.sound.add('raid_alert', { volume: 0.05 });
+    this.subAudio         = this.sound.add('victory_short', { volume: 0.1 });
     this.collectCoinAudio = this.sound.add('collect_coin', { volume: 0.05 });
-    this.gameOverAudio = this.sound.add('game_over', { volume: 0.05 });
-    this.cheerAudio = this.sound.add('cheer', { volume: 0.15 });
-    this.helloAudio = this.sound.add('hello', { volume: 0.15 });
-    this.hostedAudio = this.sound.add('hosted', { volume: 0.15 });
-    this.errorAudio = this.sound.add('error', { volume: 0.15 });
-    this.victoryAudio = this.sound.add('victory', { volume: 0.10 });
+    this.gameOverAudio    = this.sound.add('game_over', { volume: 0.05 });
+    this.cheerAudio       = this.sound.add('cheer', { volume: 0.15 });
+    this.helloAudio       = this.sound.add('hello', { volume: 0.15 });
+    this.hostedAudio      = this.sound.add('hosted', { volume: 0.15 });
+    this.errorAudio       = this.sound.add('error', { volume: 0.15 });
+    this.victoryAudio     = this.sound.add('victory', { volume: 0.10 });
+    this.airhornAudio     = this.sound.add('airhorn', { volume: 0.10 });
+    this.quackAudio       = this.sound.add('quack', { volume: 0.10 });
   }
 
   initComfy() {
@@ -81,7 +85,7 @@ export default class Game extends Phaser.Scene {
       if (command == 'join') {
         this.addUserSprite(user, flags);
       } else if (command === 'run') {
-        UserSpriteFactory.runUserSprite(this.userGroup, user, flags);
+        UserSpriteFactory.runUserSprite(this.userGroup, user, message, flags);
       } else if (command === 'jump') {
         UserSpriteFactory.jumpUserSprite(this.userGroup, user);
       } else if (command === 'dbag') {
@@ -102,14 +106,20 @@ export default class Game extends Phaser.Scene {
         this.errorAudio.play();
       } else if (command ===  'victory') {
         this.victoryAudio.play();
+      } else if (command ===  'airhorn') {
+        this.airhornAudio.play();
+      } else if (command ===  'quack') {
+        this.quackAudio.play();
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
-      } else if (command === 'sub' && flags.broadcaster) {
-        this.subAudio.play();
+      } else if (command === 'subs' && flags.broadcaster) {
+        this.subCelebrate();
       } else if (command === 'cheer' && flags.broadcaster) {
         this.cheerAudio.play();
       } else if (command === 'hosted' && flags.broadcaster) {
         this.hostedAudio.play();
+      } else if (command === 'coins' && flags.broadcaster) {
+        this.bitTotal += message;
       }
     };
 
@@ -123,7 +133,7 @@ export default class Game extends Phaser.Scene {
         sprite.displayNameText();
         sprite.displaySpeechBubble(message, extra);
 
-        if (message.toLowerCase() === 'hello' || message.toLowerCase() === 'hi' || message.toLowerCase() === 'hey') {
+        if(/^(hi|hey|hello|howdy)$/i.exec(message)) {
           this.helloAudio.play();
         }
       }
@@ -131,57 +141,29 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onCheer = (message, bits, extra) => {
       this.cheerAudio.play();
-      this.addCoins(bits);
     };
 
-    ComfyJS.onHosted = (user, viewers, autohost) => this.hostedAudio.play();
-
-    ComfyJS.onRaid = (user, viewers) => this.raidAlert.play();
-
-    ComfyJS.onSub = (user, message, subTierInfo, extra) =>
-      this.subAudio.play();
-
-    ComfyJS.onResub = (
-      user,
-      message,
-      streamMonths,
-      cumulativeMonths,
-      subTierInfo,
-      extra
-    ) => this.subAudio.play();
-
-    ComfyJS.onSubGift = (
-      gifterUser,
-      streakMonths,
-      recipientUser,
-      senderCount,
-      subTierInfo,
-      extra
-    ) => this.subAudio.play();
-
-    ComfyJS.onSubMysteryGift = (
-      gifterUser,
-      numbOfSubs,
-      senderCount,
-      subTierInfo,
-      extra
-    ) => this.victoryShort.play();
-
-    ComfyJS.onGiftSubContinue = (user, sender, extra) =>
-      this.victoryShort.play();
-  }
-
-  addCoins(amount) {
-    for (var i = 0; i < amount; i++) {
-      const coin = new Coin(this);
-      this.coinsGroup.add(coin);
-    }
+    ComfyJS.onHosted = () => this.hostedAudio.play();
+    ComfyJS.onRaid = () => this.raidAlert.play();
+    ComfyJS.onSub = () => this.subCelebrate();
+    ComfyJS.onResub = () => this.subCelebrate();
+    ComfyJS.onSubGift = () => this.subCelebrate();
+    ComfyJS.onSubMysteryGift = () => this.victoryShort.play();
+    ComfyJS.onGiftSubContinue = (user, sender, extra) => this.victoryShort.play();
   }
 
   addUserSprite(user, flags) {
     const sprite = UserSpriteFactory.createOrFindUser(this.userGroup, this, user, flags);
     sprite.walk();
     return sprite;
+  }
+
+  subCelebrate() {
+    this.subAudio.play();
+    this.celebrate = true;
+    this.time.delayedCall(10000, () => {
+      this.celebrate = false;
+    });
   }
 
   /**
@@ -193,9 +175,15 @@ export default class Game extends Phaser.Scene {
    *  @param {number} dt Time elapsed since last update.
    */
   update(/* t, dt */) {
+    bitCreatorFactory(this);
     // Call update on all sprites in our group
     this.userGroup.getChildren().forEach(user => {
-      // this.physics.moveToObject()
+      if (this.celebrate) {
+        const jump = Phaser.Math.Between(0, 1);
+        if (jump) {
+          user.jump();
+        }
+      }
       user.update();
     });
 

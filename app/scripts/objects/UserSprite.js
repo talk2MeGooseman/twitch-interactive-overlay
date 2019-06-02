@@ -156,7 +156,9 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   jump() {
-    this.body.setVelocityY(V_JUMP);
+    if (this.body.blocked.down) {
+      this.body.setVelocityY(V_JUMP);
+    }
   }
 
   sendFlyingOnCollide() {
@@ -169,7 +171,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.startRunning();
     this.body.setDragX(0);
     this.displaySpeechBubble('RAWRR!!!', null, 10000);
-    this.scene.time.delayedCall(10000, this.disableDbag, [], this);
+
+    this._timers.push(
+      this.scene.time.delayedCall(10000, this.disableDbag, [], this)
+    );
   }
 
   disableDbag() {
@@ -184,21 +189,27 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD, 1000);
     this.displaySpeechBubble('BOOLI!!!', null, 2000);
-    this.scene.time.delayedCall(1100, () => {
-      this.body.setImmovable(false);
-      this.body.maxVelocity.x = V_RUN;
-    }, [], this);
+    this._timers.push(
+      this.scene.time.delayedCall(1100, () => {
+        this.body.setImmovable(false);
+        this.body.maxVelocity.x = V_RUN;
+      }, [], this)
+    );
   }
 
   doSpin() {
     this.spinEnabled = true;
     this.displaySpeechBubble('WEEEE!!!', null, 5000);
-    this.scene.time.delayedCall(5000, () => (this.spinEnabled = false), [], this);
+    this._timers.push(
+      this.scene.time.delayedCall(5000, () => (this.spinEnabled = false), [], this)
+    );
   }
 
   makeGiant() {
     this.setScale(4);
-    this.scene.time.delayedCall(20000, () => (this.setScale(1)), [], this);
+    this._timers.push(
+      this.scene.time.delayedCall(20000, () => (this.setScale(1)), [], this)
+    );
   }
 
   update() {
@@ -206,7 +217,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     const ySpeed = Math.abs(this.body.velocity.y);
 
     if (this.isDead) {
-      this.body.setVelocity(0,0);
+      this.body.setVelocity(0, 300);
       this.selectAnimation();
       return;
     }
@@ -286,7 +297,9 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.scene.time.delayedCall(10000, () => {
       this.scene.userGroup.remove(this);
+
       this._timers.map((t) => t.destroy());
+
       if (this.nameText) {
         this.scene.nameTextGroup.remove(this.nameText);
         this.nameText.destroy();
