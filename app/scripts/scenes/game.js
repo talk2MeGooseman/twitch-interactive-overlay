@@ -141,6 +141,7 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onCheer = (message, bits, extra) => {
       this.cheerAudio.play();
+      this.bitTotal += bits;
     };
 
     ComfyJS.onHosted = () => this.hostedAudio.play();
