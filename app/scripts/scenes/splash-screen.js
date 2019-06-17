@@ -41,6 +41,8 @@ export default class SplashScreen extends Phaser.Scene {
     this.load.multiatlas('characters', 'characters.json');
     this.load.multiatlas('items', 'items.json');
 
+    this.load.atlas('explosion', 'explosion.png', 'explosion.json');
+
     this.load.audio('raid_alert', 'audio/alarm.wav');
     this.load.audio('victory_short', 'short-tunes/BRPG_Victory_Stinger.wav');
     this.load.audio('victory', 'short-tunes/BRPG_Victory_Music_Loop.wav');

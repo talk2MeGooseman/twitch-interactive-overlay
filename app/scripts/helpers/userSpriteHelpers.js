@@ -2,9 +2,41 @@ import {
   findSpriteInGroup,
 } from '@/helpers/phaserHelpers';
 import UserSprite from '@/objects/UserSprite';
-// import { debug } from '../config';
 
-export default class UserSpriteFactory {
+export default class userSpriteHelpers {
+
+  /**
+   * Makes all uses sprites perform the wave
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} group
+   * @param {string} user
+   * @memberof userSpriteHelpers
+   */
+  static triggerTheWave(group, scene) {
+    group.getChildren().forEach(user => {
+      let delay = user.x;
+      let u = user;
+
+      scene.time.delayedCall(delay, () => {
+        u.jump();
+      });
+    });
+  }
+
+  /**
+   * Have all sprites in the given group display and bubble message
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} group
+   * @param {string} user
+   * @memberof userSpriteHelpers
+   */
+  static chatBubbleAllSprites(group, message) {
+    group.getChildren().forEach(user => {
+      user.displaySpeechBubble(message);
+    });
+  }
 
   /**
    * Creates and adds User Sprite if one doesn't already exist
@@ -16,7 +48,7 @@ export default class UserSpriteFactory {
    * @memberof Game
    */
   static createOrFindUser(group, scene, user, flags) {
-    let sprite = UserSpriteFactory.userExists(group, user);
+    let sprite = userSpriteHelpers.userExists(group, user);
 
     if (sprite) {
       return sprite;
@@ -45,7 +77,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static userParted(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
     if (sprite) {
       sprite.remove();
     }
@@ -60,7 +92,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static die(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
     if (sprite) {
       sprite.remove();
     }
@@ -88,7 +120,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static jumpUserSprite(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
     if (sprite) {
       sprite.jump();
     }
@@ -103,7 +135,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static runUserSprite(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
       sprite.startRunning();
@@ -119,7 +151,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static spin(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
       sprite.doSpin();
@@ -135,7 +167,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static mushroom(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
       sprite.makeGiant();
@@ -151,7 +183,7 @@ export default class UserSpriteFactory {
    * @memberof UserSprite
    */
   static dbagMode(userGroup, user) {
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
       sprite.makeDbag();
@@ -172,8 +204,8 @@ export default class UserSpriteFactory {
       return;
     }
 
-    const sprite = UserSpriteFactory.userExists(userGroup, user);
-    const spriteTarget = UserSpriteFactory.userExists(userGroup, match[1]);
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
+    const spriteTarget = userSpriteHelpers.userExists(userGroup, match[1]);
 
     if (sprite && spriteTarget) {
       sprite.doTackle(spriteTarget);

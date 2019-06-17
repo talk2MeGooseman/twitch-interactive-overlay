@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
-import UserSpriteFactory from "@/helpers/UserSpriteFactory";
+import userSpriteHelpers from '@/helpers/userSpriteHelpers';
 import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
+import { buildExplosion } from '@/helpers/particleFactory';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -61,21 +62,23 @@ export default class Game extends Phaser.Scene {
       this.onCollision(sprite1, sprite2)
     );
 
+    this.explosion = buildExplosion(this);
+
     this.setupAudio();
   }
 
   setupAudio() {
-    this.raidAlert        = this.sound.add('raid_alert', { volume: 0.05 });
-    this.subAudio         = this.sound.add('victory_short', { volume: 0.1 });
+    this.raidAlert = this.sound.add('raid_alert', { volume: 0.05 });
+    this.subAudio = this.sound.add('victory_short', { volume: 0.1 });
     this.collectCoinAudio = this.sound.add('collect_coin', { volume: 0.05 });
-    this.gameOverAudio    = this.sound.add('game_over', { volume: 0.05 });
-    this.cheerAudio       = this.sound.add('cheer', { volume: 0.15 });
-    this.helloAudio       = this.sound.add('hello', { volume: 0.15 });
-    this.hostedAudio      = this.sound.add('hosted', { volume: 0.15 });
-    this.errorAudio       = this.sound.add('error', { volume: 0.15 });
-    this.victoryAudio     = this.sound.add('victory', { volume: 0.10 });
-    this.airhornAudio     = this.sound.add('airhorn', { volume: 0.10 });
-    this.quackAudio       = this.sound.add('quack', { volume: 0.10 });
+    this.gameOverAudio = this.sound.add('game_over', { volume: 0.05 });
+    this.cheerAudio = this.sound.add('cheer', { volume: 0.15 });
+    this.helloAudio = this.sound.add('hello', { volume: 0.15 });
+    this.hostedAudio = this.sound.add('hosted', { volume: 0.15 });
+    this.errorAudio = this.sound.add('error', { volume: 0.15 });
+    this.victoryAudio = this.sound.add('victory', { volume: 0.1 });
+    this.airhornAudio = this.sound.add('airhorn', { volume: 0.1 });
+    this.quackAudio = this.sound.add('quack', { volume: 0.2 });
   }
 
   initComfy() {
@@ -85,30 +88,34 @@ export default class Game extends Phaser.Scene {
       if (command == 'join') {
         this.addUserSprite(user, flags);
       } else if (command === 'run') {
-        UserSpriteFactory.runUserSprite(this.userGroup, user, message, flags);
+        userSpriteHelpers.runUserSprite(this.userGroup, user, message, flags);
       } else if (command === 'jump') {
-        UserSpriteFactory.jumpUserSprite(this.userGroup, user);
+        userSpriteHelpers.jumpUserSprite(this.userGroup, user);
       } else if (command === 'dbag') {
-        UserSpriteFactory.dbagMode(this.userGroup, user);
+        userSpriteHelpers.dbagMode(this.userGroup, user);
       } else if (command === 'booli') {
-        UserSpriteFactory.tackle(this.userGroup, user, message);
+        userSpriteHelpers.tackle(this.userGroup, user, message);
       } else if (command === 'spin') {
-        UserSpriteFactory.spin(this.userGroup, user);
+        userSpriteHelpers.spin(this.userGroup, user);
       } else if (command === 'die') {
-        UserSpriteFactory.die(this.userGroup, user);
+        userSpriteHelpers.die(this.userGroup, user);
       } else if (command === 'mushroom') {
-        UserSpriteFactory.mushroom(this.userGroup, user);
-      } else if (command ===  'gameover') {
+        userSpriteHelpers.mushroom(this.userGroup, user);
+      } else if (command === 'wave') {
+        userSpriteHelpers.triggerTheWave(this.userGroup, this);
+      } else if (command === 'fireworks') {
+        this.triggerFireworks();
+      } else if (command === 'gameover') {
         this.gameOverAudio.play();
-      } else if (command ===  'hello') {
+      } else if (command === 'hello') {
         this.helloAudio.play();
-      } else if (command ===  'error') {
+      } else if (command === 'error') {
         this.errorAudio.play();
-      } else if (command ===  'victory') {
+      } else if (command === 'victory') {
         this.victoryAudio.play();
-      } else if (command ===  'airhorn') {
+      } else if (command === 'airhorn') {
         this.airhornAudio.play();
-      } else if (command ===  'quack') {
+      } else if (command === 'quack') {
         this.quackAudio.play();
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
@@ -125,7 +132,7 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onJoin = (user, self) => this.addUserSprite(user);
 
-    ComfyJS.onPart = user => UserSpriteFactory.userParted(this.userGroup, user);
+    ComfyJS.onPart = user => userSpriteHelpers.userParted(this.userGroup, user);
 
     ComfyJS.onChat = (user, message, flags, self, extra) => {
       const sprite = this.addUserSprite(user, flags);
@@ -133,7 +140,7 @@ export default class Game extends Phaser.Scene {
         sprite.displayNameText();
         sprite.displaySpeechBubble(message, extra);
 
-        if(/^(hi|hey|hello|howdy)$/i.exec(message)) {
+        if (/^(hi|hey|hello|howdy)$/i.exec(message)) {
           this.helloAudio.play();
         }
       }
@@ -150,11 +157,29 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onResub = () => this.subCelebrate();
     ComfyJS.onSubGift = () => this.subCelebrate();
     ComfyJS.onSubMysteryGift = () => this.victoryShort.play();
-    ComfyJS.onGiftSubContinue = (user, sender, extra) => this.victoryShort.play();
+    ComfyJS.onGiftSubContinue = (user, sender, extra) =>
+      this.victoryShort.play();
+  }
+
+  triggerFireworks() {
+    const total = Phaser.Math.Between(3, 5);
+
+    for (let index = 0; index < total; index++) {
+      const x = Phaser.Math.Between(0, this.game.config.width);
+      const y = Phaser.Math.Between(0, this.game.config.height/2);
+      this.time.delayedCall(index * 200, () => {
+        this.explosion.emitParticleAt(x, y);
+      });
+    }
   }
 
   addUserSprite(user, flags) {
-    const sprite = UserSpriteFactory.createOrFindUser(this.userGroup, this, user, flags);
+    const sprite = userSpriteHelpers.createOrFindUser(
+      this.userGroup,
+      this,
+      user,
+      flags
+    );
     sprite.walk();
     return sprite;
   }
@@ -162,6 +187,7 @@ export default class Game extends Phaser.Scene {
   subCelebrate() {
     this.subAudio.play();
     this.celebrate = true;
+    userSpriteHelpers.chatBubbleAllSprites(this.userGroup, 'Pog');
     this.time.delayedCall(10000, () => {
       this.celebrate = false;
     });
@@ -197,8 +223,7 @@ export default class Game extends Phaser.Scene {
     coinSprite.grabbed();
   }
 
-  onTextOverlap(s1, s2) {
-  }
+  onTextOverlap(s1, s2) {}
 
   /**
    *

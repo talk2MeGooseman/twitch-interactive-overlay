@@ -20,6 +20,7 @@ export default class SpeechBubble {
     this.bubblePadding = 10;
 
     this.bubble = this.buildBubble();
+
     this.buildContent(quote, extra).then((content) => {
       this.content = content;
     });
@@ -107,7 +108,7 @@ export default class SpeechBubble {
       });
 
       this.scene.load.image({
-        key: emoteId, 
+        key: emoteId,
         url: `https://static-cdn.jtvnw.net/emoticons/v1/${emoteId}/3.0`
       });
       this.scene.load.start();
