@@ -295,16 +295,18 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   remove() {
     this.isDead = true;
 
-    this.scene.time.delayedCall(10000, () => {
-      this.scene.userGroup.remove(this);
+    this._timers.push(
+      this.scene.time.delayedCall(10000, () => {
+        this.scene.userGroup.remove(this);
 
-      this._timers.map((t) => t.destroy());
+        this._timers.map((t) => t.destroy());
 
-      if (this.nameText) {
-        this.scene.nameTextGroup.remove(this.nameText);
-        this.nameText.destroy();
-      }
-      this.destroy();
-    }, [], this);
+        if (this.nameText) {
+          this.scene.nameTextGroup.remove(this.nameText);
+          this.nameText.destroy();
+        }
+        this.destroy();
+      }, [], this)
+    );
   }
 }

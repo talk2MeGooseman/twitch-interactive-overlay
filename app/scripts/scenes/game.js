@@ -5,6 +5,8 @@ import ComfyJS from 'comfy.js';
 import userSpriteHelpers from '@/helpers/userSpriteHelpers';
 import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 import { buildExplosion } from '@/helpers/particleFactory';
+import TextBox from '@/objects/TextBox';
+import { controlsCommands } from '@/helpers/controls';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -117,6 +119,13 @@ export default class Game extends Phaser.Scene {
         this.airhornAudio.play();
       } else if (command === 'quack') {
         this.quackAudio.play();
+      } else if (command === 'controls2') {
+        let commands = ["** COMMANDS **"];
+        controlsCommands.map((c) => {
+          commands.join(c.command);
+        });
+
+        let box = new TextBox(this, 500, 500, 300, 500, commands.join('\n'));
       } else if (command === 'alert' && flags.broadcaster) {
         this.raidAlert.play();
       } else if (command === 'subs' && flags.broadcaster) {

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export default class TextBox {
+export default class SpeechBubble {
 
   /**
    *Creates an instance of SpeechBubble.
@@ -8,10 +8,10 @@ export default class TextBox {
    * @param {number} y
    * @param {number} width
    * @param {number} height
-   * @param {string} quote
+   * @param {string} text
    * @memberof SpeechBubble
    */
-  constructor(scene, x, y, width, height, quote, extra) {
+  constructor(scene, x, y, width, height, text) {
     this.scene = scene;
     this.x = x;
     this.y = y;
@@ -21,29 +21,24 @@ export default class TextBox {
 
     this.bubble = this.buildBubble();
 
-    this.buildContent(quote, extra).then((content) => {
-      this.content = content;
-    });
-
-    this.positionContent();
+    this.buildContent(text);
+    this.setPosition();
   }
 
   /**
    * Create the text inside the bubble
    *
-   * @param {string} quote
+   * @param {string} text
    * @param {object} extra
    * @returns {Phaser.GameObjects.Text}
    * @memberof SpeechBubble
    */
-  async buildContent(quote, extra) {
-    const text = quote.substring(0, 20);
-
-    return this.scene.add.text(0, 0, text, {
+  async buildContent(text) {
+    this.content = this.scene.add.text(0, 0, text, {
       fontFamily: 'Arial',
       fontSize: 20,
       color: '#000000',
-      align: 'center',
+      align: 'left',
       wordWrap: { width: this.bubbleWidth - this.bubblePadding * 2 },
     });
   }
@@ -55,8 +50,6 @@ export default class TextBox {
    * @memberof SpeechBubble
    */
   buildBubble() {
-    const arrowHeight = this.bubbleHeight / 4;
-
     const bubble = this.scene.add.graphics({ x: this.x, y: this.y });
 
     //  Bubble shadow
@@ -73,24 +66,6 @@ export default class TextBox {
     bubble.strokeRoundedRect(0, 0, this.bubbleWidth, this.bubbleHeight, 16);
     bubble.fillRoundedRect(0, 0, this.bubbleWidth, this.bubbleHeight, 16);
 
-    //  Calculate arrow coordinates
-    const point1X = Math.floor(this.bubbleWidth / 7);
-    const point1Y = this.bubbleHeight;
-    const point2X = Math.floor((this.bubbleWidth / 7) * 2);
-    const point2Y = this.bubbleHeight;
-    const point3X = Math.floor(this.bubbleWidth / 7);
-    const point3Y = Math.floor(this.bubbleHeight + arrowHeight);
-
-    //  Bubble arrow shadow
-    bubble.lineStyle(4, 0x222222, 0.5);
-    bubble.lineBetween(point2X - 1, point2Y + 6, point3X + 2, point3Y);
-
-    //  Bubble arrow fill
-    bubble.fillTriangle(point1X, point1Y, point2X, point2Y, point3X, point3Y);
-    bubble.lineStyle(2, 0x565656, 1);
-    bubble.lineBetween(point2X, point2Y, point3X, point3Y);
-    bubble.lineBetween(point1X, point1Y, point3X, point3Y);
-
     return bubble;
   }
 
@@ -101,7 +76,7 @@ export default class TextBox {
    * @param {number} y
    * @memberof SpeechBubble
    */
-  setPosition(x, y) {
+  setPosition(x = this.x, y = this.y) {
     this.bubble.setPosition(x, y);
     this.positionContent();
   }
@@ -117,7 +92,7 @@ export default class TextBox {
     }
 
     const b = this.content.getBounds();
-    this.content.setPosition(this.bubble.x + this.bubbleWidth / 2 - b.width / 2, this.bubble.y + this.bubbleHeight / 2 - b.height / 2);
+    this.content.setPosition(this.bubble.x + b.width / 2, this.bubble.y + b.height / 2);
   }
 
   destroy() {
