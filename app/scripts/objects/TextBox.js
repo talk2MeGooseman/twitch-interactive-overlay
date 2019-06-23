@@ -36,7 +36,7 @@ export default class SpeechBubble {
   async buildContent(text) {
     this.content = this.scene.add.text(0, 0, text, {
       fontFamily: 'Arial',
-      fontSize: 20,
+      fontSize: 30,
       color: '#000000',
       align: 'left',
       wordWrap: { width: this.bubbleWidth - this.bubblePadding * 2 },
@@ -92,7 +92,7 @@ export default class SpeechBubble {
     }
 
     const b = this.content.getBounds();
-    this.content.setPosition(this.bubble.x + b.width / 2, this.bubble.y + b.height / 2);
+    this.content.setPosition(this.bubble.x + this.bubblePadding, this.bubble.y + this.bubblePadding);
   }
 
   destroy() {

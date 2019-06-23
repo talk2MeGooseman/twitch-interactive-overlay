@@ -13,7 +13,7 @@ export default class Coin extends Phaser.GameObjects.Sprite {
 
     scene.physics.world.enable(this);
     scene.add.existing(this);
-    
+
     this.body.setCollideWorldBounds(true);
 
     this.setOrigin(0.5);
@@ -27,7 +27,7 @@ export default class Coin extends Phaser.GameObjects.Sprite {
   }
 
   grabbed() {
-    this.scene.collectCoinAudio.play();
+    this.scene.sound.play('collect_coin');
     this.scene.coinsGroup.remove(this);
     this.destroy();
   }
