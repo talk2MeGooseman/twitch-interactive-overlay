@@ -1,7 +1,7 @@
 const audioFiles = [
   {
     name: 'raid_alert',
-    file: 'audio/alarm.wave',
+    file: 'audio/alarm.wav',
     config: { volume: 0.05 },
   },
   {
