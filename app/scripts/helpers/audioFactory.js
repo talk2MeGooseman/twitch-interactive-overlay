@@ -125,6 +125,6 @@ export function playAudio(scene, command, flags) {
   }
 
   if (flags.broadcaster || audio.public) {
-    scene.sound.play(command);
+    scene.sound.play(command, audio.config);
   }
 }
