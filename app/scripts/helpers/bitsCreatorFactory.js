@@ -4,13 +4,13 @@ import RedGem from '@/objects/RedGem';
 
 export default function bitCreatorFactory(scene) {
   let sprite;
-  const value = Phaser.Math.Between(1, 10);
+  const trigger = Phaser.Math.Between(1, 10);
 
-  if (value === 5 && scene.bitTotal >=500) {
+  if (trigger === 5 && scene.bitTotal >=500) {
     scene.bitTotal -= 500;
     sprite = new RedGem(scene);
 
-  } else if (value === 5 && scene.bitTotal >= 100) {
+  } else if (trigger === 5 && scene.bitTotal >= 100) {
     scene.bitTotal -= 100;
     sprite = new BlueGem(scene);
 

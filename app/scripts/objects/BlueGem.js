@@ -29,7 +29,7 @@ export default class BlueGem extends Phaser.GameObjects.Sprite {
   }
 
   grabbed() {
-    this.scene.collectCoinAudio.play();
+    this.scene.sound.play('collect_coin');
     this.scene.coinsGroup.remove(this);
     this.destroy();
   }
