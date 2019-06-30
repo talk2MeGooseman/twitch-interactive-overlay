@@ -41,6 +41,7 @@ export default class SplashScreen extends Phaser.Scene {
     this.load.image('logo');
     this.load.multiatlas('characters', 'characters.json');
     this.load.multiatlas('items', 'items.json');
+    this.load.image('spiked_ball', 'spikedball.png');
 
     this.load.atlas('explosion', 'explosion.png', 'explosion.json');
 

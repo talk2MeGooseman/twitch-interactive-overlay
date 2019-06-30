@@ -8,6 +8,7 @@ import { buildExplosion } from '@/helpers/particleFactory';
 import TextBox from '@/objects/TextBox';
 import { controlsCommands } from '@/helpers/controls';
 import { addSoundToScene, playAudio } from '../helpers/audioFactory';
+import SpikedBall from '@/objects/SpikedBall';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -48,6 +49,14 @@ export default class Game extends Phaser.Scene {
       collideWorldBounds: true,
     });
 
+    this.ballGroup = this.physics.add.group({
+      bounceX: 1,
+      bounceY: 0.5,
+      velocityX: 50,
+      collideWorldBounds: true,
+    });
+    this.ballGroup.runChildUpdate = true;
+
     this.nameTextGroup = this.physics.add.group({
       allowGravity: false,
       collideWorldBounds: true,
@@ -57,6 +66,8 @@ export default class Game extends Phaser.Scene {
     this.physics.add.collider(this.userGroup);
     this.physics.add.collider(this.coinsGroup);
     this.physics.add.collider(this.nameTextGroup);
+    this.physics.add.collider(this.ballGroup);
+    this.physics.add.collider(this.ballGroup, this.userGroup);
 
     // Check if user touches coin
     this.physics.add.overlap(this.coinsGroup, this.userGroup, this.collectCoin);
@@ -66,6 +77,12 @@ export default class Game extends Phaser.Scene {
     );
 
     this.explosion = buildExplosion(this);
+
+    // new SpikedBall(this);
+    // new SpikedBall(this);
+    // new SpikedBall(this);
+    // new SpikedBall(this);
+    // new SpikedBall(this);
 
     this.setupAudio();
   }
@@ -99,8 +116,8 @@ export default class Game extends Phaser.Scene {
       } else if (command === 'fireworks') {
         this.triggerFireworks();
       } else if (command === 'controls2') {
-        let commands = ["** COMMANDS **"];
-        controlsCommands.map((c) => {
+        let commands = ['** COMMANDS **'];
+        controlsCommands.map(c => {
           commands.push('!' + c.command);
         });
 
@@ -150,8 +167,8 @@ export default class Game extends Phaser.Scene {
 
     for (let index = 0; index < total; index++) {
       const x = Phaser.Math.Between(0, this.game.config.width);
-      const y = Phaser.Math.Between(0, this.game.config.height/2);
-      this.time.delayedCall(index * 200, () => {
+      const y = Phaser.Math.Between(0, this.game.config.height / 2);
+      this.time.delayedCall(index * 500, () => {
         this.explosion.emitParticleAt(x, y);
         this.sound.play('explode');
       });
@@ -174,6 +191,7 @@ export default class Game extends Phaser.Scene {
     this.celebrate = true;
     userSpriteHelpers.chatBubbleAllSprites(this.userGroup, 'Pog');
     this.time.delayedCall(10000, () => {
+      this.triggerFireworks();
       this.celebrate = false;
     });
   }
@@ -186,7 +204,7 @@ export default class Game extends Phaser.Scene {
    *  @param {number} t Current internal clock time.
    *  @param {number} dt Time elapsed since last update.
    */
-  update(/* t, dt */) {
+  update(t, dt) {
     bitCreatorFactory(this);
     // Call update on all sprites in our group
     this.userGroup.getChildren().forEach(user => {
@@ -202,6 +220,8 @@ export default class Game extends Phaser.Scene {
     this.coinsGroup.getChildren().forEach(coin => {
       coin.update();
     });
+
+    this.ballGroup.preUpdate(t, dt);
   }
 
   collectCoin(coinSprite, userSprite) {

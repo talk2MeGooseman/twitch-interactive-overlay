@@ -12,7 +12,7 @@ const V_RUN = 200;
 
 const RUN_THRESHOLD = 150;
 const WALK = 0;
-const RUN = 1;
+// const RUN = 1;
 // const JUMP = 2;
 
 export default class UserSprite extends Phaser.GameObjects.Sprite {
@@ -70,6 +70,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.speechBubble;
     this.spinEnabled = false;
     this.isDead = false;
+    this.running = false;
 
     this.setSize(100, 200, true);
     this.setOrigin(0.5);
@@ -127,12 +128,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
   randomMovement() {
     if (!isMoving(this)) {
-      const action = Phaser.Math.Between(0, 2);
+      const action = Phaser.Math.Between(0, 1);
 
       if (action === WALK) {
         this.walk();
-      } else if (action === RUN) {
-        this.startRunning();
       } else {
         this.jump();
       }
@@ -153,6 +152,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     }
 
     this.body.setVelocityX(v);
+    this.running = true;
+    this._timers.push(
+      this.scene.time.delayedCall(2000, () => ( this.running = false ), [], this)
+    );
   }
 
   jump() {
@@ -236,6 +239,15 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     } else {
       this.body.setAngularAcceleration(0);
       this.setRotation(0);
+    }
+
+    if (this.running) {
+      let x = V_RUN;
+      if (this.flipX) {
+        x *= -1;
+      }
+
+      this.body.setVelocityX(x);
     }
 
     this.selectAnimation(xSpeed, ySpeed);
