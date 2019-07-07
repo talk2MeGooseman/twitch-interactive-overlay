@@ -100,21 +100,25 @@ export default class Game extends Phaser.Scene {
       } else if (command === 'run') {
         userSpriteHelpers.runUserSprite(this.userGroup, user, message, flags);
       } else if (command === 'jump') {
-        userSpriteHelpers.jumpUserSprite(this.userGroup, user);
+        userSpriteHelpers.jumpUserSprite(this.userGroup, user, message, flags);
       } else if (command === 'dbag') {
-        userSpriteHelpers.dbagMode(this.userGroup, user);
+        userSpriteHelpers.dbagMode(this.userGroup, user, message, flags);
       } else if (command === 'booli') {
-        userSpriteHelpers.tackle(this.userGroup, user, message);
+        userSpriteHelpers.tackle(this.userGroup, user, message, flags);
       } else if (command === 'spin') {
-        userSpriteHelpers.spin(this.userGroup, user);
+        userSpriteHelpers.spin(this.userGroup, user, message, flags);
       } else if (command === 'die') {
-        userSpriteHelpers.die(this.userGroup, user);
+        userSpriteHelpers.die(this.userGroup, user, message, flags);
       } else if (command === 'mushroom') {
-        userSpriteHelpers.mushroom(this.userGroup, user);
+        userSpriteHelpers.mushroom(this.userGroup, user, message, flags);
       } else if (command === 'wave') {
         userSpriteHelpers.triggerTheWave(this.userGroup, this);
       } else if (command === 'fireworks') {
         this.triggerFireworks();
+      } else if (command === 'princess') {
+        userSpriteHelpers.changeCharacter(this.userGroup, user, 'princess', flags);
+      } else if (command === 'wizard') {
+        userSpriteHelpers.changeCharacter(this.userGroup, user, 'wizard_2', flags);
       } else if (command === 'controls2') {
         let commands = ['** COMMANDS **'];
         controlsCommands.map(c => {

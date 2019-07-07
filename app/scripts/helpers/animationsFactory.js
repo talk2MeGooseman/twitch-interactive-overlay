@@ -1,49 +1,56 @@
-function createWalkingAnimation(scene) {
+const CHARACTERS = [
+  'peasant',
+  'princess',
+  'knight',
+  'wizard_2',
+];
+
+function createWalkingAnimation(character, scene) {
   var frameNames = scene.anims.generateFrameNames('characters', {
     start: 1,
     end: 8,
     zeroPad: 3,
-    prefix: 'Peasant/walk/peasant_walk_',
+    prefix: `${character}/walk/${character}_walk_`,
     suffix: '.png',
   });
 
-  scene.anims.create({ key: 'peasent_walk', frames: frameNames, frameRate: 5, repeat: -1 });
+  scene.anims.create({ key: `${character}_walk`, frames: frameNames, frameRate: 5, repeat: -1 });
 }
 
-function createRunningAnimation(scene) {
+function createRunningAnimation(character, scene) {
   var frameNames = scene.anims.generateFrameNames('characters', {
     start: 1,
     end: 8,
     zeroPad: 3,
-    prefix: 'Peasant/run/peasant_run_',
+    prefix: `${character}/run/${character}_run_`,
     suffix: '.png',
   });
 
-  scene.anims.create({ key: 'peasent_run', frames: frameNames, frameRate: 10, repeat: -1 });
+  scene.anims.create({ key: `${character}_run`, frames: frameNames, frameRate: 10, repeat: -1 });
 }
 
-function createJumpAnimation(scene) {
+function createJumpAnimation(character, scene) {
   var frameNames = scene.anims.generateFrameNames('characters', {
     start: 1,
     end: 4,
     zeroPad: 3,
-    prefix: 'Peasant/jump/peasant_jump_',
+    prefix: `${character}/jump/${character}_jump_`,
     suffix: '.png',
   });
 
-  scene.anims.create({ key: 'peasent_jump', frames: frameNames, frameRate: 10, repeat: 0 });
+  scene.anims.create({ key: `${character}_jump`, frames: frameNames, frameRate: 10, repeat: 0 });
 }
 
-function createDieAnimation(scene) {
+function createDieAnimation(character, scene) {
   var frameNames = scene.anims.generateFrameNames('characters', {
     start: 1,
     end: 5,
     zeroPad: 3,
-    prefix: 'Peasant/die/peasant_die_',
+    prefix: `${character}/die/${character}_die_`,
     suffix: '.png',
   });
 
-  scene.anims.create({ key: 'peasent_die', frames: frameNames, frameRate: 10, repeat: 0 });
+  scene.anims.create({ key: `${character}_die`, frames: frameNames, frameRate: 10, repeat: 0 });
 }
 
 function createCoinAnimation(scene) {
@@ -83,11 +90,14 @@ function createRedGemAnimation(scene) {
 }
 
 export default function animationsFactory(scene) {
-  createWalkingAnimation(scene);
-  createRunningAnimation(scene);
-  createJumpAnimation(scene);
+  CHARACTERS.forEach((character) => {
+    createWalkingAnimation(character, scene);
+    createRunningAnimation(character, scene);
+    createJumpAnimation(character, scene);
+    createDieAnimation(character, scene);
+  });
+
   createCoinAnimation(scene);
-  createDieAnimation(scene);
   createBlueGemAnimation(scene);
   createRedGemAnimation(scene);
 }

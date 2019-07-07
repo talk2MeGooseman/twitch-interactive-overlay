@@ -59,10 +59,16 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     config.scene.add.existing(this);
 
     this.type = 'user';
+    this.character = 'peasant';
+
     this.user = config.user;
     this.flags = config.flags;
-    this.stillFrame = config.frame;
 
+    if (this.flags && this.flags.subscriber) {
+      this.character = 'knight';
+    }
+
+    this.stillFrame = config.frame;
     this.body.onCollide = true;
     this.body.maxVelocity.x = V_RUN;
 
@@ -74,11 +80,22 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.setSize(100, 200, true);
     this.setOrigin(0.5);
-    this.anims.play('peasent_walk');
+    this.anims.play(`${this.character}_walk`);
 
     this._timers = [];
 
     this.initMovementTimer();
+  }
+
+  setFlags(flags) {
+    this.flags = flags;
+    if (flags.subscriber && this.character === 'peasant') {
+      this.character = 'knight';
+    }
+  }
+
+  changeCharacter(character) {
+    this.character = character;
   }
 
   displayNameText() {
@@ -271,19 +288,19 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   selectAnimation(xSpeed, ySpeed) {
     let anim;
     if (this.isDead) {
-      anim = 'peasent_die';
+      anim = `${this.character}_die`;
       setSpriteAnimation(this, anim);
       return;
     }
 
     if (ySpeed > 50 && !this.body.onFloor()) {
-      anim = 'peasent_jump';
+      anim = `${this.character}_jump`;
     }
     if (ySpeed < 50) {
       if (xSpeed > 0 && xSpeed < RUN_THRESHOLD) {
-        anim = 'peasent_walk';
+        anim = `${this.character}_walk`;
       } else if (xSpeed >= RUN_THRESHOLD) {
-        anim = 'peasent_run';
+        anim = `${this.character}_run`;
       }
     }
     if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {

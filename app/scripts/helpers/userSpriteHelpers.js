@@ -57,7 +57,7 @@ export default class userSpriteHelpers {
     const spriteConfig = {
       scene: scene,
       key: 'characters',
-      frame: 'Peasant/standing/peasant.png',
+      frame: 'peasant/standing/peasant.png',
       user: user,
       flags: flags,
     };
@@ -84,21 +84,6 @@ export default class userSpriteHelpers {
   }
 
   /**
-   * Removes user for provided group
-   *
-   * @static
-   * @param {Phaser.Physics.Arcade.Group} userGroup
-   * @param {UserSprite} user
-   * @memberof UserSprite
-   */
-  static die(userGroup, user) {
-    const sprite = userSpriteHelpers.userExists(userGroup, user);
-    if (sprite) {
-      sprite.remove();
-    }
-  }
-
-  /**
    * Check if user exists is group
    *
    * @static
@@ -112,6 +97,22 @@ export default class userSpriteHelpers {
   }
 
   /**
+   * Removes user for provided group
+   *
+   * @static
+   * @param {Phaser.Physics.Arcade.Group} userGroup
+   * @param {UserSprite} user
+   * @memberof UserSprite
+   */
+  static die(userGroup, user, message, flags) {
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
+    if (sprite) {
+      sprite.setFlags(flags);
+      sprite.remove();
+    }
+  }
+
+  /**
    * Finds and triggers jump animation for sprite
    *
    * @static
@@ -119,9 +120,10 @@ export default class userSpriteHelpers {
    * @param {UserSprite} user
    * @memberof UserSprite
    */
-  static jumpUserSprite(userGroup, user) {
+  static jumpUserSprite(userGroup, user, message, flags) {
     const sprite = userSpriteHelpers.userExists(userGroup, user);
     if (sprite) {
+      sprite.setFlags(flags);
       sprite.jump();
     }
   }
@@ -134,10 +136,11 @@ export default class userSpriteHelpers {
    * @param {UserSprite} user
    * @memberof UserSprite
    */
-  static runUserSprite(userGroup, user) {
+  static runUserSprite(userGroup, user, message, flags) {
     const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
+      sprite.setFlags(flags);
       sprite.startRunning();
     }
   }
@@ -150,10 +153,11 @@ export default class userSpriteHelpers {
    * @param {UserSprite} user
    * @memberof UserSprite
    */
-  static spin(userGroup, user) {
+  static spin(userGroup, user, message, flags) {
     const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
+      sprite.setFlags(flags);
       sprite.doSpin();
     }
   }
@@ -166,10 +170,11 @@ export default class userSpriteHelpers {
    * @param {UserSprite} user
    * @memberof UserSprite
    */
-  static mushroom(userGroup, user) {
+  static mushroom(userGroup, user, message, flags) {
     const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
+      sprite.setFlags(flags);
       sprite.makeGiant();
     }
   }
@@ -182,10 +187,11 @@ export default class userSpriteHelpers {
    * @param {UserSprite} user
    * @memberof UserSprite
    */
-  static dbagMode(userGroup, user) {
+  static dbagMode(userGroup, user, message, flags) {
     const sprite = userSpriteHelpers.userExists(userGroup, user);
 
     if (sprite) {
+      sprite.setFlags(flags);
       sprite.makeDbag();
     }
   }
@@ -198,7 +204,7 @@ export default class userSpriteHelpers {
    * @param {UserSprite} user
    * @memberof UserSprite
    */
-  static tackle(userGroup, user, message) {
+  static tackle(userGroup, user, message, flags) {
     const match = /@(\w+)/g.exec(message);
     if (!match) {
       return;
@@ -208,8 +214,26 @@ export default class userSpriteHelpers {
     const spriteTarget = userSpriteHelpers.userExists(userGroup, match[1]);
 
     if (sprite && spriteTarget) {
+      sprite.setFlags(flags);
       sprite.doTackle(spriteTarget);
     }
   }
 
+  /**
+   * Change the character for the sprite
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} userGroup
+   * @param {UserSprite} user
+   * @param {string} character
+   * @memberof UserSprite
+   */
+  static changeCharacter(userGroup, user, character, flags) {
+    const sprite = userSpriteHelpers.userExists(userGroup, user);
+
+    if (sprite) {
+      sprite.setFlags(flags);
+      sprite.changeCharacter(character);
+    }
+  }
 }
