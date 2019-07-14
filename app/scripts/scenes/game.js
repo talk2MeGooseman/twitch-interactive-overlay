@@ -92,7 +92,8 @@ export default class Game extends Phaser.Scene {
   }
 
   initComfy() {
-    ComfyJS.Init('talk2megooseman');
+    const channel = this.getUrlParam('channel') || 'talk2megooseman';
+    ComfyJS.Init(channel);
 
     ComfyJS.onCommand = (user, command, message, flags) => {
       if (command == 'join') {
@@ -164,6 +165,12 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onSubMysteryGift = () => this.sound.play('victory_short');
     ComfyJS.onGiftSubContinue = (user, sender, extra) =>
       this.sound.play('victory_short');
+  }
+
+  getUrlParam(param) {
+    let search = window.location.search;
+    const params = new URLSearchParams(search);
+    return params.get(param);
   }
 
   triggerFireworks() {
