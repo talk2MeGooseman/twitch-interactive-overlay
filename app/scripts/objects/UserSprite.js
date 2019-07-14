@@ -44,7 +44,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       Sets acceleration, velocity, and speed to zero.
    */
 
-
   /**
    *  A simple prefab (extended game object class), displaying a spinning
    *  Phaser 3 logo.
@@ -84,7 +83,25 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this._timers = [];
 
+    config.scene.events.on('command', this.handleChatEvent, this);
+
     this.initMovementTimer();
+  }
+
+  handleChatEvent({ user, message, flags, method, args }) {
+    if (user !== this.user) {
+      return;
+    }
+
+    this.setFlags(flags);
+    const func = this[method];
+    if (func) {
+      if (args) {
+        func.call(this, args);
+      } else {
+        func.call(this, message, flags);
+      }
+    }
   }
 
   setFlags(flags) {
@@ -121,7 +138,15 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       this.speechBubble.destroy();
     }
 
-    this.speechBubble = new SpeechBubble(this.scene, 0, 0, 125, 50, message, extra);
+    this.speechBubble = new SpeechBubble(
+      this.scene,
+      0,
+      0,
+      125,
+      50,
+      message,
+      extra
+    );
 
     this._timers.push(
       this.scene.time.delayedCall(duration, () => {
@@ -171,7 +196,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.body.setVelocityX(v);
     this.running = true;
     this._timers.push(
-      this.scene.time.delayedCall(2000, () => ( this.running = false ), [], this)
+      this.scene.time.delayedCall(2000, () => (this.running = false), [], this)
     );
   }
 
@@ -210,10 +235,15 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD, 1000);
     this.displaySpeechBubble('BOOLI!!!', null, 2000);
     this._timers.push(
-      this.scene.time.delayedCall(1100, () => {
-        this.body.setImmovable(false);
-        this.body.maxVelocity.x = V_RUN;
-      }, [], this)
+      this.scene.time.delayedCall(
+        1100,
+        () => {
+          this.body.setImmovable(false);
+          this.body.maxVelocity.x = V_RUN;
+        },
+        [],
+        this
+      )
     );
   }
 
@@ -221,14 +251,19 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.spinEnabled = true;
     this.displaySpeechBubble('WEEEE!!!', null, 5000);
     this._timers.push(
-      this.scene.time.delayedCall(5000, () => (this.spinEnabled = false), [], this)
+      this.scene.time.delayedCall(
+        5000,
+        () => (this.spinEnabled = false),
+        [],
+        this
+      )
     );
   }
 
   makeGiant() {
     this.setScale(4);
     this._timers.push(
-      this.scene.time.delayedCall(20000, () => (this.setScale(1)), [], this)
+      this.scene.time.delayedCall(20000, () => this.setScale(1), [], this)
     );
   }
 
@@ -325,17 +360,27 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.isDead = true;
 
     this._timers.push(
-      this.scene.time.delayedCall(10000, () => {
-        this.scene.userGroup.remove(this);
+      this.scene.time.delayedCall(
+        10000,
+        () => {
+          this.scene.userGroup.remove(this);
 
-        this._timers.map((t) => t.destroy());
+          this.scene.events.removeListener(
+            'command',
+            this.handleChatEvent,
+            this
+          );
+          this._timers.map(t => t.destroy());
 
-        if (this.nameText) {
-          this.scene.nameTextGroup.remove(this.nameText);
-          this.nameText.destroy();
-        }
-        this.destroy();
-      }, [], this)
+          if (this.nameText) {
+            this.scene.nameTextGroup.remove(this.nameText);
+            this.nameText.destroy();
+          }
+          this.destroy();
+        },
+        [],
+        this
+      )
     );
   }
 }

@@ -6,7 +6,7 @@ import userSpriteHelpers from '@/helpers/userSpriteHelpers';
 import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 import { buildExplosion } from '@/helpers/particleFactory';
 import TextBox from '@/objects/TextBox';
-import { controlsCommands } from '@/helpers/controls';
+import ChatCommander from '@/objects/ChatCommander';
 import { addSoundToScene, playAudio } from '../helpers/audioFactory';
 import SpikedBall from '@/objects/SpikedBall';
 
@@ -85,6 +85,7 @@ export default class Game extends Phaser.Scene {
     // new SpikedBall(this);
 
     this.setupAudio();
+    this.chatCommander = new ChatCommander(this);
   }
 
   setupAudio() {
@@ -98,33 +99,17 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onCommand = (user, command, message, flags) => {
       if (command == 'join') {
         this.addUserSprite(user, flags);
-      } else if (command === 'run') {
-        userSpriteHelpers.runUserSprite(this.userGroup, user, message, flags);
-      } else if (command === 'jump') {
-        userSpriteHelpers.jumpUserSprite(this.userGroup, user, message, flags);
-      } else if (command === 'dbag') {
-        userSpriteHelpers.dbagMode(this.userGroup, user, message, flags);
-      } else if (command === 'booli') {
-        userSpriteHelpers.tackle(this.userGroup, user, message, flags);
-      } else if (command === 'spin') {
-        userSpriteHelpers.spin(this.userGroup, user, message, flags);
-      } else if (command === 'die') {
-        userSpriteHelpers.die(this.userGroup, user, message, flags);
-      } else if (command === 'mushroom') {
-        userSpriteHelpers.mushroom(this.userGroup, user, message, flags);
-      } else if (command === 'wave') {
-        userSpriteHelpers.triggerTheWave(this.userGroup, this);
       } else if (command === 'fireworks') {
         this.triggerFireworks();
-      } else if (command === 'princess') {
-        userSpriteHelpers.changeCharacter(this.userGroup, user, 'princess', flags);
-      } else if (command === 'wizard') {
-        userSpriteHelpers.changeCharacter(this.userGroup, user, 'wizard_2', flags);
+      } else if (command === 'booli') {
+        userSpriteHelpers.tackle(this.userGroup, user, message, flags);
+      } else if (command === 'wave') {
+        userSpriteHelpers.triggerTheWave(this.userGroup, this);
       } else if (command === 'controls2') {
         let commands = ['** COMMANDS **'];
-        controlsCommands.map(c => {
-          commands.push('!' + c.command);
-        });
+        // controlsCommands.map(c => {
+        //   commands.push('!' + c.command);
+        // });
 
         let box = new TextBox(this, 500, 500, 300, 500, commands.join('\n'));
       } else if (command === 'subs' && flags.broadcaster) {
@@ -133,6 +118,7 @@ export default class Game extends Phaser.Scene {
         this.bitTotal += message;
       }
 
+      this.chatCommander.handler(command, user, message, flags);
       playAudio(this, command, flags);
     };
 
