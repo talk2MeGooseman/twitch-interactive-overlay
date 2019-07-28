@@ -1,4 +1,17 @@
 /**
+ * Fetches the request parameter from the URL
+ *
+ * @export
+ * @param {string} param
+ * @returns {string}
+ */
+export function getUrlParam(param) {
+  let search = window.location.search;
+  const params = new URLSearchParams(search);
+  return params.get(param);
+}
+
+/**
  * Returns boolean if sprite has velocity > 0
  *
  * @export

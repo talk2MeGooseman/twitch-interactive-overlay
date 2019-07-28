@@ -6,8 +6,9 @@ import userSpriteHelpers from '@/helpers/userSpriteHelpers';
 import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 import { buildExplosion } from '@/helpers/particleFactory';
 import TextBox from '@/objects/TextBox';
-import { controlsCommands } from '@/helpers/controls';
+import ChatCommander from '@/objects/ChatCommander';
 import { addSoundToScene, playAudio } from '../helpers/audioFactory';
+import { getUrlParam } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
 
 // giftsub VIA robertables - lurking_kat
@@ -85,53 +86,68 @@ export default class Game extends Phaser.Scene {
     // new SpikedBall(this);
 
     this.setupAudio();
+    this.chatCommander = new ChatCommander(this);
+    this.events.on('sceneEvent', this.onEvent, this);
   }
 
   setupAudio() {
     addSoundToScene(this);
   }
 
+  onEvent({ user, message, flags, method, args }) {
+    const func = this[method];
+    if (func) {
+      if (args) {
+        func.call(this, args);
+      } else {
+        func.call(this, user, message, flags);
+      }
+    }
+  }
+
+  /**
+   *  Called when a scene is updated. Updates to game logic, physics and game
+   *  objects are handled here.
+   *
+   *  @protected
+   *  @param {number} t Current internal clock time.
+   *  @param {number} dt Time elapsed since last update.
+   */
+  update(t, dt) {
+    bitCreatorFactory(this);
+    // Call update on all sprites in our group
+    this.userGroup.getChildren().forEach(user => {
+      if (this.celebrate) {
+        const jump = Phaser.Math.Between(0, 1);
+        if (jump) {
+          user.jump();
+        }
+      }
+      user.update();
+    });
+
+    this.coinsGroup.getChildren().forEach(coin => {
+      coin.update();
+    });
+
+    this.ballGroup.preUpdate(t, dt);
+  }
+
   initComfy() {
-    ComfyJS.Init('talk2megooseman');
+    const channel = getUrlParam('channel') || 'talk2megooseman';
+    ComfyJS.Init(channel);
 
     ComfyJS.onCommand = (user, command, message, flags) => {
-      if (command == 'join') {
-        this.addUserSprite(user, flags);
-      } else if (command === 'run') {
-        userSpriteHelpers.runUserSprite(this.userGroup, user, message, flags);
-      } else if (command === 'jump') {
-        userSpriteHelpers.jumpUserSprite(this.userGroup, user, message, flags);
-      } else if (command === 'dbag') {
-        userSpriteHelpers.dbagMode(this.userGroup, user, message, flags);
-      } else if (command === 'booli') {
-        userSpriteHelpers.tackle(this.userGroup, user, message, flags);
-      } else if (command === 'spin') {
-        userSpriteHelpers.spin(this.userGroup, user, message, flags);
-      } else if (command === 'die') {
-        userSpriteHelpers.die(this.userGroup, user, message, flags);
-      } else if (command === 'mushroom') {
-        userSpriteHelpers.mushroom(this.userGroup, user, message, flags);
-      } else if (command === 'wave') {
-        userSpriteHelpers.triggerTheWave(this.userGroup, this);
-      } else if (command === 'fireworks') {
-        this.triggerFireworks();
-      } else if (command === 'princess') {
-        userSpriteHelpers.changeCharacter(this.userGroup, user, 'princess', flags);
-      } else if (command === 'wizard') {
-        userSpriteHelpers.changeCharacter(this.userGroup, user, 'wizard_2', flags);
-      } else if (command === 'controls2') {
+      if (command === 'controls2') {
         let commands = ['** COMMANDS **'];
-        controlsCommands.map(c => {
-          commands.push('!' + c.command);
-        });
+        // controlsCommands.map(c => {
+        //   commands.push('!' + c.command);
+        // });
 
         let box = new TextBox(this, 500, 500, 300, 500, commands.join('\n'));
-      } else if (command === 'subs' && flags.broadcaster) {
-        this.subCelebrate();
-      } else if (command === 'coins' && flags.broadcaster) {
-        this.bitTotal += message;
       }
 
+      this.chatCommander.handler(command, user, message, flags);
       playAudio(this, command, flags);
     };
 
@@ -166,6 +182,13 @@ export default class Game extends Phaser.Scene {
       this.sound.play('victory_short');
   }
 
+  // TODO Move to helper file
+
+
+  simulateCheer(user, message) {
+    this.bitTotal += message;
+  }
+
   triggerFireworks() {
     const total = Phaser.Math.Between(3, 5);
 
@@ -179,7 +202,7 @@ export default class Game extends Phaser.Scene {
     }
   }
 
-  addUserSprite(user, flags) {
+  addUserSprite(user, message, flags) {
     const sprite = userSpriteHelpers.createOrFindUser(
       this.userGroup,
       this,
@@ -200,33 +223,6 @@ export default class Game extends Phaser.Scene {
     });
   }
 
-  /**
-   *  Called when a scene is updated. Updates to game logic, physics and game
-   *  objects are handled here.
-   *
-   *  @protected
-   *  @param {number} t Current internal clock time.
-   *  @param {number} dt Time elapsed since last update.
-   */
-  update(t, dt) {
-    bitCreatorFactory(this);
-    // Call update on all sprites in our group
-    this.userGroup.getChildren().forEach(user => {
-      if (this.celebrate) {
-        const jump = Phaser.Math.Between(0, 1);
-        if (jump) {
-          user.jump();
-        }
-      }
-      user.update();
-    });
-
-    this.coinsGroup.getChildren().forEach(coin => {
-      coin.update();
-    });
-
-    this.ballGroup.preUpdate(t, dt);
-  }
 
   collectCoin(coinSprite, userSprite) {
     coinSprite.grabbed();
