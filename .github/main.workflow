@@ -1,6 +1,12 @@
-workflow "On Push" {
-  on = "push"
+workflow "Push, Install, Lint, Deploy" {
   resolves = ["Build"]
+  on = "push"
+}
+
+
+workflow "Pull Request, Lint, Deploy" {
+  resolves = ["Build"]
+  on = "pull_request"
 }
 
 action "Install" {
