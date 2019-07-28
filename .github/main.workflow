@@ -3,7 +3,6 @@ workflow "Push, Install, Lint, Deploy" {
   on = "push"
 }
 
-
 workflow "Pull Request, Lint, Deploy" {
   resolves = ["Build"]
   on = "pull_request"
@@ -30,6 +29,7 @@ action "Build" {
   needs = "Filter Master"
   uses = "Borales/actions-yarn@master"
   args = "dist"
+  secrets = ["GH_PAT"]
 }
 
 action "Deploy to GitHub Pages" {
