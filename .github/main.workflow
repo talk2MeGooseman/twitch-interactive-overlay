@@ -31,3 +31,12 @@ action "Build" {
   uses = "Borales/actions-yarn@master"
   args = "dist"
 }
+
+action "Deploy to GitHub Pages" {
+  needs = "Build"
+  uses = "maxheld83/ghpages@v0.2.1"
+  env = {
+    BUILD_DIR = "dist/"
+  }
+  secrets = ["GH_PAT"]
+}
