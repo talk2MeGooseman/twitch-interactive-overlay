@@ -86,7 +86,7 @@ export default class ChatCommander {
 
     if (!foundCommand) return;
     if (!foundCommand.event) {
-      throw new Error('Must provide event name')
+      throw new Error('Must provide event name');
     }
 
     if (foundCommand.private && !flags.broadcaster) {
