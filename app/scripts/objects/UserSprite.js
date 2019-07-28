@@ -5,6 +5,7 @@ import {
   setSpriteAnimation,
 } from '@/helpers/phaserHelpers';
 import SpeechBubble from '@/objects/SpeechBubble';
+import userSpriteHelpers from '@/helpers/userSpriteHelpers';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -83,17 +84,18 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this._timers = [];
 
-    config.scene.events.on('command', this.handleChatEvent, this);
+    config.scene.events.on('userChatAction', this.handleChatEvent, this);
 
     this.initMovementTimer();
   }
 
-  handleChatEvent({ user, message, flags, method, args }) {
-    if (user !== this.user) {
+  handleChatEvent({ user, message, flags, method, args, applyAll = false }) {
+    if (user.toLowerCase() == this.user.toLowerCase()) {
+      this.setFlags(flags);
+    } else if(!applyAll) {
       return;
     }
 
-    this.setFlags(flags);
     const func = this[method];
     if (func) {
       if (args) {
@@ -102,6 +104,12 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
         func.call(this, message, flags);
       }
     }
+  }
+
+  waveJump() {
+    this.scene.time.delayedCall(this.x, () => {
+      this.jump();
+    });
   }
 
   setFlags(flags) {
@@ -228,7 +236,24 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.body.setImmovable(false);
   }
 
-  doTackle(spriteTarget) {
+  /**
+   * Tackles an @mentioned user
+   *
+   * @param {string} message Must be string with @mention
+   * @returns
+   * @memberof UserSprite
+   */
+  tackle(message) {
+    const match = /@(\w+)/g.exec(message);
+    if (!match) {
+      return;
+    }
+
+    const spriteTarget = userSpriteHelpers.userExists(this.scene.userGroup, match[1]);
+    if (!spriteTarget) {
+      return;
+    }
+
     this.body.setImmovable(true);
     this.body.maxVelocity.x = 10000000;
 
@@ -247,7 +272,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     );
   }
 
-  doSpin() {
+  spin() {
     this.spinEnabled = true;
     this.displaySpeechBubble('WEEEE!!!', null, 5000);
     this._timers.push(
