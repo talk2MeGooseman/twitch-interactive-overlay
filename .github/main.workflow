@@ -1,5 +1,5 @@
 workflow "Push, Install, Lint, Deploy" {
-  resolves = ["Build"]
+  resolves = ["Deploy to GitHub Pages"]
   on = "push"
 }
 
