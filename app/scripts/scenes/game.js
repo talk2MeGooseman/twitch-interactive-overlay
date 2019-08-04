@@ -132,9 +132,6 @@ export default class Game extends Phaser.Scene {
     ComfyJS.Init(channel);
 
     ComfyJS.onCommand = (user, command, message, flags) => {
-      if (command === 'controls2') {
-      }
-
       this.chatCommander.handler(command, user, message, flags);
       playAudio(this, command, flags);
     };
