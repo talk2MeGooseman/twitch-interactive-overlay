@@ -1,4 +1,4 @@
-const COMMANDS = [
+export const COMMANDS = [
   {
     command: 'run',
     method: 'startRunning',
@@ -65,6 +65,11 @@ const COMMANDS = [
   {
     command: 'spiked_ball',
     method: 'addSpikedBall',
+    event: 'sceneEvent',
+  },
+  {
+    command: 'controls',
+    method: 'displayControls',
     event: 'sceneEvent',
   },
   {

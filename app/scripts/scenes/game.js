@@ -6,7 +6,7 @@ import userSpriteHelpers from '@/helpers/userSpriteHelpers';
 import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 import { buildExplosion } from '@/helpers/particleFactory';
 import TextBox from '@/objects/TextBox';
-import ChatCommander from '@/objects/ChatCommander';
+import ChatCommander, { COMMANDS } from '@/objects/ChatCommander';
 import { addSoundToScene, playAudio } from '../helpers/audioFactory';
 import { getUrlParam } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
@@ -133,12 +133,6 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onCommand = (user, command, message, flags) => {
       if (command === 'controls2') {
-        let commands = ['** COMMANDS **'];
-        // controlsCommands.map(c => {
-        //   commands.push('!' + c.command);
-        // });
-
-        let box = new TextBox(this, 500, 500, 300, 500, commands.join('\n'));
       }
 
       this.chatCommander.handler(command, user, message, flags);
@@ -177,7 +171,6 @@ export default class Game extends Phaser.Scene {
   }
 
   // TODO Move to helper file
-
 
   simulateCheer(user, message) {
     this.bitTotal += message;
@@ -221,7 +214,6 @@ export default class Game extends Phaser.Scene {
     });
   }
 
-
   collectCoin(coinSprite, userSprite) {
     coinSprite.grabbed();
   }
@@ -242,8 +234,25 @@ export default class Game extends Phaser.Scene {
       } else if (sprite2.body.immovable) {
         sprite1.sendFlyingOnCollide();
       }
-    } else if(sprite1.type === 'ball' && sprite2.type === 'user') {
+    } else if (sprite1.type === 'ball' && sprite2.type === 'user') {
       sprite2.sendFlyingOnCollide();
     }
+  }
+
+
+  displayControls() {
+    let commands = ['~~CONTROLS~~'];
+    COMMANDS.forEach(c => {
+      if (c.private)
+        return;
+      commands.push('!' + c.command);
+    });
+    const box = new TextBox(this, 10, 10, 300, commands.length * 35, commands.join('\n'));
+
+    this.time.addEvent({
+      delay: 20 * 1000,
+      callback: () => box.destroy(),
+      loop: false,
+    });
   }
 }
