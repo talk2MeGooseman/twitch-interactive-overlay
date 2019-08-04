@@ -79,12 +79,6 @@ export default class Game extends Phaser.Scene {
 
     this.explosion = buildExplosion(this);
 
-    // new SpikedBall(this);
-    // new SpikedBall(this);
-    // new SpikedBall(this);
-    // new SpikedBall(this);
-    // new SpikedBall(this);
-
     this.setupAudio();
     this.chatCommander = new ChatCommander(this);
     this.events.on('sceneEvent', this.onEvent, this);
@@ -213,6 +207,10 @@ export default class Game extends Phaser.Scene {
     return sprite;
   }
 
+  addSpikedBall() {
+    new SpikedBall(this);
+  }
+
   subCelebrate() {
     this.sound.play('victory_short');
     this.celebrate = true;
@@ -244,6 +242,8 @@ export default class Game extends Phaser.Scene {
       } else if (sprite2.body.immovable) {
         sprite1.sendFlyingOnCollide();
       }
+    } else if(sprite1.type === 'ball' && sprite2.type === 'user') {
+      sprite2.sendFlyingOnCollide();
     }
   }
 }

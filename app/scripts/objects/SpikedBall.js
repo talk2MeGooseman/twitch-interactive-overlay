@@ -1,4 +1,4 @@
-export default class RedGem extends Phaser.GameObjects.Sprite {
+export default class SpikedBall extends Phaser.GameObjects.Sprite {
   /**
    *  A simple prefab (extended game object class), displaying a spinning
    *  Phaser 3 logo.
@@ -15,20 +15,32 @@ export default class RedGem extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
 
     this.body.setCollideWorldBounds(true);
+    this.body.immovable = true;
 
     this.setOrigin(0.5);
     // this.setScale(3);
 
     this.scene.ballGroup.add(this);
+
+    this.scene.time.addEvent({
+      delay: 60 * 1000,
+      callback: this.remove,
+      callbackScope: this,
+      loop: false,
+    });
   }
 
   /**
    *  Increment the angle smoothly.
    */
   update() {
-    let rotation = 0.1;
+    let rotation = 0.05;
+
     if (this.body.velocity.x < 0) {
       rotation *= -1;
+      this.body.velocity.x = -100;
+    } else {
+      this.body.velocity.x = 100;
     }
     this.rotation += rotation;
   }

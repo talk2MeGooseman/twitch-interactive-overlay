@@ -63,6 +63,11 @@ const COMMANDS = [
     event: 'sceneEvent',
   },
   {
+    command: 'spiked_ball',
+    method: 'addSpikedBall',
+    event: 'sceneEvent',
+  },
+  {
     command: 'subs',
     method: 'subCelebrate',
     event: 'sceneEvent',
