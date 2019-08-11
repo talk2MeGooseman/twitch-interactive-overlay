@@ -96,6 +96,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       return;
     }
 
+    if(this.isDead) {
+      return;
+    }
+
     const func = this[method];
     if (func) {
       if (args) {
