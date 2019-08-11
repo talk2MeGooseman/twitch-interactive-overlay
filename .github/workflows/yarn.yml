@@ -9,23 +9,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
     - name: Setup Yarn
       uses: Borales/actions-yarn@master
       with:
         version: 10.x
-    - name: yarn install
-      run: yarn install
-      
-    - name: yarn lint
-      run: yarn lint
+    - name: yarn install & lint
+      run: |
+        yarn install
+        yarn lint
     
-    - name: Build Release
-      run: yarn dist
-      if: github.branch == 'master'
-      
-    - name: Publish to GH Pages
+    - name: Build Release & GH Pages Publish
       uses: maxheld83/ghpages@v0.2.1
       if: github.branch == 'master'
+      run: |
+        yarn dist
       env:
         GH_PAT: ${{ secrets.GH_PAT }}
         BUILD_DIR: "dist/"
