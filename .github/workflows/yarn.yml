@@ -23,7 +23,7 @@ jobs:
       run: yarn dist
       if: github.branch == 'master'
       
-    - name: Build Release
+    - name: Publish to GH Pages
       uses: maxheld83/ghpages@v0.2.1
       if: github.branch == 'master'
       env:
