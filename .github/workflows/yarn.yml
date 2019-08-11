@@ -17,3 +17,7 @@ jobs:
       run: |
         yarn install
         yarn lint
+    
+    - name: yarn lint
+      run: |
+        yarn lint
