@@ -90,7 +90,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   handleChatEvent({ user, message, flags, method, args, applyAll = false }) {
-    if (user.toLowerCase() == this.user.toLowerCase()) {
+    if (user.toLowerCase() === this.user.toLowerCase()) {
       this.setFlags(flags);
     } else if(!applyAll) {
       return;
@@ -391,7 +391,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
           this.scene.userGroup.remove(this);
 
           this.scene.events.removeListener(
-            'command',
+            'userChatAction',
             this.handleChatEvent,
             this
           );
