@@ -22,11 +22,14 @@ jobs:
         yarn install
         yarn lint
     
-    - name: Build Release & GH Pages Publish
-      uses: maxheld83/ghpages@v0.2.1
+    - name: Build Release
       if: github.branch == 'master'
       run: |
         yarn dist
+        
+    - name: GH Pages Publish
+      uses: maxheld83/ghpages@v0.2.1
+      if: github.branch == 'master'
       env:
         GH_PAT: ${{ secrets.GH_PAT }}
         BUILD_DIR: "dist/"
