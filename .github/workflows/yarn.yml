@@ -1,0 +1,31 @@
+name: Yarn CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup Yarn
+      uses: Borales/actions-yarn@master
+      with:
+        version: 10.x
+    - name: yarn install
+      run: yarn install
+      
+    - name: yarn lint
+      run: yarn lint
+    
+    - name: Build Release
+      run: yarn dist
+      if: github.branch == 'master'
+      
+    - name: Publish to GH Pages
+      uses: maxheld83/ghpages@v0.2.1
+      if: github.branch == 'master'
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+        BUILD_DIR: "dist/"
