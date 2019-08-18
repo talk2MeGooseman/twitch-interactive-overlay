@@ -9,10 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
     - name: Setup Yarn
       uses: Borales/actions-yarn@master
       with:
@@ -21,12 +17,12 @@ jobs:
       run: |
         yarn install
         yarn lint
-    
+
     - name: Build Release
       if: github.ref == 'refs/heads/master'
       run: |
         yarn dist
-        
+
     - name: GH Pages Publish
       uses: maxheld83/ghpages@v0.2.1
       if: github.ref == 'refs/heads/master'
