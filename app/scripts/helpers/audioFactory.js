@@ -89,6 +89,12 @@ const audioFiles = [
     config: { volume: 1.0 },
     public: true,
   },
+  {
+    name: 'humpday',
+    file: 'audio/humpday.mp3',
+    config: { volume: 1.0 },
+    public: true,
+  },
 ];
 
 /**
