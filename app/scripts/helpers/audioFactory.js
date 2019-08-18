@@ -83,6 +83,12 @@ const audioFiles = [
     config: { volume: 0.1 },
     public: true,
   },
+  {
+    name: 'joke',
+    file: 'audio/rimshot.mp3',
+    config: { volume: 1.0 },
+    public: true,
+  },
 ];
 
 /**
