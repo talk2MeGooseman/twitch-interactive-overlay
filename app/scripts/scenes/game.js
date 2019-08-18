@@ -141,7 +141,7 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onPart = user => userSpriteHelpers.userParted(this.userGroup, user);
 
     ComfyJS.onChat = (user, message, flags, self, extra) => {
-      const sprite = this.addUserSprite(user, flags);
+      const sprite = this.addUserSprite(user, message, flags);
       if (sprite) {
         sprite.displayNameText();
         sprite.displaySpeechBubble(message, extra);

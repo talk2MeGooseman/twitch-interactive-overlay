@@ -95,6 +95,12 @@ const audioFiles = [
     config: { volume: 1.0 },
     public: true,
   },
+  {
+    name: 'sadtrombone',
+    file: 'audio/sadtrombone.mp3',
+    config: { volume: 1.0 },
+    public: true,
+  },
 ];
 
 /**
