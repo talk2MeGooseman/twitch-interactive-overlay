@@ -10,6 +10,8 @@ import ChatCommander, { COMMANDS } from '@/objects/ChatCommander';
 import { addSoundToScene, playAudio } from '../helpers/audioFactory';
 import { getUrlParam } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
+import { clear } from '@/helpers/PersistedStorage';
+import { debug } from '../config';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -212,6 +214,7 @@ export default class Game extends Phaser.Scene {
   }
 
   collectCoin(coinSprite, userSprite) {
+    userSprite.coinCollected(coinSprite.amount);
     coinSprite.grabbed();
   }
 
@@ -232,10 +235,9 @@ export default class Game extends Phaser.Scene {
         sprite1.sendFlyingOnCollide();
       }
     } else if (sprite1.type === 'ball' && sprite2.type === 'user') {
-      sprite2.sendFlyingOnCollide();
+      sprite2.sendFlyingOnCollide({ skeleton: true });
     }
   }
-
 
   displayControls() {
     let commands = ['~~CONTROLS~~'];
@@ -251,5 +253,9 @@ export default class Game extends Phaser.Scene {
       callback: () => box.destroy(),
       loop: false,
     });
+  }
+
+  clearBrowserStorage() {
+    clear();
   }
 }

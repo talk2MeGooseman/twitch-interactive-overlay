@@ -35,10 +35,20 @@ export const COMMANDS = [
     event: 'userChatAction',
   },
   {
+    command: 'coins',
+    method: 'sayCoinsCount',
+    event: 'userChatAction',
+  },
+  {
     command: 'wave',
     method: 'waveJump',
     event: 'userChatAction',
     applyAll: true,
+  },
+  {
+    command: 'lurk',
+    method: 'lurk',
+    event: 'userChatAction',
   },
   {
     command: 'princess',
@@ -79,8 +89,14 @@ export const COMMANDS = [
     private: true,
   },
   {
-    command: 'coins',
+    command: 'addcoins',
     method: 'simulateCheer',
+    event: 'sceneEvent',
+    private: true,
+  },
+  {
+    command: 'clearCoins',
+    method: 'clearBrowserStorage',
     event: 'sceneEvent',
     private: true,
   },
@@ -92,7 +108,7 @@ export default class ChatCommander {
   }
 
   handler(command, user, message, flags) {
-    const foundCommand = COMMANDS.find((c) => ( c.command === command ));
+    const foundCommand = COMMANDS.find((c) => ( c.command.toLowerCase() === command.toLowerCase() ));
 
     if (!foundCommand) return;
     if (!foundCommand.event) {

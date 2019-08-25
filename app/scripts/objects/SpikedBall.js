@@ -15,7 +15,6 @@ export default class SpikedBall extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
 
     this.body.setCollideWorldBounds(true);
-    this.body.immovable = true;
 
     this.setOrigin(0.5);
     // this.setScale(3);
@@ -34,6 +33,7 @@ export default class SpikedBall extends Phaser.GameObjects.Sprite {
    *  Increment the angle smoothly.
    */
   update() {
+    this.body.setImmovable(true);
     let rotation = 0.05;
 
     if (this.body.velocity.x < 0) {

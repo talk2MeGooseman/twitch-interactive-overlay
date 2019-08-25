@@ -10,7 +10,8 @@ export default class BlueGem extends Phaser.GameObjects.Sprite {
 
     super(scene, x, 0, 'items', 'gems/blue/frame0000.png');
 
-    this.type = 'bit';
+    this.type = 'blue_gem';
+    this.amount = 100;
 
     scene.physics.world.enable(this);
     scene.add.existing(this);

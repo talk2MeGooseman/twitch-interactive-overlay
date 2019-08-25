@@ -6,6 +6,7 @@ import {
 } from '@/helpers/phaserHelpers';
 import SpeechBubble from '@/objects/SpeechBubble';
 import userSpriteHelpers from '@/helpers/userSpriteHelpers';
+import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -77,6 +78,8 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.spinEnabled = false;
     this.isDead = false;
     this.running = false;
+    /** If the sprite is not touching the ground then it should be a skeleton */
+    this.knitCodeMonkeyState = false;
 
     this.setSize(100, 200, true);
     this.setOrigin(0.5);
@@ -108,6 +111,52 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
         func.call(this, message, flags);
       }
     }
+  }
+
+  update() {
+    const xSpeed = Math.abs(this.body.velocity.x);
+    const ySpeed = Math.abs(this.body.velocity.y);
+
+    if (this.isDead) {
+      this.body.setVelocity(0, 300);
+      this.selectAnimation();
+      return;
+    }
+
+    if (this.knitCodeMonkeyState && this.body.onFloor()) {
+      this.knitCodeMonkeyState = false;
+      this.changeCharacter(this.ogCharacter);
+    }
+
+    if (isSomethingOnTop(this)) {
+      let x = V_WALK;
+      if (this.flipX) {
+        x *= -1;
+      }
+      this.body.setVelocity(x, V_JUMP);
+    }
+
+    if (this.spinEnabled) {
+      const v = this.flipX ? -300 : 300;
+      this.body.setAngularAcceleration(v);
+    } else {
+      this.body.setAngularAcceleration(0);
+      this.setRotation(0);
+    }
+
+    if (this.running) {
+      let x = V_RUN;
+      if (this.flipX) {
+        x *= -1;
+      }
+
+      this.body.setVelocityX(x);
+    }
+
+    this.selectAnimation(xSpeed, ySpeed);
+    this.lookInWalkingDirection();
+
+    this.moveText();
   }
 
   waveJump() {
@@ -218,8 +267,13 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     }
   }
 
-  sendFlyingOnCollide() {
+  sendFlyingOnCollide({ skeleton }) {
     this.body.setVelocityY(V_JUMP * 2);
+    if (skeleton && !this.knitCodeMonkeyState) {
+      this.knitCodeMonkeyState = true;
+      this.ogCharacter = this.character;
+      this.changeCharacter('princess');
+    }
   }
 
   makeDbag() {
@@ -296,46 +350,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     );
   }
 
-  update() {
-    const xSpeed = Math.abs(this.body.velocity.x);
-    const ySpeed = Math.abs(this.body.velocity.y);
-
-    if (this.isDead) {
-      this.body.setVelocity(0, 300);
-      this.selectAnimation();
-      return;
-    }
-
-    if (isSomethingOnTop(this)) {
-      let x = V_WALK;
-      if (this.flipX) {
-        x *= -1;
-      }
-      this.body.setVelocity(x, V_JUMP);
-    }
-
-    if (this.spinEnabled) {
-      const v = this.flipX ? -300 : 300;
-      this.body.setAngularAcceleration(v);
-    } else {
-      this.body.setAngularAcceleration(0);
-      this.setRotation(0);
-    }
-
-    if (this.running) {
-      let x = V_RUN;
-      if (this.flipX) {
-        x *= -1;
-      }
-
-      this.body.setVelocityX(x);
-    }
-
-    this.selectAnimation(xSpeed, ySpeed);
-    this.lookInWalkingDirection();
-
-    this.moveText();
-  }
 
   moveText() {
     const yPosition = this.y - this.height * 0.5;
@@ -385,6 +399,22 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.setFlipX(flip);
   }
 
+  sayCoinsCount() {
+    const coins = getUserIntItem(this, 'coins') || 0;
+    this.displaySpeechBubble(`I have ${coins} coins :)`, null, 10000);
+  }
+
+  coinCollected(amount) {
+    let coins = getUserIntItem(this, 'coins') || 0;
+    coins += amount;
+    setUserItem(this, 'coins', coins);
+  }
+
+  lurk() {
+    this.displaySpeechBubble('lurk sha sha');
+    this.removeNameTag();
+  }
+
   remove() {
     this.isDead = true;
 
@@ -401,15 +431,24 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
           );
           this._timers.map(t => t.destroy());
 
-          if (this.nameText) {
-            this.scene.nameTextGroup.remove(this.nameText);
-            this.nameText.destroy();
-          }
+          this.removeNameTag();
           this.destroy();
         },
         [],
         this
       )
     );
+  }
+
+  /**
+   * Remove the name tag above the sprites head
+   *
+   * @memberof UserSprite
+   */
+  removeNameTag() {
+    if (this.nameText) {
+      this.scene.nameTextGroup.remove(this.nameText);
+      this.nameText.destroy();
+    }
   }
 }

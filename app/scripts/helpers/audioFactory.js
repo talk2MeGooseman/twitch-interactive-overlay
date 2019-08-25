@@ -101,6 +101,12 @@ const audioFiles = [
     config: { volume: 1.0 },
     public: true,
   },
+  {
+    name: 'slack',
+    file: 'audio/slack-ping.mp3',
+    config: { volume: 1.0 },
+    public: true,
+  },
 ];
 
 /**
