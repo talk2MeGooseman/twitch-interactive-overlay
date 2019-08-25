@@ -235,8 +235,7 @@ export default class Game extends Phaser.Scene {
         sprite1.sendFlyingOnCollide();
       }
     } else if (sprite1.type === 'ball' && sprite2.type === 'user') {
-      debugger;
-      sprite2.sendFlyingOnCollide();
+      sprite2.sendFlyingOnCollide({ skeleton: true });
     }
   }
 
