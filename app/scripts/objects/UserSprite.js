@@ -124,7 +124,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     }
 
     if (this.knitCodeMonkeyState && this.body.onFloor()) {
-      debugger;
       this.knitCodeMonkeyState = false;
       this.changeCharacter(this.ogCharacter);
     }
