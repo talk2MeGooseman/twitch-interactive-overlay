@@ -10,6 +10,7 @@ export default class Coin extends Phaser.GameObjects.Sprite {
     super(scene, x, 0, 'items', 'coin/0001.png');
 
     this.type = 'bit';
+    this.amount = 1;
 
     scene.physics.world.enable(this);
     scene.add.existing(this);

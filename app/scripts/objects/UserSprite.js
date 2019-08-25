@@ -6,6 +6,7 @@ import {
 } from '@/helpers/phaserHelpers';
 import SpeechBubble from '@/objects/SpeechBubble';
 import userSpriteHelpers from '@/helpers/userSpriteHelpers';
+import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -383,6 +384,18 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     let flip = this.body.velocity.x < 0;
     this.setFlipX(flip);
+  }
+
+
+  sayCoinsCount() {
+    const coins = getUserIntItem(this, 'coins') || 0;
+    this.displaySpeechBubble(`I have ${coins} coins :)`, null, 10000);
+  }
+
+  coinCollected(amount) {
+    let coins = getUserIntItem(this, 'coins') || 0;
+    coins += amount;
+    setUserItem(this, 'coins', coins);
   }
 
   remove() {

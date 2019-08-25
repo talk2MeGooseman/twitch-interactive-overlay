@@ -9,7 +9,8 @@ export default class RedGem extends Phaser.GameObjects.Sprite {
     const x = Phaser.Math.Between(0, 3000);
     super(scene, x, 0, 'items', 'gems/red/frame0000.png');
 
-    this.type = 'bit';
+    this.type = 'red_gem';
+    this.amount = 500;
 
     scene.physics.world.enable(this);
     scene.add.existing(this);

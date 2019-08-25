@@ -10,6 +10,7 @@ import ChatCommander, { COMMANDS } from '@/objects/ChatCommander';
 import { addSoundToScene, playAudio } from '../helpers/audioFactory';
 import { getUrlParam } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
+import { clear } from '@/helpers/PersistedStorage';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -212,6 +213,7 @@ export default class Game extends Phaser.Scene {
   }
 
   collectCoin(coinSprite, userSprite) {
+    userSprite.coinCollected(coinSprite.amount);
     coinSprite.grabbed();
   }
 
@@ -236,7 +238,6 @@ export default class Game extends Phaser.Scene {
     }
   }
 
-
   displayControls() {
     let commands = ['~~CONTROLS~~'];
     COMMANDS.forEach(c => {
@@ -251,5 +252,9 @@ export default class Game extends Phaser.Scene {
       callback: () => box.destroy(),
       loop: false,
     });
+  }
+
+  clearBrowserStorage() {
+    clear();
   }
 }
