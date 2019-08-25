@@ -46,6 +46,11 @@ export const COMMANDS = [
     applyAll: true,
   },
   {
+    command: 'lurk',
+    method: 'lurk',
+    event: 'userChatAction',
+  },
+  {
     command: 'princess',
     method: 'changeCharacter',
     event: 'userChatAction',

@@ -386,7 +386,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.setFlipX(flip);
   }
 
-
   sayCoinsCount() {
     const coins = getUserIntItem(this, 'coins') || 0;
     this.displaySpeechBubble(`I have ${coins} coins :)`, null, 10000);
@@ -396,6 +395,11 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     let coins = getUserIntItem(this, 'coins') || 0;
     coins += amount;
     setUserItem(this, 'coins', coins);
+  }
+
+  lurk() {
+    this.displaySpeechBubble('lurk sha sha');
+    this.removeNameTag();
   }
 
   remove() {
@@ -414,15 +418,24 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
           );
           this._timers.map(t => t.destroy());
 
-          if (this.nameText) {
-            this.scene.nameTextGroup.remove(this.nameText);
-            this.nameText.destroy();
-          }
+          this.removeNameTag();
           this.destroy();
         },
         [],
         this
       )
     );
+  }
+
+  /**
+   * Remove the name tag above the sprites head
+   *
+   * @memberof UserSprite
+   */
+  removeNameTag() {
+    if (this.nameText) {
+      this.scene.nameTextGroup.remove(this.nameText);
+      this.nameText.destroy();
+    }
   }
 }
