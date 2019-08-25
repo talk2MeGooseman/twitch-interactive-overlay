@@ -11,6 +11,7 @@ import { addSoundToScene, playAudio } from '../helpers/audioFactory';
 import { getUrlParam } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
 import { clear } from '@/helpers/PersistedStorage';
+import { debug } from '../config';
 
 // giftsub VIA robertables - lurking_kat
 // Resub - DannyKampsGamez
@@ -234,6 +235,7 @@ export default class Game extends Phaser.Scene {
         sprite1.sendFlyingOnCollide();
       }
     } else if (sprite1.type === 'ball' && sprite2.type === 'user') {
+      debugger;
       sprite2.sendFlyingOnCollide();
     }
   }
