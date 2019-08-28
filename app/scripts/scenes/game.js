@@ -230,9 +230,9 @@ export default class Game extends Phaser.Scene {
   onCollision(sprite1, sprite2) {
     if (sprite1.type === 'user' && sprite2.type === 'user') {
       if (sprite1.body.immovable) {
-        sprite2.sendFlyingOnCollide();
+        sprite2.sendFlyingOnCollide({});
       } else if (sprite2.body.immovable) {
-        sprite1.sendFlyingOnCollide();
+        sprite1.sendFlyingOnCollide({});
       }
     } else if (sprite1.type === 'ball' && sprite2.type === 'user') {
       sprite2.sendFlyingOnCollide({ skeleton: true });
