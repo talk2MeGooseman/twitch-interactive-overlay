@@ -272,7 +272,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     if (skeleton && !this.knitCodeMonkeyState) {
       this.knitCodeMonkeyState = true;
       this.ogCharacter = this.character;
-      this.changeCharacter('princess');
+      this.changeCharacter('skeleton');
     }
   }
 

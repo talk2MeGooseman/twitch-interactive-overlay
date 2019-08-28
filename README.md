@@ -1,6 +1,18 @@
 # [Twitch Interactive Chat Overlay](https://example.com/)
 
-![Screenshot](screenshot.png)
+![Screenshot](preview.png)
+
+---
+
+# How do I use the overlay on my stream?
+
+Adding the overlay to your stream is super simple!
+
+1. Add the following link as you browser source to your streaming software (like OBS): [https://talk2megooseman.github.io/twitch-interactive-overlay/?channel=YOUR_CHANNEL_NAME_HERE](https://talk2megooseman.github.io/twitch-interactive-overlay?channel=YOUR_CHANNEL_NAME_HERE)
+
+2. Change the YOUR_CHANNEL_NAME_HERE in the url to match your channel's name like the following: https://talk2megooseman.github.io/twitch-interactive-overlay/?channel=talk2megooseman
+
+3. Now the overlay will connect to your channel, use !controls to see the latest commands
 
 ---
 
