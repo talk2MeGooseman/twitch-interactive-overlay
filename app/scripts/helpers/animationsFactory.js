@@ -3,6 +3,7 @@ const CHARACTERS = [
   'princess',
   'knight',
   'wizard_2',
+  'skeleton',
 ];
 
 function createWalkingAnimation(character, scene) {
