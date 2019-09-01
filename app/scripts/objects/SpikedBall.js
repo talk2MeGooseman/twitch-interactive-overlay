@@ -38,9 +38,9 @@ export default class SpikedBall extends Phaser.GameObjects.Sprite {
 
     if (this.body.velocity.x < 0) {
       rotation *= -1;
-      this.body.velocity.x = -100;
+      this.body.velocity.x = -150;
     } else {
-      this.body.velocity.x = 100;
+      this.body.velocity.x = 150;
     }
     this.rotation += rotation;
   }

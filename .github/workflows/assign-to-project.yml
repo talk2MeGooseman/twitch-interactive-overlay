@@ -1,0 +1,13 @@
+on: issues
+name: Add a new GitHub issue to Project board
+jobs:
+  add-issues-to-project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: add-issues-to-project
+      uses: ./
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROJECT_COLUMN_NAME: Requests/Ideas
+        PROJECT_NAME: TODOS
