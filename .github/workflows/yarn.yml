@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,11 +18,6 @@ jobs:
         yarn install
         yarn lint
 
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Build Release
       if: github.ref == 'refs/heads/master'
       run: |
