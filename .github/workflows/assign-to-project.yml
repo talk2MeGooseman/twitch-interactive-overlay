@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: add-issues-to-project
-      uses: ./
+      uses: takanabe/add-new-issues-to-project-column@v0.0.3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROJECT_COLUMN_NAME: Requests/Ideas
