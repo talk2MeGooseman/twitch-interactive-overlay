@@ -3,6 +3,13 @@
 ![Screenshot](preview.png)
 
 ---
+# Features:
+- All users in your chat get their own sprite
+- Only users the talk in chat will have their names displayed
+- Connect to any Twitch channel
+- Reacts to cheer, sub and resub events
+- Requires no server
+
 
 # How do I use the overlay on my stream?
 
@@ -12,7 +19,7 @@ Adding the overlay to your stream is super simple!
 
 2. Change the YOUR_CHANNEL_NAME_HERE in the url to match your channel's name like the following: https://talk2megooseman.github.io/twitch-interactive-overlay/?channel=talk2megooseman
 
-3. Now the overlay will connect to your channel, use !controls to see the latest commands
+3. Type `!commands` to see a list of commands on screen
 
 ---
 
