@@ -80,7 +80,7 @@ export function renderText(
  * @param {string} anim
  */
 export function setSpriteAnimation(sprite, anim) {
-  if (sprite.anims.currentAnim.key !== anim) {
+  if (anim && (sprite.anims.currentAnim.key !== anim)) {
     sprite.anims.play(anim);
   }
 }

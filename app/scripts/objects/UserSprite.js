@@ -114,9 +114,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   update() {
-    const xSpeed = Math.abs(this.body.velocity.x);
-    const ySpeed = Math.abs(this.body.velocity.y);
-
     if (this.isDead) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();
@@ -153,7 +150,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(x);
     }
 
-    this.selectAnimation(xSpeed, ySpeed);
+    this.selectAnimation();
     this.lookInWalkingDirection();
 
     this.moveText();
@@ -363,7 +360,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     }
   }
 
-  selectAnimation(xSpeed, ySpeed) {
+  selectAnimation() {
+    const xSpeed = Math.abs(this.body.velocity.x);
+    const ySpeed = Math.abs(this.body.velocity.y);
+
     let anim;
     if (this.isDead) {
       anim = `${this.character}_die`;
@@ -371,19 +371,18 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       return;
     }
 
-    if (ySpeed > 50 && !this.body.onFloor()) {
+    if (xSpeed > 0 && xSpeed < RUN_THRESHOLD) {
+      anim = `${this.character}_walk`;
+    } else if (xSpeed >= RUN_THRESHOLD) {
+      anim = `${this.character}_run`;
+    }
+
+    if (!this.body.onFloor() && ySpeed > 50) {
       anim = `${this.character}_jump`;
     }
-    if (ySpeed < 50) {
-      if (xSpeed > 0 && xSpeed < RUN_THRESHOLD) {
-        anim = `${this.character}_walk`;
-      } else if (xSpeed >= RUN_THRESHOLD) {
-        anim = `${this.character}_run`;
-      }
-    }
-    if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
-      this.anims.stop();
-      this.setFrame(this.stillFrame);
+
+    if (!anim && this.body.onFloor()) {
+      anim = `${this.character}_standing`;
     }
 
     setSpriteAnimation(this, anim);

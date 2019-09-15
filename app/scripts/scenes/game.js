@@ -7,7 +7,11 @@ import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 import { buildExplosion } from '@/helpers/particleFactory';
 import TextBox from '@/objects/TextBox';
 import ChatCommander, { COMMANDS } from '@/objects/ChatCommander';
-import { addSoundToScene, playAudio } from '../helpers/audioFactory';
+import {
+  addSoundToScene,
+  playAudio,
+  AUDIO_COMMANDS,
+} from '../helpers/audioFactory';
 import { getUrlParam } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
 import { clear } from '@/helpers/PersistedStorage';
@@ -131,14 +135,20 @@ export default class Game extends Phaser.Scene {
 
   initComfy() {
     const channel = getUrlParam('channel') || 'talk2megooseman';
-    ComfyJS.Init(channel);
+    ComfyJS.Init(channel, null, [channel]);
 
     ComfyJS.onCommand = (user, command, message, flags) => {
       this.chatCommander.handler(command, user, message, flags);
       playAudio(this, command, flags);
     };
 
-    ComfyJS.onJoin = (user, self) => this.addUserSprite(user);
+    ComfyJS.onJoin = (user, self) => {
+      if (this.userGroup.getChildren().length >= 40) {
+        return;
+      }
+
+      this.addUserSprite(user);
+    };
 
     ComfyJS.onPart = user => userSpriteHelpers.userParted(this.userGroup, user);
 
@@ -240,13 +250,49 @@ export default class Game extends Phaser.Scene {
   }
 
   displayControls() {
-    let commands = ['~~CONTROLS~~'];
-    COMMANDS.forEach(c => {
-      if (c.private)
-        return;
+    let commands = ['~~ CONTROLS ~~'];
+
+    let clonedCommands = Array.from(COMMANDS);
+    clonedCommands.sort(this.sort);
+
+    clonedCommands.forEach(c => {
+      if (c.private) return;
       commands.push('!' + c.command);
     });
-    const box = new TextBox(this, 10, 10, 300, commands.length * 35, commands.join('\n'));
+    const box = new TextBox(
+      this,
+      10,
+      10,
+      300,
+      commands.length * 35,
+      commands.join('\n')
+    );
+
+    this.time.addEvent({
+      delay: 20 * 1000,
+      callback: () => box.destroy(),
+      loop: false,
+    });
+  }
+
+  displayAudioCommands() {
+    let commands = ['~~ AUDIO ~~'];
+
+    let clonedCommands = Array.from(AUDIO_COMMANDS);
+    clonedCommands.sort(this.sort);
+
+    clonedCommands.forEach(c => {
+      if (c.private) return;
+      commands.push('!' + c.command);
+    });
+    const box = new TextBox(
+      this,
+      10,
+      10,
+      300,
+      commands.length * 35,
+      commands.join('\n')
+    );
 
     this.time.addEvent({
       delay: 20 * 1000,
@@ -257,5 +303,17 @@ export default class Game extends Phaser.Scene {
 
   clearBrowserStorage() {
     clear();
+  }
+
+  sort(a, b) {
+    var nameA = a.command.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.command.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
   }
 }

@@ -83,6 +83,11 @@ export const COMMANDS = [
     event: 'sceneEvent',
   },
   {
+    command: 'audio',
+    method: 'displayAudioCommands',
+    event: 'sceneEvent',
+  },
+  {
     command: 'subs',
     method: 'subCelebrate',
     event: 'sceneEvent',
