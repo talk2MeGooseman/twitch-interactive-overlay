@@ -98,6 +98,11 @@ export const AUDIO_COMMANDS = [
     file: 'audio/slack-ping.mp3',
     config: { volume: 1.0 },
   },
+  {
+    command: 'doh',
+    file: 'audio/doh.mp3',
+    config: { volume: 0.15 },
+  },
 ];
 
 /**
