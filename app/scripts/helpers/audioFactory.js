@@ -101,7 +101,7 @@ export const AUDIO_COMMANDS = [
   {
     command: 'sandiego',
     file: 'audio/sandiego.mp3',
-    config: { volume: 0.8 },
+    config: { volume: 0.75 },
   }
 ];
 
