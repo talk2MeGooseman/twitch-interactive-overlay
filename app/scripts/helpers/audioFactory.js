@@ -134,7 +134,7 @@ export function addSoundToScene(scene) {
   AUDIO_COMMANDS.forEach((audio) => {
     Array.isArray(audio.command)
       ? audio.command.forEach(cmd => scene.sound.add(cmd, audio.config))
-      : scene.sound.add(audio.command, audio.config)
+      : scene.sound.add(audio.command, audio.config);
   });
 }
 
