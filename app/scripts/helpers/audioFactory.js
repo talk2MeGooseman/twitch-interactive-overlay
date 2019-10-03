@@ -54,7 +54,7 @@ export const AUDIO_COMMANDS = [
     config: { volume: 0.1 },
   },
   {
-    command: 'quack',
+    command: ['quack', 'honk'],
     file: 'audio/quack.wav',
     config: { volume: 0.2 },
   },
@@ -117,7 +117,11 @@ export const AUDIO_COMMANDS = [
  * @param {Phaser.Scene} scene
  */
 export function loadAudio(scene) {
-  AUDIO_COMMANDS.map((audio) => scene.load.audio(audio.command, audio.file) );
+  AUDIO_COMMANDS.forEach((audio) => {
+    Array.isArray(audio.command)
+      ? audio.command.forEach(cmd => scene.load.audio(cmd, audio.file))
+      : scene.load.audio(audio.command, audio.file);
+  });
 }
 
 /**
@@ -127,7 +131,11 @@ export function loadAudio(scene) {
  * @param {Phaser.Scene} scene
  */
 export function addSoundToScene(scene) {
-  AUDIO_COMMANDS.map((audio) => scene.sound.add(audio.command, audio.config) );
+  AUDIO_COMMANDS.forEach((audio) => {
+    Array.isArray(audio.command)
+      ? audio.command.forEach(cmd => scene.sound.add(cmd, audio.config))
+      : scene.sound.add(audio.command, audio.config)
+  });
 }
 
 /**
@@ -136,13 +144,15 @@ export function addSoundToScene(scene) {
  *
  * @export
  * @param {Phaser.Scene} scene
- * @param {string} command
+ * @param {string|string[]} command
  * @param {Object} flags
  * @returns
  */
 export function playAudio(scene, command, flags) {
   const audio = AUDIO_COMMANDS.find((a) => {
-    return a.command === command;
+    return Array.isArray(a.command)
+      ? a.command.some(cmd => cmd === command)
+      : a.command === command;
   });
 
   if (!audio) {
