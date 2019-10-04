@@ -104,6 +104,11 @@ export const AUDIO_COMMANDS = [
     config: { volume: 1.0 },
   },
   {
+    command: 'doh',
+    file: 'audio/doh.mp3',
+    config: { volume: 0.10 },
+  },
+  {
     command: 'sandiego',
     file: 'audio/sandiego.mp3',
     config: { volume: 0.75 },
