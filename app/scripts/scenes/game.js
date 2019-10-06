@@ -12,7 +12,7 @@ import {
   playAudio,
   AUDIO_COMMANDS,
 } from '../helpers/audioFactory';
-import { getUrlParam } from '@/helpers/phaserHelpers';
+import { getUrlParam, sortAlphabetically, extractCommands } from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
 import { clear } from '@/helpers/PersistedStorage';
 import { debug } from '../config';
@@ -140,6 +140,13 @@ export default class Game extends Phaser.Scene {
     ComfyJS.onCommand = (user, command, message, flags) => {
       this.chatCommander.handler(command, user, message, flags);
       playAudio(this, command, flags);
+
+      const chainedCommands = extractCommands(message);
+      chainedCommands.forEach((extraCommand) => {
+        this.chatCommander.handler(extraCommand, user, message, flags);
+        playAudio(this, extraCommand, flags);
+      });
+
     };
 
     ComfyJS.onJoin = (user, self) => {
@@ -250,48 +257,31 @@ export default class Game extends Phaser.Scene {
   }
 
   displayControls() {
-    let commands = ['~~ CONTROLS ~~'];
-
-    let clonedCommands = Array.from(COMMANDS);
-    clonedCommands.sort(this.sort);
-
-    clonedCommands.forEach(c => {
-      if (c.private) return;
-      commands.push('!' + c.command);
-    });
-    const box = new TextBox(
-      this,
-      10,
-      10,
-      300,
-      commands.length * 35,
-      commands.join('\n')
-    );
-
-    this.time.addEvent({
-      delay: 20 * 1000,
-      callback: () => box.destroy(),
-      loop: false,
-    });
+    this.displayTextbox('~~ CONTROLS ~~', COMMANDS);
   }
 
   displayAudioCommands() {
-    let commands = ['~~ AUDIO ~~'];
+    this.displayTextbox('~~ AUDIO ~~', AUDIO_COMMANDS);
+  }
 
-    let clonedCommands = Array.from(AUDIO_COMMANDS);
-    clonedCommands.sort(this.sort);
+  displayTextbox(title, commands) {
+    let displayCollection = [title];
+
+    let clonedCommands = Array.from(commands);
+    clonedCommands.sort(sortAlphabetically);
 
     clonedCommands.forEach(c => {
       if (c.private) return;
-      commands.push('!' + c.command);
+      displayCollection.push('!' + c.command);
     });
+
     const box = new TextBox(
       this,
       10,
       10,
       300,
-      commands.length * 35,
-      commands.join('\n')
+      displayCollection.length * 35,
+      displayCollection.join('\n')
     );
 
     this.time.addEvent({
@@ -305,15 +295,4 @@ export default class Game extends Phaser.Scene {
     clear();
   }
 
-  sort(a, b) {
-    var nameA = a.command.toUpperCase(); // ignore upper and lowercase
-    var nameB = b.command.toUpperCase(); // ignore upper and lowercase
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-    return 0;
-  }
 }
