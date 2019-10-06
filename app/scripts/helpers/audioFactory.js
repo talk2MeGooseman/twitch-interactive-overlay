@@ -54,9 +54,14 @@ export const AUDIO_COMMANDS = [
     config: { volume: 0.1 },
   },
   {
-    command: ['quack', 'honk'],
+    command: 'quack',
     file: 'audio/quack.wav',
     config: { volume: 0.2 },
+  },
+  {
+    command: 'honk',
+    file: 'audio/honk.mp3',
+    config: { volume: 1 },
   },
   {
     command: 'explode',
