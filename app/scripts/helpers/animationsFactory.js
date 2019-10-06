@@ -1,5 +1,3 @@
-import { debug } from '../config';
-
 const CHARACTERS = ['peasant', 'princess', 'knight', 'wizard_2', 'skeleton'];
 
 function createStandingAnimation(character, scene) {
