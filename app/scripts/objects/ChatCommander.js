@@ -88,6 +88,11 @@ export const COMMANDS = [
     event: 'sceneEvent',
   },
   {
+    command: 'tts',
+    method: 'textToSpeech',
+    event: 'sceneEvent',
+  },
+  {
     command: 'subs',
     method: 'subCelebrate',
     event: 'sceneEvent',

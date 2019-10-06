@@ -33,7 +33,17 @@ export function sortAlphabetically(a, b) {
 
 export function extractCommands(text) {
   const commands = text.match(/!(\w+)/g);
+  if (!commands) {
+    return [];
+  }
+
   return commands.map(command => command.slice(1));
+}
+
+export function triggerTextToSpeech(message) {
+  const SPEECH_URL = "https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=" + encodeURIComponent(message);
+  const track = new Audio(SPEECH_URL);
+  track.play();
 }
 
 /**

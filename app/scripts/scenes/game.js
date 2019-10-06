@@ -12,7 +12,12 @@ import {
   playAudio,
   AUDIO_COMMANDS,
 } from '../helpers/audioFactory';
-import { getUrlParam, sortAlphabetically, extractCommands } from '@/helpers/phaserHelpers';
+import {
+  getUrlParam,
+  sortAlphabetically,
+  extractCommands,
+  triggerTextToSpeech,
+} from '@/helpers/phaserHelpers';
 import SpikedBall from '@/objects/SpikedBall';
 import { clear } from '@/helpers/PersistedStorage';
 import { debug } from '../config';
@@ -142,11 +147,10 @@ export default class Game extends Phaser.Scene {
       playAudio(this, command, flags);
 
       const chainedCommands = extractCommands(message);
-      chainedCommands.forEach((extraCommand) => {
+      chainedCommands.forEach(extraCommand => {
         this.chatCommander.handler(extraCommand, user, message, flags);
         playAudio(this, extraCommand, flags);
       });
-
     };
 
     ComfyJS.onJoin = (user, self) => {
@@ -190,6 +194,10 @@ export default class Game extends Phaser.Scene {
 
   simulateCheer(user, message) {
     this.bitTotal += message;
+  }
+
+  textToSpeech(user, message) {
+    triggerTextToSpeech(message);
   }
 
   triggerFireworks() {
@@ -294,5 +302,4 @@ export default class Game extends Phaser.Scene {
   clearBrowserStorage() {
     clear();
   }
-
 }
