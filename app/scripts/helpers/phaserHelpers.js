@@ -12,6 +12,41 @@ export function getUrlParam(param) {
 }
 
 /**
+ * Sort helper: Alphabetize a collection
+ *
+ * @export
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+export function sortAlphabetically(a, b) {
+  var nameA = a.command.toUpperCase(); // ignore upper and lowercase
+  var nameB = b.command.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  return 0;
+}
+
+export function extractCommands(text) {
+  const commands = text.match(/!(\w+)/g);
+  if (!commands) {
+    return [];
+  }
+
+  return commands.map(command => command.slice(1));
+}
+
+export function triggerTextToSpeech(message) {
+  const SPEECH_URL = 'https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=' + encodeURIComponent(message);
+  const track = new Audio(SPEECH_URL);
+  track.play();
+}
+
+/**
  * Returns boolean if sprite has velocity > 0
  *
  * @export
