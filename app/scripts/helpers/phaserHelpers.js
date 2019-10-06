@@ -41,7 +41,7 @@ export function extractCommands(text) {
 }
 
 export function triggerTextToSpeech(message) {
-  const SPEECH_URL = "https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=" + encodeURIComponent(message);
+  const SPEECH_URL = 'https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=' + encodeURIComponent(message);
   const track = new Audio(SPEECH_URL);
   track.play();
 }
