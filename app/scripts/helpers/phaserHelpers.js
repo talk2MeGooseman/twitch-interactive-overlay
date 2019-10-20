@@ -41,7 +41,9 @@ export function extractCommands(text) {
 }
 
 export function triggerTextToSpeech(message) {
-  const SPEECH_URL = 'https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=' + encodeURIComponent(message);
+  const SPEECH_URL =
+    'https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=' +
+    encodeURIComponent(message);
   const track = new Audio(SPEECH_URL);
   track.play();
 }
@@ -115,7 +117,44 @@ export function renderText(
  * @param {string} anim
  */
 export function setSpriteAnimation(sprite, anim) {
-  if (anim && (sprite.anims.currentAnim.key !== anim)) {
+  if (anim && sprite.anims.currentAnim.key !== anim) {
     sprite.anims.play(anim);
   }
+}
+
+/**
+ * Returns boolean to indicate with user is a premium user
+ *
+ * @export
+ * @param {object} flags
+ * @returns {boolean}
+ */
+export function isPremiumUser(flags) {
+  return flags.broadcaster || flags.mod || flags.subscriber || flags.vip;
+}
+
+/**
+ * Returns boolean if the user can trigger the command based off of permissions
+ * or cool down timing
+ *
+ * @export
+ * @param {Object} commandObj
+ * @param {Number} lastTimeUserUsed
+ * @param {object} flags
+ * @returns
+ */
+export function canTriggerCommand(commandObj, flags, lastTimeUserUsed = 0) {
+  const isPremium = isPremiumUser(flags);
+
+  if (flags.broadcaster) {
+    return true;
+  }
+
+  if (commandObj.private) {
+    return false;
+  }
+
+  return (
+    isPremium || ((commandObj.coolDown <= lastTimeUserUsed) || (lastTimeUserUsed === 0))
+  );
 }

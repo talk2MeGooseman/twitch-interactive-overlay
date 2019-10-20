@@ -142,14 +142,16 @@ export default class Game extends Phaser.Scene {
     const channel = getUrlParam('channel') || 'talk2megooseman';
     ComfyJS.Init(channel, null, [channel]);
 
-    ComfyJS.onCommand = (user, command, message, flags) => {
-      this.chatCommander.handler(command, user, message, flags);
-      playAudio(this, command, flags);
+    ComfyJS.onCommand = (user, command, message, flags, extra) => {
+      this.chatCommander.handler(command, user, message, flags, extra);
 
+      playAudio(this, command, flags, extra);
+
+      // Support multiple commands
       const chainedCommands = extractCommands(message);
       chainedCommands.forEach(extraCommand => {
-        this.chatCommander.handler(extraCommand, user, message, flags);
-        playAudio(this, extraCommand, flags);
+        this.chatCommander.handler(extraCommand, user, message, flags, extra);
+        playAudio(this, extraCommand, flags, extra);
       });
     };
 

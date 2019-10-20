@@ -1,3 +1,5 @@
+import { canTriggerCommand } from './phaserHelpers';
+
 export const AUDIO_COMMANDS = [
   {
     command: 'raid_alert',
@@ -158,7 +160,8 @@ export function addSoundToScene(scene) {
  * @param {Object} flags
  * @returns
  */
-export function playAudio(scene, command, flags) {
+export function playAudio(scene, command, flags, extra) {
+  const userLastUsedCommand = extra.sinceLastCommand.user;
   const audio = AUDIO_COMMANDS.find((a) => {
     return Array.isArray(a.command)
       ? a.command.some(cmd => cmd === command)
@@ -169,7 +172,7 @@ export function playAudio(scene, command, flags) {
     return;
   }
 
-  if (flags.broadcaster || !audio.private) {
+  if (canTriggerCommand(audio, flags, userLastUsedCommand)) {
     scene.sound.play(command, audio.config);
   }
 }

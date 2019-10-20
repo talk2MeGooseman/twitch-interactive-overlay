@@ -1,3 +1,5 @@
+import { canTriggerCommand } from '../helpers/phaserHelpers';
+
 export const COMMANDS = [
   {
     command: 'run',
@@ -21,7 +23,7 @@ export const COMMANDS = [
   },
   {
     command: 'die',
-    method: 'remove' ,
+    method: 'remove',
     event: 'userChatAction',
   },
   {
@@ -54,13 +56,13 @@ export const COMMANDS = [
     command: 'princess',
     method: 'changeCharacter',
     event: 'userChatAction',
-    args: ['princess']
+    args: ['princess'],
   },
   {
     command: 'wizard',
     method: 'changeCharacter',
     event: 'userChatAction',
-    args: ['wizard_2']
+    args: ['wizard_2'],
   },
   {
     command: 'join',
@@ -91,6 +93,7 @@ export const COMMANDS = [
     command: 'tts',
     method: 'textToSpeech',
     event: 'sceneEvent',
+    coolDown: 30000,
   },
   {
     command: 'subs',
@@ -117,25 +120,26 @@ export default class ChatCommander {
     this.scene = scene;
   }
 
-  handler(command, user, message, flags) {
-    const foundCommand = COMMANDS.find((c) => ( c.command.toLowerCase() === command.toLowerCase() ));
+  handler(command, user, message, flags, extra) {
+    const foundCommand = COMMANDS.find(
+      c => c.command.toLowerCase() === command.toLowerCase()
+    );
+    const userLastUsedCommand = extra.sinceLastCommand.user;
 
     if (!foundCommand) return;
     if (!foundCommand.event) {
       throw new Error('Must provide event name');
     }
 
-    if (foundCommand.private && !flags.broadcaster) {
-      return;
+    if (canTriggerCommand(foundCommand, flags, userLastUsedCommand)) {
+      this.scene.events.emit(foundCommand.event, {
+        user,
+        message,
+        flags,
+        method: foundCommand.method,
+        args: foundCommand.args,
+        applyAll: foundCommand.applyAll,
+      });
     }
-
-    this.scene.events.emit(foundCommand.event, {
-      user,
-      message,
-      flags,
-      method: foundCommand.method,
-      args: foundCommand.args,
-      applyAll: foundCommand.applyAll
-    });
   }
 }
