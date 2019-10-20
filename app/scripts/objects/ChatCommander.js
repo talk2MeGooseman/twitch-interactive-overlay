@@ -59,6 +59,12 @@ export const COMMANDS = [
     args: ['princess'],
   },
   {
+    command: 'pirate',
+    method: 'changeCharacter',
+    event: 'userChatAction',
+    args: ['pirate']
+  },
+  {
     command: 'wizard',
     method: 'changeCharacter',
     event: 'userChatAction',
