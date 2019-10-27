@@ -1,4 +1,6 @@
-on: issues
+on: 
+  issues:
+    types: [opened]
 name: Add a new GitHub issue to Project board
 jobs:
   add-issues-to-project:
@@ -6,8 +8,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: add-issues-to-project
-      uses: takanabe/add-new-issues-to-project-column@v0.0.3
+      uses: docker://takanabe/github-actions-automate-projects:v0.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PROJECT_COLUMN_NAME: Requests/Ideas
-        PROJECT_NAME: TODOS
+        GITHUB_PROJECT_COLUMN_NAME: Requests/Ideas
+        GITHUB_PROJECT_URL: https://github.com/talk2MeGooseman/twitch-interactive-overlay/projects/1
