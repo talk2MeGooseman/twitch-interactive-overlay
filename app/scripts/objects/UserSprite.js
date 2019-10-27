@@ -134,10 +134,10 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     }
 
     if (this.spinEnabled) {
-      const v = this.flipX ? -300 : 300;
-      this.body.setAngularAcceleration(v);
+      const v = this.flipX ? -600 : 600;
+      this.body.setAngularVelocity(v);
     } else {
-      this.body.setAngularAcceleration(0);
+      this.body.setAngularVelocity(0);
       this.setRotation(0);
     }
 
