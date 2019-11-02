@@ -1,4 +1,4 @@
-name: Yarn CI
+name: Deploy
 
 on: [push]
 
@@ -15,7 +15,7 @@ jobs:
         version: 10.x
     - name: yarn install & lint
       run: |
-        yarn install
+        yarn install --skip-integrity-check
         yarn lint
 
     - name: Build Release
