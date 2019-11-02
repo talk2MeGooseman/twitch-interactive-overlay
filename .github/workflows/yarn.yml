@@ -15,7 +15,6 @@ jobs:
         version: 10.x
     - name: yarn install & lint
       run: |
-        rm -fr node_modules
         yarn install --skip-integrity-check
         yarn lint
 
