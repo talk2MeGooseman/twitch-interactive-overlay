@@ -15,7 +15,7 @@ jobs:
         version: 10.x
     - name: yarn install & lint
       run: |
-        yarn install --skip-integrity-check
+        yarn --skip-integrity-check
         yarn lint
 
     - name: Build Release
