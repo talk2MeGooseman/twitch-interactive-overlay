@@ -113,6 +113,18 @@ export const COMMANDS = [
     event: 'sceneEvent',
     private: true,
   },
+  {
+    command: 'raidTest',
+    method: 'raidAlert',
+    event: 'sceneEvent',
+    private: true,
+  },
+  {
+    command: 'so',
+    method: 'voiceShoutOut',
+    event: 'sceneEvent',
+    private: true,
+  },
 ];
 
 export default class ChatCommander {

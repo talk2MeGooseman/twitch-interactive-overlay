@@ -83,7 +83,7 @@ export const AUDIO_COMMANDS = [
   {
     command: 'scream',
     file: 'audio/homer-scream.mp3',
-    config: { volume: 0.1 },
+    config: { volume: 0.3 },
   },
   {
     command: 'nani',
@@ -118,7 +118,7 @@ export const AUDIO_COMMANDS = [
   {
     command: 'sandiego',
     file: 'audio/sandiego.mp3',
-    config: { volume: 0.75 },
+    config: { volume: 1.0 },
   }
 ];
 

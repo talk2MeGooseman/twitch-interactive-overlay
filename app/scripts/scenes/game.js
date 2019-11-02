@@ -183,7 +183,7 @@ export default class Game extends Phaser.Scene {
     };
 
     ComfyJS.onHosted = () => this.sound.play('hosted');
-    ComfyJS.onRaid = () => this.sound.play('raid_alert');
+    ComfyJS.onRaid = (user, viewers) => this.raidAlert(user, viewers);
     ComfyJS.onSub = () => this.subCelebrate();
     ComfyJS.onResub = () => this.subCelebrate();
     ComfyJS.onSubGift = () => this.subCelebrate();
@@ -192,7 +192,16 @@ export default class Game extends Phaser.Scene {
       this.sound.play('victory_short');
   }
 
-  // TODO Move to helper file
+  raidAlert(user = 'The Goose', viewers = '50') {
+    this.sound.play('raid_alert');
+    this.time.delayedCall(2500, () => {
+      triggerTextToSpeech(`raid alert, i repeat raid alert, ${user} is attacking with ${viewers} twitchers`);
+    });
+  }
+
+  voiceShoutOut(user, message) {
+    triggerTextToSpeech(`Shout Out to ${message}. They're totally awesome sauce, you should check out their stream.`);
+  }
 
   simulateCheer(user, message) {
     this.bitTotal += message;
