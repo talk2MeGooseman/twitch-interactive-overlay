@@ -9,9 +9,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: yarn install & lint
+    - name: Cache node modules
+      uses: actions/cache@preview
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    
+    - name: yarn install
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         yarn install
+        
+    - name: yarn lint
+      run: |
         yarn lint
 
     - name: Build Release
