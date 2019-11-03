@@ -13,7 +13,7 @@ jobs:
       uses: actions/cache@preview
       with:
         path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-node-
     
