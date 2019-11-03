@@ -95,4 +95,16 @@ export default class userSpriteHelpers {
   static userExists(userGroup, user) {
     return findSpriteInGroup(userGroup, sprite => sprite.user.toLowerCase() === user.toLowerCase());
   }
+
+  /**
+   * Check to see if the scenes gravity has been reversed
+   *
+   * @static
+   * @param {Phaser.Scene} scene
+   * @returns {Boolean}
+   * @memberof userSpriteHelpers
+   */
+  static isGravityReversed(scene) {
+    return scene.physics.world.gravity.y < 0;
+  }
 }

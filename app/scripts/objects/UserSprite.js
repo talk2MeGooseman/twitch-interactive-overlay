@@ -53,8 +53,12 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
    *  @extends Phaser.GameObjects.Sprite
    */
   constructor(config) {
-    const x = Phaser.Math.Between(0, 3000);
-    super(config.scene, x, 0, config.key, config.frame);
+    const totalHeight = config.scene.game.config.height;
+    const totalWidth = config.scene.game.config.width;
+    const spawnPositionY = userSpriteHelpers.isGravityReversed(config.scene) ? totalHeight : 0;
+
+    const x = Phaser.Math.Between(0, totalWidth);
+    super(config.scene, x, spawnPositionY, config.key, config.frame);
 
     config.scene.physics.world.enable(this);
     config.scene.add.existing(this);
@@ -114,6 +118,8 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   update() {
+    const gravityModifier = userSpriteHelpers.isGravityReversed(this.scene) ? -1 : 1;
+
     if (this.isDead) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();
@@ -130,7 +136,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       if (this.flipX) {
         x *= -1;
       }
-      this.body.setVelocity(x, V_JUMP);
+      this.body.setVelocity(x, V_JUMP * gravityModifier);
     }
 
     if (this.spinEnabled) {
@@ -259,13 +265,20 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   jump() {
-    if (this.body.blocked.down) {
-      this.body.setVelocityY(V_JUMP);
+    const isReversed = userSpriteHelpers.isGravityReversed(this.scene);
+
+    const gravityModifier = isReversed ? -1 : 1;
+    const canJump = isReversed ? this.body.blocked.up : this.body.blocked.down;
+
+    if (canJump) {
+      this.body.setVelocityY(V_JUMP * gravityModifier);
     }
   }
 
   sendFlyingOnCollide({ skeleton }) {
-    this.body.setVelocityY(V_JUMP * 2);
+    const gravityModifier = userSpriteHelpers.isGravityReversed(this.scene) ? -1 : 1;
+
+    this.body.setVelocityY(V_JUMP * 2 * gravityModifier);
     if (skeleton && !this.knitCodeMonkeyState) {
       this.knitCodeMonkeyState = true;
       this.ogCharacter = this.character;
@@ -346,7 +359,6 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       this.scene.time.delayedCall(20000, () => this.setScale(1), [], this)
     );
   }
-
 
   moveText() {
     const yPosition = this.y - this.height * 0.5;

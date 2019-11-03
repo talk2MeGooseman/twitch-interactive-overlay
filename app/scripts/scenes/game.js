@@ -93,6 +93,8 @@ export default class Game extends Phaser.Scene {
     this.setupAudio();
     this.chatCommander = new ChatCommander(this);
     this.events.on('sceneEvent', this.onEvent, this);
+
+    this.physics.world.gravity.y = -400;
   }
 
   setupAudio() {
