@@ -75,7 +75,12 @@ export const COMMANDS = [
     event: 'sceneEvent',
   },
   {
-    command: 'spiked_ball',
+    command: 'reverse_gravity',
+    method: 'reverseGravity',
+    event: 'sceneEvent',
+  },
+  {
+    command: 'ball',
     method: 'addSpikedBall',
     event: 'sceneEvent',
   },

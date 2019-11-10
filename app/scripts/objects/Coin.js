@@ -1,22 +1,15 @@
-export default class Coin extends Phaser.GameObjects.Sprite {
+import BaseSprite from '@/objects/BaseSprite';
+
+export default class Coin extends BaseSprite {
   /**
-   *  A simple prefab (extended game object class), displaying a spinning
-   *  Phaser 3 logo.
    *
    *  @extends Phaser.GameObjects.Sprite
    */
-  constructor(scene) {
-    const x = Phaser.Math.Between(0, 3000);
-    super(scene, x, 0, 'items', 'coin/0001.png');
+  constructor(scene, key = 'items', frame = 'coin/0001.png') {
+    super({ scene, key, frame });
 
     this.type = 'bit';
     this.amount = 1;
-
-    scene.physics.world.enable(this);
-    scene.add.existing(this);
-
-    this.body.setCollideWorldBounds(true);
-
     this.setOrigin(0.5);
   }
 

@@ -1,32 +1,23 @@
-export default class SpikedBall extends Phaser.GameObjects.Sprite {
+import BaseSprite from '@/objects/BaseSprite';
+export default class SpikedBall extends BaseSprite {
   /**
-   *  A simple prefab (extended game object class), displaying a spinning
-   *  Phaser 3 logo.
    *
-   *  @extends Phaser.GameObjects.Sprite
+   *  @extends BaseSprite
    */
   constructor(scene) {
-    const x = Phaser.Math.Between(0, 3000);
-    super(scene, x, 0, 'spiked_ball');
+    super({ scene, key: 'spiked_ball' });
 
     this.type = 'ball';
-
-    scene.physics.world.enable(this);
-    scene.add.existing(this);
-
     this.body.setCollideWorldBounds(true);
-
     this.setOrigin(0.5);
     // this.setScale(3);
 
     this.scene.ballGroup.add(this);
 
-    this.scene.time.addEvent({
-      delay: 60 * 1000,
-      callback: this.remove,
-      callbackScope: this,
-      loop: false,
-    });
+    this.createDelayedCall(
+      60 * 1000,
+      () => (this.remove()),
+    );
   }
 
   /**
