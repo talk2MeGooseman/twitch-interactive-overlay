@@ -4,8 +4,14 @@ import {
   renderText,
   setSpriteAnimation,
 } from '@/helpers/phaserHelpers';
+import BaseSprite from '@/objects/BaseSprite';
 import SpeechBubble from '@/objects/SpeechBubble';
-import userSpriteHelpers from '@/helpers/userSpriteHelpers';
+import {
+  PEASANT,
+  KNIGHT,
+  SKELETON
+} from '@/constants/characters';
+import { userExists } from '@/helpers/userSpriteHelpers';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
 const V_JUMP = -400;
@@ -17,7 +23,7 @@ const WALK = 0;
 // const RUN = 1;
 // const JUMP = 2;
 
-export default class UserSprite extends Phaser.GameObjects.Sprite {
+export default class UserSprite extends BaseSprite {
   /**
       Potential cool physics body methods
 
@@ -53,24 +59,17 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
    *  @extends Phaser.GameObjects.Sprite
    */
   constructor(config) {
-    const totalHeight = config.scene.game.config.height;
-    const totalWidth = config.scene.game.config.width;
-    const spawnPositionY = userSpriteHelpers.isGravityReversed(config.scene) ? totalHeight : 0;
-
-    const x = Phaser.Math.Between(0, totalWidth);
-    super(config.scene, x, spawnPositionY, config.key, config.frame);
-
-    config.scene.physics.world.enable(this);
-    config.scene.add.existing(this);
+    super(config);
 
     this.type = 'user';
-    this.character = 'peasant';
+    // Default character type
+    this.changeCharacter(PEASANT);
 
     this.user = config.user;
     this.flags = config.flags;
 
     if (this.flags && this.flags.subscriber) {
-      this.character = 'knight';
+      this.changeCharacter(KNIGHT);
     }
 
     this.stillFrame = config.frame;
@@ -87,9 +86,8 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.setSize(100, 200, true);
     this.setOrigin(0.5);
-    this.anims.play(`${this.character}_walk`);
 
-    this._timers = [];
+    this.anims.play(`${this.character}_walk`);
 
     config.scene.events.on('userChatAction', this.handleChatEvent, this);
 
@@ -99,11 +97,11 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   handleChatEvent({ user, message, flags, method, args, applyAll = false }) {
     if (user.toLowerCase() === this.user.toLowerCase()) {
       this.setFlags(flags);
-    } else if(!applyAll) {
+    } else if (!applyAll) {
       return;
     }
 
-    if(this.isDead) {
+    if (this.isDead) {
       return;
     }
 
@@ -118,15 +116,13 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   update() {
-    const gravityModifier = userSpriteHelpers.isGravityReversed(this.scene) ? -1 : 1;
-
     if (this.isDead) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();
       return;
     }
 
-    if (this.knitCodeMonkeyState && this.body.onFloor()) {
+    if (this.knitCodeMonkeyState && this.onGround) {
       this.knitCodeMonkeyState = false;
       this.changeCharacter(this.ogCharacter);
     }
@@ -136,7 +132,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       if (this.flipX) {
         x *= -1;
       }
-      this.body.setVelocity(x, V_JUMP * gravityModifier);
+      this.body.setVelocity(x, V_JUMP * this.gravityModifier);
     }
 
     if (this.spinEnabled) {
@@ -163,15 +159,15 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   }
 
   waveJump() {
-    this.scene.time.delayedCall(this.x, () => {
+    this.createDelayedCall(this.x, () => {
       this.jump();
     });
   }
 
   setFlags(flags) {
     this.flags = flags;
-    if (flags.subscriber && this.character === 'peasant') {
-      this.character = 'knight';
+    if (flags.subscriber && this.character === PEASANT) {
+      this.changeCharacter(KNIGHT);
     }
   }
 
@@ -212,24 +208,17 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       extra
     );
 
-    this._timers.push(
-      this.scene.time.delayedCall(duration, () => {
-        this.speechBubble ? this.speechBubble.destroy() : null;
-      })
-    );
+    this.createDelayedCall(duration, () => {
+      this.speechBubble ? this.speechBubble.destroy() : null;
+    });
   }
 
   initMovementTimer() {
     const secDelay = Phaser.Math.Between(10000, 20000);
 
-    this._timers.push(
-      this.scene.time.addEvent({
-        delay: secDelay,
-        callback: this.randomMovement,
-        callbackScope: this,
-        loop: false,
-      })
-    );
+    this.createDelayedCall(secDelay, () => {
+      this.randomMovement();
+    });
   }
 
   randomMovement() {
@@ -259,30 +248,24 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.body.setVelocityX(v);
     this.running = true;
-    this._timers.push(
-      this.scene.time.delayedCall(2000, () => (this.running = false), [], this)
-    );
+    this.createDelayedCall(2000, () => {
+      this.running = false;
+    });
   }
 
   jump() {
-    const isReversed = userSpriteHelpers.isGravityReversed(this.scene);
-
-    const gravityModifier = isReversed ? -1 : 1;
-    const canJump = isReversed ? this.body.blocked.up : this.body.blocked.down;
-
-    if (canJump) {
-      this.body.setVelocityY(V_JUMP * gravityModifier);
+    if (this.onGround) {
+      this.body.setVelocityY(V_JUMP * this.gravityModifier);
     }
   }
 
   sendFlyingOnCollide({ skeleton }) {
-    const gravityModifier = userSpriteHelpers.isGravityReversed(this.scene) ? -1 : 1;
+    this.body.setVelocityY(V_JUMP * 2 * this.gravityModifier);
 
-    this.body.setVelocityY(V_JUMP * 2 * gravityModifier);
     if (skeleton && !this.knitCodeMonkeyState) {
       this.knitCodeMonkeyState = true;
       this.ogCharacter = this.character;
-      this.changeCharacter('skeleton');
+      this.changeCharacter(SKELETON);
     }
   }
 
@@ -293,9 +276,7 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
     this.body.setDragX(0);
     this.displaySpeechBubble('RAWRR!!!', null, 10000);
 
-    this._timers.push(
-      this.scene.time.delayedCall(10000, this.disableDbag, [], this)
-    );
+    this.createDelayedCall(10000, () => this.disableDbag());
   }
 
   disableDbag() {
@@ -317,7 +298,8 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
       return;
     }
 
-    const spriteTarget = userSpriteHelpers.userExists(this.scene.userGroup, match[1]);
+    const spriteTarget = userExists(this.scene.userGroup, match[1]);
+
     if (!spriteTarget) {
       return;
     }
@@ -327,37 +309,26 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
 
     this.scene.physics.moveToObject(this, spriteTarget, RUN_THRESHOLD, 1000);
     this.displaySpeechBubble('BOOLI!!!', null, 2000);
-    this._timers.push(
-      this.scene.time.delayedCall(
-        1100,
-        () => {
-          this.body.setImmovable(false);
-          this.body.maxVelocity.x = V_RUN;
-        },
-        [],
-        this
-      )
-    );
+
+    this.createDelayedCall(1100, () => {
+      this.body.setImmovable(false);
+      this.body.maxVelocity.x = V_RUN;
+    });
   }
 
   spin() {
     this.spinEnabled = true;
     this.displaySpeechBubble('WEEEE!!!', null, 5000);
-    this._timers.push(
-      this.scene.time.delayedCall(
-        5000,
-        () => (this.spinEnabled = false),
-        [],
-        this
-      )
+
+    this.createDelayedCall(
+      5000,
+      () => (this.spinEnabled = false),
     );
   }
 
   makeGiant() {
     this.setScale(4);
-    this._timers.push(
-      this.scene.time.delayedCall(20000, () => this.setScale(1), [], this)
-    );
+    this.createDelayedCall(20000, () => this.setScale(1));
   }
 
   moveText() {
@@ -429,25 +400,21 @@ export default class UserSprite extends Phaser.GameObjects.Sprite {
   remove() {
     this.isDead = true;
 
-    this._timers.push(
-      this.scene.time.delayedCall(
-        10000,
-        () => {
-          this.scene.userGroup.remove(this);
+    this.createDelayedCall(
+      10000,
+      () => {
+        this.scene.userGroup.remove(this);
 
-          this.scene.events.removeListener(
-            'userChatAction',
-            this.handleChatEvent,
-            this
-          );
-          this._timers.map(t => t.destroy());
+        this.scene.events.removeListener(
+          'userChatAction',
+          this.handleChatEvent,
+          this
+        );
 
-          this.removeNameTag();
-          this.destroy();
-        },
-        [],
-        this
-      )
+        this.destroyTimers();
+        this.removeNameTag();
+        this.destroy();
+      }
     );
   }
 

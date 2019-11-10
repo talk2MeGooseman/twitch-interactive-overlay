@@ -1,22 +1,3 @@
-import {
-  isMoving,
-  isSomethingOnTop,
-  renderText,
-  setSpriteAnimation,
-} from '@/helpers/phaserHelpers';
-import SpeechBubble from '@/objects/SpeechBubble';
-import userSpriteHelpers from '@/helpers/userSpriteHelpers';
-import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
-
-const V_JUMP = -400;
-const V_WALK = 100;
-const V_RUN = 200;
-
-const RUN_THRESHOLD = 150;
-const WALK = 0;
-// const RUN = 1;
-// const JUMP = 2;
-
 export default class BaseSprite extends Phaser.GameObjects.Sprite {
   /**
       Potential cool physics body methods
@@ -54,6 +35,7 @@ export default class BaseSprite extends Phaser.GameObjects.Sprite {
   constructor({ scene, key, frame }) {
     const totalHeight = scene.game.config.height;
     const totalWidth = scene.game.config.width;
+
     const x = Phaser.Math.Between(0, totalWidth);
     const spawnPositionY = scene.physics.world.gravity.y < 0
       ? totalHeight
@@ -68,9 +50,14 @@ export default class BaseSprite extends Phaser.GameObjects.Sprite {
   }
 
   createDelayedCall(duration, callback) {
-    this._timers.push(this.scene.time.delayedCall(duration, callback));
+    this._timers.push(this.scene.time.delayedCall(duration, callback, [], this));
   }
 
+  /**
+   * Returns true if gravity is reversed
+   *
+   * @returns {Boolean}
+   */
   get isGravityReversed() {
     return this.scene.physics.world.gravity.y < 0;
   }
@@ -79,14 +66,10 @@ export default class BaseSprite extends Phaser.GameObjects.Sprite {
     return this.isGravityReversed ? -1 : 1;
   }
 
-  jump() {
-    const canJump = this.isGravityReversed
+  get onGround() {
+    return this.isGravityReversed
       ? this.body.blocked.up
       : this.body.blocked.down;
-
-    if (canJump) {
-      this.body.setVelocityY(V_JUMP * this.gravityModifier);
-    }
   }
 
   destroyTimers() {

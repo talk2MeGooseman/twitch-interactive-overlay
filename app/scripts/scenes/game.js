@@ -2,7 +2,11 @@
 /* eslint-disable no-unused-vars */
 import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
-import userSpriteHelpers from '@/helpers/userSpriteHelpers';
+import {
+  userParted,
+  createOrFindUser,
+  chatBubbleAllSprites,
+} from '@/helpers/userSpriteHelpers';
 import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
 import { buildExplosion } from '@/helpers/particleFactory';
 import TextBox from '@/objects/TextBox';
@@ -93,8 +97,6 @@ export default class Game extends Phaser.Scene {
     this.setupAudio();
     this.chatCommander = new ChatCommander(this);
     this.events.on('sceneEvent', this.onEvent, this);
-
-    this.physics.world.gravity.y = -400;
   }
 
   setupAudio() {
@@ -165,7 +167,7 @@ export default class Game extends Phaser.Scene {
       this.addUserSprite(user);
     };
 
-    ComfyJS.onPart = user => userSpriteHelpers.userParted(this.userGroup, user);
+    ComfyJS.onPart = user => userParted(this.userGroup, user);
 
     ComfyJS.onChat = (user, message, flags, self, extra) => {
       const sprite = this.addUserSprite(user, message, flags);
@@ -197,12 +199,16 @@ export default class Game extends Phaser.Scene {
   raidAlert(user = 'The Goose', viewers = '50') {
     this.sound.play('raid_alert');
     this.time.delayedCall(2500, () => {
-      triggerTextToSpeech(`raid alert, i repeat raid alert, ${user} is attacking with ${viewers} twitchers`);
+      triggerTextToSpeech(
+        `raid alert, i repeat raid alert, ${user} is attacking with ${viewers} twitchers`
+      );
     });
   }
 
   voiceShoutOut(user, message) {
-    triggerTextToSpeech(`Shout Out to ${message}. They're totally awesome sauce, you should check out their stream.`);
+    triggerTextToSpeech(
+      `Shout Out to ${message}. They're totally awesome sauce, you should check out their stream.`
+    );
   }
 
   simulateCheer(user, message) {
@@ -226,13 +232,16 @@ export default class Game extends Phaser.Scene {
     }
   }
 
+  reverseGravity() {
+    this.physics.world.gravity.y = -400;
+    this.sound.play('scream');
+    this.time.delayedCall(60 * 1000, () => {
+      this.physics.world.gravity.y = 400;
+    });
+  }
+
   addUserSprite(user, message, flags) {
-    const sprite = userSpriteHelpers.createOrFindUser(
-      this.userGroup,
-      this,
-      user,
-      flags
-    );
+    const sprite = createOrFindUser(this.userGroup, this, user, flags);
     sprite.walk();
     return sprite;
   }
@@ -244,7 +253,7 @@ export default class Game extends Phaser.Scene {
   subCelebrate() {
     this.sound.play('victory_short');
     this.celebrate = true;
-    userSpriteHelpers.chatBubbleAllSprites(this.userGroup, 'Pog');
+    chatBubbleAllSprites(this.userGroup, 'Pog');
     this.time.delayedCall(10000, () => {
       this.triggerFireworks();
       this.celebrate = false;
