@@ -1,29 +1,15 @@
-/* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
-import UserSprite from '@/objects/UserSprite';
 import ComfyJS from 'comfy.js';
-import {
-  userParted,
-  createOrFindUser,
-  chatBubbleAllSprites,
-} from '@/helpers/userSpriteHelpers';
-import bitCreatorFactory from '@/helpers/bitsCreatorFactory';
-import { buildExplosion } from '@/helpers/particleFactory';
-import TextBox from '@/objects/TextBox';
-import ChatCommander, { COMMANDS } from '@/objects/ChatCommander';
-import {
-  addSoundToScene,
-  playAudio,
-  AUDIO_COMMANDS,
-} from '../helpers/audioFactory';
-import {
-  getUrlParam,
-  sortAlphabetically,
-  extractCommands,
-  triggerTextToSpeech,
-} from '@/helpers/phaserHelpers';
-import SpikedBall from '@/objects/SpikedBall';
-import { clear } from '@/helpers/PersistedStorage';
+import UserSprite from '../objects/UserSprite';
+import bitCreatorFactory from '../helpers/bitsCreatorFactory';
+import { buildExplosion } from '../helpers/particleFactory';
+import TextBox from '../objects/TextBox';
+import * as chatCommandHandler from '../helpers/chatCommandHandler';
+import * as channelPointsHandler from '../helpers/channelPointsHandler';
+import * as audioFactory from '../helpers/audioFactory';
+import * as phaserHelpers from '../helpers/phaserHelpers';
+import SpikedBall from '../objects/SpikedBall';
+import { clear } from '../helpers/PersistedStorage';
 import { debug } from '../config';
 
 // giftsub VIA robertables - lurking_kat
@@ -95,12 +81,11 @@ export default class Game extends Phaser.Scene {
     this.explosion = buildExplosion(this);
 
     this.setupAudio();
-    this.chatCommander = new ChatCommander(this);
     this.events.on('sceneEvent', this.onEvent, this);
   }
 
   setupAudio() {
-    addSoundToScene(this);
+    audioFactory.addSoundToScene(this);
   }
 
   onEvent({ user, message, flags, method, args }) {
@@ -143,21 +128,8 @@ export default class Game extends Phaser.Scene {
   }
 
   initComfy() {
-    const channel = getUrlParam('channel') || 'talk2megooseman';
+    const channel = phaserHelpers.getUrlParam('channel') || 'talk2megooseman';
     ComfyJS.Init(channel, null, [channel]);
-
-    ComfyJS.onCommand = (user, command, message, flags, extra) => {
-      this.chatCommander.handler(command, user, message, flags, extra);
-
-      playAudio(this, command, flags, extra);
-
-      // Support multiple commands
-      const chainedCommands = extractCommands(message);
-      chainedCommands.forEach(extraCommand => {
-        this.chatCommander.handler(extraCommand, user, message, flags, extra);
-        playAudio(this, extraCommand, flags, extra);
-      });
-    };
 
     ComfyJS.onJoin = (user, self) => {
       if (this.userGroup.getChildren().length >= 40) {
@@ -167,9 +139,26 @@ export default class Game extends Phaser.Scene {
       this.addUserSprite(user);
     };
 
-    ComfyJS.onPart = user => userParted(this.userGroup, user);
+    ComfyJS.onPart = user => UserSprite.userParted(this.userGroup, user);
+
+    ComfyJS.onCommand = (user, command, message, flags, extra) => {
+      chatCommandHandler.trigger(this, command, user, message, flags, extra);
+
+      audioFactory.playAudio(this, command, flags, extra);
+
+      // Support multiple commands
+      const chainedCommands = phaserHelpers.extractCommands(message);
+      chainedCommands.forEach(extraCommand => {
+        chatCommandHandler.trigger(this, extraCommand, user, message, flags, extra);
+        audioFactory.playAudio(this, extraCommand, flags, extra);
+      });
+    };
 
     ComfyJS.onChat = (user, message, flags, self, extra) => {
+      if (extra.customRewardId) {
+        channelPointsHandler.redeem(this, user, extra.customRewardId, message);
+      }
+
       const sprite = this.addUserSprite(user, message, flags);
       if (sprite) {
         sprite.displayNameText();
@@ -199,14 +188,14 @@ export default class Game extends Phaser.Scene {
   raidAlert(user = 'The Goose', viewers = '50') {
     this.sound.play('raid_alert');
     this.time.delayedCall(2500, () => {
-      triggerTextToSpeech(
+      phaserHelpers.triggerTextToSpeech(
         `raid alert, i repeat raid alert, ${user} is attacking with ${viewers} twitchers`
       );
     });
   }
 
   voiceShoutOut(user, message) {
-    triggerTextToSpeech(
+    phaserHelpers.triggerTextToSpeech(
       `Shout Out to ${message}. They're totally awesome sauce, you should check out their stream.`
     );
   }
@@ -216,7 +205,7 @@ export default class Game extends Phaser.Scene {
   }
 
   textToSpeech(user, message) {
-    triggerTextToSpeech(message);
+    phaserHelpers.triggerTextToSpeech(message);
   }
 
   triggerFireworks() {
@@ -241,7 +230,7 @@ export default class Game extends Phaser.Scene {
   }
 
   addUserSprite(user, message, flags) {
-    const sprite = createOrFindUser(this.userGroup, this, user, flags);
+    const sprite = UserSprite.createOrFindUser(this.userGroup, this, user, flags);
     sprite.walk();
     return sprite;
   }
@@ -253,7 +242,7 @@ export default class Game extends Phaser.Scene {
   subCelebrate() {
     this.sound.play('victory_short');
     this.celebrate = true;
-    chatBubbleAllSprites(this.userGroup, 'Pog');
+    UserSprite.chatBubbleAllSprites(this.userGroup, 'Pog');
     this.time.delayedCall(10000, () => {
       this.triggerFireworks();
       this.celebrate = false;
@@ -287,18 +276,18 @@ export default class Game extends Phaser.Scene {
   }
 
   displayControls() {
-    this.displayTextbox('~~ CONTROLS ~~', COMMANDS);
+    this.displayTextbox('~~ CONTROLS ~~', chatCommandHandler.COMMANDS);
   }
 
   displayAudioCommands() {
-    this.displayTextbox('~~ AUDIO ~~', AUDIO_COMMANDS);
+    this.displayTextbox('~~ AUDIO ~~', audioFactory.AUDIO_COMMANDS);
   }
 
   displayTextbox(title, commands) {
     let displayCollection = [title];
 
     let clonedCommands = Array.from(commands);
-    clonedCommands.sort(sortAlphabetically);
+    clonedCommands.sort(phaserHelpers.sortAlphabetically);
 
     clonedCommands.forEach(c => {
       if (c.private) return;

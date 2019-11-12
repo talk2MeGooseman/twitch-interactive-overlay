@@ -1,9 +1,4 @@
-import {
-  isMoving,
-  isSomethingOnTop,
-  renderText,
-  setSpriteAnimation,
-} from '@/helpers/phaserHelpers';
+import * as phaserHelpers from '../helpers/phaserHelpers';
 import BaseSprite from '@/objects/BaseSprite';
 import SpeechBubble from '@/objects/SpeechBubble';
 import {
@@ -11,7 +6,6 @@ import {
   KNIGHT,
   SKELETON
 } from '@/constants/characters';
-import { userExists } from '@/helpers/userSpriteHelpers';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
 const V_JUMP = -400;
@@ -51,6 +45,94 @@ export default class UserSprite extends BaseSprite {
       stop()
       Sets acceleration, velocity, and speed to zero.
    */
+
+  /**
+   * Makes all uses sprites perform the wave
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} group
+   * @param {Phaser.Scene} scene
+   * @memberof userSpriteHelpers
+   */
+  static triggerTheWave(group, scene) {
+    group.getChildren().forEach(user => {
+      let delay = user.x;
+      let u = user;
+
+      scene.time.delayedCall(delay, () => {
+        u.jump();
+      });
+    });
+  }
+
+  /**
+   * Have all sprites in the given group display and bubble message
+   *
+   * @static
+   * @param {Phaser.GameObjects.Group} group
+   * @param {String} message
+   */
+  static chatBubbleAllSprites(group, message) {
+    group.getChildren().forEach(user => {
+      user.displaySpeechBubble(message);
+    });
+  }
+
+  /**
+   * Removes user for provided group
+   *
+   * @static
+   * @param {Phaser.Physics.Arcade.Group} userGroup
+   * @param {String} user
+   * @memberof UserSprite
+   */
+  static userParted(userGroup, user) {
+    const sprite = UserSprite.userExists(userGroup, user);
+    if (sprite) {
+      sprite.remove();
+    }
+  }
+
+  /**
+   * Check if user exists is group
+   *
+   * @param {Phaser.Physics.Arcade.Group} userGroup
+   * @param {String} user
+   * @returns {UserSprite}
+   * @memberof UserSprite
+   */
+  static userExists(userGroup, user) {
+    return phaserHelpers.findSpriteInGroup(userGroup, sprite => sprite.user.toLowerCase() === user.toLowerCase());
+  }
+
+  /**
+   * Creates and adds User Sprite if one doesn't already exist
+   *
+   * @param {Phaser.GameObjects.Group} group
+   * @param {String} user
+   * @param {Object} flags
+   * @returns {UserSprite} sprite
+   */
+  static createOrFindUser(group, scene, user, flags) {
+    let sprite = UserSprite.userExists(group, user);
+
+    if (sprite) {
+      return sprite;
+    }
+
+    const spriteConfig = {
+      scene: scene,
+      key: 'characters',
+      frame: 'peasant/standing/peasant.png',
+      user: user,
+      flags: flags,
+    };
+
+    sprite = new UserSprite(spriteConfig);
+    group.add(sprite);
+
+    return sprite;
+  }
 
   /**
    *  A simple prefab (extended game object class), displaying a spinning
@@ -127,7 +209,7 @@ export default class UserSprite extends BaseSprite {
       this.changeCharacter(this.ogCharacter);
     }
 
-    if (isSomethingOnTop(this)) {
+    if (phaserHelpers.isSomethingOnTop(this)) {
       let x = V_WALK;
       if (this.flipX) {
         x *= -1;
@@ -180,7 +262,7 @@ export default class UserSprite extends BaseSprite {
       return;
     }
 
-    this.nameText = renderText(this.scene, this.user);
+    this.nameText = phaserHelpers.renderText(this.scene, this.user);
     this.nameText.setOrigin(0.5, 1);
     this.scene.nameTextGroup.add(this.nameText);
   }
@@ -222,7 +304,7 @@ export default class UserSprite extends BaseSprite {
   }
 
   randomMovement() {
-    if (!isMoving(this)) {
+    if (!phaserHelpers.isMoving(this)) {
       const action = Phaser.Math.Between(0, 1);
 
       if (action === WALK) {
@@ -298,7 +380,7 @@ export default class UserSprite extends BaseSprite {
       return;
     }
 
-    const spriteTarget = userExists(this.scene.userGroup, match[1]);
+    const spriteTarget = UserSprite.userExists(this.scene.userGroup, match[1]);
 
     if (!spriteTarget) {
       return;
@@ -350,7 +432,7 @@ export default class UserSprite extends BaseSprite {
     let anim;
     if (this.isDead) {
       anim = `${this.character}_die`;
-      setSpriteAnimation(this, anim);
+      phaserHelpers.setSpriteAnimation(this, anim);
       return;
     }
 
@@ -368,7 +450,7 @@ export default class UserSprite extends BaseSprite {
       anim = `${this.character}_standing`;
     }
 
-    setSpriteAnimation(this, anim);
+    phaserHelpers.setSpriteAnimation(this, anim);
   }
 
   lookInWalkingDirection() {
