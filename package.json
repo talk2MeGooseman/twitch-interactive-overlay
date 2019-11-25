@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.7.4",
     "babel-loader": "^8.0.2",
     "browser-sync": "^2.24.7",
     "copy-webpack-plugin": "^4.5.2",
