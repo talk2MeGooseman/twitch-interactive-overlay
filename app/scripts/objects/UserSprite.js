@@ -4,7 +4,9 @@ import SpeechBubble from '@/objects/SpeechBubble';
 import {
   PEASANT,
   KNIGHT,
-  SKELETON
+  SKELETON,
+  SANTA,
+  SNOWMAN,
 } from '@/constants/characters';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
@@ -145,13 +147,14 @@ export default class UserSprite extends BaseSprite {
 
     this.type = 'user';
     // Default character type
-    this.changeCharacter(PEASANT);
+    this.changeCharacter(SNOWMAN);
 
     this.user = config.user;
     this.flags = config.flags;
 
     if (this.flags && this.flags.subscriber) {
-      this.changeCharacter(KNIGHT);
+      // this.changeCharacter(KNIGHT);
+      this.changeCharacter(SANTA);
     }
 
     this.stillFrame = config.frame;
@@ -166,10 +169,12 @@ export default class UserSprite extends BaseSprite {
     /** If the sprite is not touching the ground then it should be a skeleton */
     this.knitCodeMonkeyState = false;
 
-    this.setSize(100, 200, true);
     this.setOrigin(0.5);
 
     this.anims.play(`${this.character}_walk`);
+
+    const frame = this.anims.currentAnim.getFrameAt(0).frame;
+    this.setSizeToFrame(frame);
 
     config.scene.events.on('userChatAction', this.handleChatEvent, this);
 
@@ -198,6 +203,8 @@ export default class UserSprite extends BaseSprite {
   }
 
   update() {
+    const frame = this.anims.currentAnim.getFrameAt(0).frame;
+    this.body.setSize(frame.width, frame.height);
     if (this.isDead) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();

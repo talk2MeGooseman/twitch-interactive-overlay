@@ -65,6 +65,12 @@ export const COMMANDS = [
     args: ['wizard_2'],
   },
   {
+    command: 'snowman',
+    method: 'changeCharacter',
+    event: 'userChatAction',
+    args: ['snowman'],
+  },
+  {
     command: 'join',
     method: 'addUserSprite',
     event: 'sceneEvent',
