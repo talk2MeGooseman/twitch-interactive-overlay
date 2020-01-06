@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "comfy.js": "^1.0.0",
+    "comfy.js": "^1.0.14",
     "phaser": "^3.19.0",
     "phaser-plugin-game-scale": "^1.3.3"
   },
