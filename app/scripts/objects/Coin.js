@@ -22,7 +22,7 @@ export default class Coin extends BaseSprite {
   }
 
   grabbed() {
-    playAudio(this.scene, 'collect_coin', { broadcaster: true })
+    playAudio(this.scene, 'collect_coin', { broadcaster: true });
     this.scene.coinsGroup.remove(this);
     this.destroy();
   }
