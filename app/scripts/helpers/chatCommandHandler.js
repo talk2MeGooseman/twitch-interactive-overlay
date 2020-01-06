@@ -130,6 +130,12 @@ export const COMMANDS = [
     event: 'sceneEvent',
     private: true,
   },
+  {
+    command: 'tts',
+    method: 'textToSpeech',
+    event: 'sceneEvent',
+    private: true,
+  },
 ];
 
 export function trigger(scene, command, user, message, flags, extra) {
