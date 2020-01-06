@@ -173,9 +173,6 @@ export default class UserSprite extends BaseSprite {
 
     this.anims.play(`${this.character}_walk`);
 
-    const frame = this.anims.currentAnim.getFrameAt(0).frame;
-    this.setSizeToFrame(frame);
-
     config.scene.events.on('userChatAction', this.handleChatEvent, this);
 
     this.initMovementTimer();
@@ -203,8 +200,10 @@ export default class UserSprite extends BaseSprite {
   }
 
   update() {
+    // Attempt to adjust hitbox of sprite
     const frame = this.anims.currentAnim.getFrameAt(0).frame;
     this.body.setSize(frame.width, frame.height);
+
     if (this.isDead) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();
@@ -417,7 +416,10 @@ export default class UserSprite extends BaseSprite {
 
   makeGiant() {
     this.setScale(4);
-    this.createDelayedCall(20000, () => this.setScale(1));
+    // Attempting to adjust hitbox of sprite
+    const frame = this.anims.currentAnim.getFrameAt(0).frame;
+    this.body.setSize(frame.width, frame.height);
+    // this.createDelayedCall(20000, () => this.setScale(1));
   }
 
   moveText() {
