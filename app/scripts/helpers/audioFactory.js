@@ -4,7 +4,7 @@ export const AUDIO_COMMANDS = [
   {
     command: 'raid_alert',
     file: 'audio/alarm.wav',
-    config: { volume: 0.05 },
+    config: { volume: 0.20 },
     private: true,
   },
   {
@@ -43,7 +43,7 @@ export const AUDIO_COMMANDS = [
   {
     command: 'hosted',
     file: 'audio/hosted.wav',
-    config: { volume: 0.15 },
+    config: { volume: 0.30 },
   },
   {
     command: 'error',
@@ -161,7 +161,7 @@ export function addSoundToScene(scene) {
  * @returns
  */
 export function playAudio(scene, command, flags, extra) {
-  const userLastUsedCommand = extra.sinceLastCommand.user;
+  const userLastUsedCommand = extra ? extra.sinceLastCommand.user : 0;
   const audio = AUDIO_COMMANDS.find((a) => {
     return Array.isArray(a.command)
       ? a.command.some(cmd => cmd === command)

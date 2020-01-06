@@ -171,22 +171,22 @@ export default class Game extends Phaser.Scene {
     };
 
     ComfyJS.onCheer = (message, bits, extra) => {
-      this.sound.play('cheer');
+      audioFactory.playAudio(this, 'cheer', { broadcaster: true });
       this.bitTotal += bits;
     };
 
-    ComfyJS.onHosted = () => this.sound.play('hosted');
+    ComfyJS.onHosted = () => audioFactory.playAudio(this, 'hosted', { broadcaster: true });
     ComfyJS.onRaid = (user, viewers) => this.raidAlert(user, viewers);
     ComfyJS.onSub = () => this.subCelebrate();
     ComfyJS.onResub = () => this.subCelebrate();
     ComfyJS.onSubGift = () => this.subCelebrate();
-    ComfyJS.onSubMysteryGift = () => this.sound.play('victory_short');
+    ComfyJS.onSubMysteryGift = () => audioFactory.playAudio(this, 'victory_short', { broadcaster: true });
     ComfyJS.onGiftSubContinue = (user, sender, extra) =>
-      this.sound.play('victory_short');
+      audioFactory.playAudio(this, 'victory_short', { broadcaster: true });
   }
 
   raidAlert(user = 'The Goose', viewers = '50') {
-    this.sound.play('raid_alert');
+    audioFactory.playAudio(this, 'raid_alert', { broadcaster: true });
     this.time.delayedCall(2500, () => {
       phaserHelpers.triggerTextToSpeech(
         `raid alert, i repeat raid alert, ${user} is attacking with ${viewers} twitchers`
@@ -216,14 +216,14 @@ export default class Game extends Phaser.Scene {
       const y = Phaser.Math.Between(0, this.game.config.height / 2);
       this.time.delayedCall(index * 500, () => {
         this.explosion.emitParticleAt(x, y);
-        this.sound.play('explode');
+        audioFactory.playAudio(this, 'explode', { broadcaster: true });
       });
     }
   }
 
   reverseGravity() {
     this.physics.world.gravity.y = -400;
-    this.sound.play('scream');
+    audioFactory.playAudio(this, 'scream', { broadcaster: true });
     this.time.delayedCall(60 * 1000, () => {
       this.physics.world.gravity.y = 400;
     });
@@ -240,7 +240,7 @@ export default class Game extends Phaser.Scene {
   }
 
   subCelebrate() {
-    this.sound.play('victory_short');
+    audioFactory.playAudio(this, 'victory_short', { broadcaster: true });
     this.celebrate = true;
     UserSprite.chatBubbleAllSprites(this.userGroup, 'Pog');
     this.time.delayedCall(10000, () => {

@@ -81,7 +81,7 @@ export const COMMANDS = [
     event: 'sceneEvent',
   },
   {
-    command: 'reverse_gravity',
+    command: 'reverse',
     method: 'reverseGravity',
     event: 'sceneEvent',
   },

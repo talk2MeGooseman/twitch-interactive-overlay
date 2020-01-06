@@ -1,4 +1,5 @@
 import BaseSprite from '@/objects/BaseSprite';
+import { playAudio } from '../helpers/audioFactory';
 
 export default class Coin extends BaseSprite {
   /**
@@ -21,7 +22,7 @@ export default class Coin extends BaseSprite {
   }
 
   grabbed() {
-    this.scene.sound.play('collect_coin');
+    playAudio(this.scene, 'collect_coin', { broadcaster: true })
     this.scene.coinsGroup.remove(this);
     this.destroy();
   }
