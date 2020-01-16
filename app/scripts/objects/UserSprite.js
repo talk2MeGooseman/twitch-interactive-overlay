@@ -419,7 +419,7 @@ export default class UserSprite extends BaseSprite {
     // Attempting to adjust hitbox of sprite
     const frame = this.anims.currentAnim.getFrameAt(0).frame;
     this.body.setSize(frame.width, frame.height);
-    // this.createDelayedCall(20000, () => this.setScale(1));
+    this.createDelayedCall(20000, () => this.setScale(1));
   }
 
   moveText() {
