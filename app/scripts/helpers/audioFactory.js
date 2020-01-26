@@ -56,6 +56,11 @@ export const AUDIO_COMMANDS = [
     config: { volume: 0.1 },
   },
   {
+    command: 'squirrel',
+    file: 'audio/squirrel.mp3',
+    config: { volume: 1 },
+  },
+  {
     command: 'quack',
     file: 'audio/quack.wav',
     config: { volume: 0.2 },
