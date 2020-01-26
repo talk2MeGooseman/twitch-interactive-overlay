@@ -71,6 +71,11 @@ export const COMMANDS = [
     args: ['snowman'],
   },
   {
+    command: 'hulksmash',
+    method: 'hulkSmash',
+    event: 'userChatAction',
+  },
+  {
     command: 'join',
     method: 'addUserSprite',
     event: 'sceneEvent',
