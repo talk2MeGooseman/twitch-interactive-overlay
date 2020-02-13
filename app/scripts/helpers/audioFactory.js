@@ -134,7 +134,17 @@ export const AUDIO_COMMANDS = [
     command: 'backtowork',
     file: 'audio/back-to-work.mp3',
     config: { volume: 0.3 },
-  }
+  },
+  {
+    command: 'tiger',
+    file: 'audio/eye-of-the-tiger.mp3',
+    config: { volume: 0.3 },
+  },
+  {
+    command: 'pushit',
+    file: 'audio/push-it.mp3',
+    config: { volume: 0.6 },
+  },
 ];
 
 /**
@@ -175,8 +185,9 @@ export function addSoundToScene(scene) {
  * @param {Object} flags
  * @returns
  */
-export function playAudio(scene, command, flags, extra) {
-  const userLastUsedCommand = extra ? extra.sinceLastCommand.user : 0;
+export function playAudio(scene, command, flags) {
+  // const userLastUsedCommand = extra ? extra.sinceLastCommand.user : 0;
+  const userLastUsedCommand = 0;
   const audio = AUDIO_COMMANDS.find((a) => {
     return Array.isArray(a.command)
       ? a.command.some(cmd => cmd === command)
