@@ -106,7 +106,7 @@ export const AUDIO_COMMANDS = [
     config: { volume: 1.0 },
   },
   {
-    command: 'sadtrombone',
+    command: 'sad',
     file: 'audio/sadtrombone.mp3',
     config: { volume: 1.0 },
   },
