@@ -5,8 +5,6 @@ import {
   PEASANT,
   KNIGHT,
   SKELETON,
-  SANTA,
-  SNOWMAN,
 } from '@/constants/characters';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
