@@ -4979,10 +4979,10 @@ phaser-plugin-game-scale@^1.3.3:
   resolved "https://registry.yarnpkg.com/phaser-plugin-game-scale/-/phaser-plugin-game-scale-1.3.5.tgz#4b9977189f8323cbfb266105b179e4a6b2740801"
   integrity sha512-JrgptWFqDj4ktm3XDxGGNnOTrBUOgFQtl3sdMZ4g0croE8hbtOIlrqYuatt+nQJ8RCRZQuzmWHxr2fCD66bPJg==
 
-phaser@^3.19.0:
-  version "3.20.1"
-  resolved "https://registry.yarnpkg.com/phaser/-/phaser-3.20.1.tgz#7c9211e59dee58a0a8a6df1fd079cb709646eab7"
-  integrity sha512-P4x7zfMHdLKu8aPaADg+zTPNvFRYNHqmNqWZEUGw4WnbXZ/ACK+VR8k/11OzYxckEKBnWsqASDMKG9rzEC1rqg==
+phaser@^3.23.0:
+  version "3.23.0"
+  resolved "https://registry.yarnpkg.com/phaser/-/phaser-3.23.0.tgz#9f3c02d358ced75e70e42d6fa51b37d17f37ee25"
+  integrity sha512-tl8dZT5onDxor8Yf+QjxAk2fY4E0vy3oxc+ZsZiI8ppDwr3gWz7XA6hjVRnmEbAF64NcjRwWLU80VvKLi81VtQ==
   dependencies:
     eventemitter3 "^3.1.0"
     exports-loader "^0.7.0"
