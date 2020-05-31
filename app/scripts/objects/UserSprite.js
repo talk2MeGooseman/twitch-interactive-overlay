@@ -7,7 +7,8 @@ import {
   SKELETON,
 } from '@/constants/characters';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
-import { userSpriteMachine, transitionEvent, EVENTS, STATES } from '@/state-machines/user/machine';
+import { userSpriteMachine, MACHINE_EVENTS, MACHINE_STATES } from '@/state-machines/user/machine';
+import { interpret } from 'xstate';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -168,6 +169,13 @@ export default class UserSprite extends BaseSprite {
     /** If the sprite is not touching the ground then it should be a skeleton */
     this.knitCodeMonkeyState = false;
 
+    this.stateMachineService = interpret(userSpriteMachine).onTransition((state) => {
+      if (state.changed) {
+        // console.log(`${this.user} transition -> ${state.value}`);
+      }
+    });
+    this.stateMachineService.start();
+
     this.setOrigin(0.5);
 
     this.anims.play(`${this.character}_walk`);
@@ -184,7 +192,7 @@ export default class UserSprite extends BaseSprite {
       return;
     }
 
-    if (this.currentState.value === STATES.DEATH) {
+    if (this.stateMachineService.state.value === MACHINE_STATES.DEATH) {
       return;
     }
 
@@ -203,7 +211,7 @@ export default class UserSprite extends BaseSprite {
     const frame = this.anims.currentAnim.getFrameAt(0).frame;
     this.body.setSize(frame.width, frame.height);
 
-    if (this.currentState.value === STATES.DEATH) {
+    if (this.stateMachineService.state.value === MACHINE_STATES.DEATH) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();
       return;
@@ -243,6 +251,10 @@ export default class UserSprite extends BaseSprite {
     this.lookInWalkingDirection();
 
     this.moveText();
+
+    if (this.onGround) {
+      this.stateMachineService.send(MACHINE_EVENTS.ON_GROUND);
+    }
   }
 
   waveJump() {
@@ -341,7 +353,8 @@ export default class UserSprite extends BaseSprite {
   }
 
   jump(vJumpModifier = 1) {
-    if (this.onGround) {
+    this.stateMachineService.send(MACHINE_EVENTS.JUMP);
+    if (this.stateMachineService.state.changed) {
       this.body.setVelocityY((V_JUMP * vJumpModifier) * this.gravityModifier);
     }
   }
@@ -438,7 +451,8 @@ export default class UserSprite extends BaseSprite {
     const ySpeed = Math.abs(this.body.velocity.y);
 
     let anim;
-    if (this.currentState.value === STATES.DEATH) {
+
+    if (this.stateMachineService.state.value === MACHINE_STATES.DEATH) {
       anim = `${this.character}_die`;
       phaserHelpers.setSpriteAnimation(this, anim);
       return;
@@ -501,8 +515,7 @@ export default class UserSprite extends BaseSprite {
 
   remove() {
     this.isDead = true;
-    const [nextState] = transitionEvent(this.currentState.value, EVENTS.DIE);
-    this.currentState = nextState;
+    this.stateMachineService.send(MACHINE_EVENTS.DIE);
 
     this.createDelayedCall(
       10000,

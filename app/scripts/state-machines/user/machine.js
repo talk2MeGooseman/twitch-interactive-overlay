@@ -1,24 +1,28 @@
 import { Machine } from 'xstate';
 import { smashStates } from '../states';
 
-export const EVENTS = {
+export const MACHINE_EVENTS = {
   HULK_SMASH: 'HULK_SMASH',
   DIE: 'DIE',
+  JUMP: 'JUMP',
+  ON_GROUND: 'ON_GROUND',
 };
 
-export const STATES = {
+export const MACHINE_STATES = {
   DEATH: 'death',
+  JUMPING: 'jumping'
 };
 
 // Stateless machine definition
 export const userSpriteMachine = Machine({
-  key: 'user_sprite',
+  id: 'user_sprite',
   initial: 'idle',
   states: {
     idle: {
       on: {
         HULK_SMASH: 'hulk_smash',
-        DIE: STATES.DEATH
+        DIE: MACHINE_STATES.DEATH,
+        JUMP: MACHINE_STATES.JUMPING,
       }
     },
     hulk_smash: {
@@ -27,7 +31,14 @@ export const userSpriteMachine = Machine({
       },
       ...smashStates
     },
-    death: {}
+    jumping: {
+      on: {
+        ON_GROUND: 'idle',
+      }
+    },
+    death: {
+      type: 'final'
+    }
   },
 });
 
