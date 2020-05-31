@@ -1,1 +1,1 @@
-export { default as HulkSmashState } from './hulk-smash';
+export { default as smashStates } from './hulk-smash';

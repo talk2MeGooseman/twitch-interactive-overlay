@@ -1,4 +1,4 @@
-export const hulkSmashStates = {
+const smashStates = {
   initial: 'jump',
   states: {
     jump: {
@@ -20,3 +20,4 @@ export const hulkSmashStates = {
   }
 };
 
+export default smashStates;

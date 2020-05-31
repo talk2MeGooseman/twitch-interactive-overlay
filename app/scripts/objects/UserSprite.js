@@ -7,7 +7,7 @@ import {
   SKELETON,
 } from '@/constants/characters';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
-import { initUserMachineService } from '@/state-machines/user/machine';
+import { userSpriteMachine, transitionEvent, EVENTS, STATES } from '@/state-machines/user/machine';
 
 const V_JUMP = -400;
 const V_WALK = 100;
@@ -155,7 +155,7 @@ export default class UserSprite extends BaseSprite {
       this.changeCharacter(KNIGHT);
     }
 
-    this.stateService = initUserMachineService();
+    this.currentState = userSpriteMachine.initialState;
 
     this.stillFrame = config.frame;
     this.body.onCollide = true;
@@ -164,7 +164,6 @@ export default class UserSprite extends BaseSprite {
     this.nameText;
     this.speechBubble;
     this.spinEnabled = false;
-    this.isDead = false;
     this.running = false;
     /** If the sprite is not touching the ground then it should be a skeleton */
     this.knitCodeMonkeyState = false;
@@ -185,7 +184,7 @@ export default class UserSprite extends BaseSprite {
       return;
     }
 
-    if (this.isDead) {
+    if (this.currentState.value === STATES.DEATH) {
       return;
     }
 
@@ -204,7 +203,7 @@ export default class UserSprite extends BaseSprite {
     const frame = this.anims.currentAnim.getFrameAt(0).frame;
     this.body.setSize(frame.width, frame.height);
 
-    if (this.isDead) {
+    if (this.currentState.value === STATES.DEATH) {
       this.body.setVelocity(0, 300);
       this.selectAnimation();
       return;
@@ -439,7 +438,7 @@ export default class UserSprite extends BaseSprite {
     const ySpeed = Math.abs(this.body.velocity.y);
 
     let anim;
-    if (this.isDead) {
+    if (this.currentState.value === STATES.DEATH) {
       anim = `${this.character}_die`;
       phaserHelpers.setSpriteAnimation(this, anim);
       return;
@@ -502,6 +501,8 @@ export default class UserSprite extends BaseSprite {
 
   remove() {
     this.isDead = true;
+    const [nextState] = transitionEvent(this.currentState.value, EVENTS.DIE);
+    this.currentState = nextState;
 
     this.createDelayedCall(
       10000,

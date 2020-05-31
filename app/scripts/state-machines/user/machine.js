@@ -1,33 +1,43 @@
-import { Machine, interpret } from 'xstate';
-import { HulkSmashState } from '../states';
+import { Machine } from 'xstate';
+import { smashStates } from '../states';
+
+export const EVENTS = {
+  HULK_SMASH: 'HULK_SMASH',
+  DIE: 'DIE',
+};
+
+export const STATES = {
+  DEATH: 'death',
+};
 
 // Stateless machine definition
-// machine.transition(...) is a pure function used by the interpreter.
-const userSpriteMachine = Machine({
+export const userSpriteMachine = Machine({
   key: 'user_sprite',
   initial: 'idle',
   states: {
     idle: {
       on: {
-        HULK_SMASH: 'hulk_smash'
+        HULK_SMASH: 'hulk_smash',
+        DIE: STATES.DEATH
       }
     },
     hulk_smash: {
       on: {
         DONE: 'idle'
       },
-      ...HulkSmashState
-    }
+      ...smashStates
+    },
+    death: {}
   },
 });
 
-export function initUserMachineService() {
-  const machine = interpret(userSpriteMachine);
+export function transitionEvent(currentState) {
+  const nextState = currentState.transition('idle', 'HULK_SMASH');
 
-  // eslint-disable-next-line no-console
-  machine.onTransition(state => console.log(state.value))
-    .start();
+  return [ nextState, nextState.value ];
+}
 
-  return machine;
+export function getNextEvents(currentState) {
+  return currentState.nextEvents;
 }
 
