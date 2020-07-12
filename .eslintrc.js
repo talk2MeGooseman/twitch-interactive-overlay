@@ -20,7 +20,8 @@ exports.env = {
   es6: true,
 
   // Enable Browser global variables
-  browser: true
+  browser: true,
+  node: true
 };
 
 exports.parserOptions = {

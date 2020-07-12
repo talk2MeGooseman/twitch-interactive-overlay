@@ -11,6 +11,7 @@ const HTML = require('html-webpack-plugin');
 const Copy = require('copy-webpack-plugin');
 const {dirs, dest} = require('../paths');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = (env = 'development') =>
   [
     //  Webpack Define plugin
@@ -46,8 +47,10 @@ module.exports = (env = 'development') =>
     //
     //  Reference:
     //    <https://github.com/webpack-contrib/copy-webpack-plugin#readme>
-    new Copy([{
-      from: dirs.static,
-      to: dest
-    }])
+    new Copy({
+      patterns: [{
+        from: dirs.static,
+        to: dest
+      }]
+    })
   ].filter(Boolean);
