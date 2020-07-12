@@ -18,7 +18,7 @@
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.2",
     "browser-sync": "^2.24.7",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy-webpack-plugin": "^6.0.3",
     "del": "^5.1.0",
     "eslint": "^5.5.0",
     "eslint-loader": "^2.1.0",
