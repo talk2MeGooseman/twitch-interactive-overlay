@@ -156,6 +156,7 @@ export default class Game extends Phaser.Scene {
 
     ComfyJS.onChat = (user, message, flags, self, extra) => {
       if (extra.customRewardId) {
+        this.sound.play('airhorn');
         channelPointsHandler.redeem(this, user, extra.customRewardId, message);
       }
 
