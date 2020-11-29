@@ -5,6 +5,8 @@ import {
   PEASANT,
   KNIGHT,
   SKELETON,
+  SNOWMAN,
+  SANTA,
 } from '@/constants/characters';
 import { getUserIntItem, setUserItem } from '@/helpers/PersistedStorage';
 
@@ -145,13 +147,13 @@ export default class UserSprite extends BaseSprite {
 
     this.type = 'user';
     // Default character type
-    this.changeCharacter(PEASANT);
+    this.changeCharacter(SNOWMAN);
 
     this.user = config.user;
     this.flags = config.flags;
 
     if (this.flags && this.flags.subscriber) {
-      this.changeCharacter(KNIGHT);
+      this.changeCharacter(SANTA);
     }
 
     this.stillFrame = config.frame;
