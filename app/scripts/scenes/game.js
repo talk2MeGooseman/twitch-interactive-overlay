@@ -160,6 +160,10 @@ export default class Game extends Phaser.Scene {
         channelPointsHandler.redeem(this, user, extra.customRewardId, message);
       }
 
+      if(message === 'talk2mHo talk2mNk') {
+        this.sound.play('honk');
+      }
+
       const sprite = this.addUserSprite(user, message, flags);
       if (sprite) {
         sprite.displayNameText();
