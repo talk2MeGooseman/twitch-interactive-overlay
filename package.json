@@ -20,7 +20,7 @@
     "browser-sync": "^2.24.7",
     "copy-webpack-plugin": "^6.0.3",
     "del": "^5.1.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.25.0",
     "eslint-loader": "^4.0.2",
     "fancy-log": "^1.3.2",
     "gulp": "^4.0.0",
