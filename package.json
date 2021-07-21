@@ -15,7 +15,7 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.0",
     "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.14.8",
     "babel-loader": "^8.0.2",
     "browser-sync": "^2.24.7",
     "copy-webpack-plugin": "^6.0.3",
