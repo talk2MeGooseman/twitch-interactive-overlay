@@ -1,4 +1,5 @@
 import * as phaserHelpers from '../helpers/phaserHelpers';
+import Phaser from 'phaser';
 import BaseSprite from '@/objects/BaseSprite';
 import SpeechBubble from '@/objects/SpeechBubble';
 import {

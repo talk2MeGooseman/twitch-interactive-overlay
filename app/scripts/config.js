@@ -6,14 +6,17 @@
  */
 
 //  Import created game scenes.
-import * as scenes from '@/scenes';
+import { Game, SplashScreen } from '@/scenes';
 import GameScalePlugin from 'phaser-plugin-game-scale';
+import Phaser from 'phaser';
 
 //  HINT: Import plugins, custom or trusted third-party ones, here.
 // import ExamplePlugin from 'example-plugin';
 // import ExampleScenePlugin from '@/plugins/example-scene-plugin';
 
 export const debug = true;
+
+export const parent = 'game-container';
 
 /**
  *  Game canvas width.
@@ -198,4 +201,7 @@ export { title, version, url } from '@/../../package.json';
 /**
  *  Export created game scenes.
  */
-export const scene = Object.values(scenes);
+export const scene = [
+  SplashScreen,
+  Game,
+];

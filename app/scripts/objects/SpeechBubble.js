@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import Phaser from 'phaser';
 export default class TextBox {
 
   /**

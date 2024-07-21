@@ -10,6 +10,7 @@ import * as audioFactory from '../helpers/audioFactory';
 import * as phaserHelpers from '../helpers/phaserHelpers';
 import SpikedBall from '../objects/SpikedBall';
 import { clear } from '../helpers/PersistedStorage';
+import Phaser from 'phaser';
 import { debug } from '../config';
 
 // giftsub VIA robertables - lurking_kat

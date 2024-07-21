@@ -1,3 +1,5 @@
+import Phaser from 'phaser';
+
 export default class BaseSprite extends Phaser.GameObjects.Sprite {
   /**
       Potential cool physics body methods

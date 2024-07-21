@@ -1,6 +1,7 @@
 import characterAnimationsFactory from '@/helpers/characterAnimationsFactory';
 import { createHolidayAnimations } from '@/helpers/holidayCharacterAnimationsFactory';
 import { loadAudio } from '../helpers/audioFactory';
+import Phaser from 'phaser';
 
 export default class SplashScreen extends Phaser.Scene {
   /**
@@ -34,12 +35,13 @@ export default class SplashScreen extends Phaser.Scene {
    *  @protected
    */
   preload() {
+    this.load.setPath('assets');
     //  Display cover and progress bar textures.
     this.showCover();
     this.showProgressBar();
 
     //  HINT: Declare all game assets to be loaded here.
-    this.load.image('logo');
+    this.load.image('logo', 'logo.png');
     this.load.multiatlas('characters', 'characters.json');
     this.load.multiatlas('holiday-characters', 'holiday-characters.json');
     this.load.multiatlas('items', 'items.json');

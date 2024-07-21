@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import Coin from '@/objects/Coin';
 import BlueGem from '@/objects/BlueGem';
 import RedGem from '@/objects/RedGem';
