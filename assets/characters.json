@@ -1,0 +1,3590 @@
+{
+	"textures": [
+		{
+			"image": "characters.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1312,
+				"h": 483
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "peasant/attack/peasant_attack2_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 113
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 113
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 78,
+						"h": 113
+					}
+				},
+				{
+					"filename": "wizard_2/attack/wizard_2_attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 92
+					},
+					"frame": {
+						"x": 1,
+						"y": 116,
+						"w": 68,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/attack/wizard_2_attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 92
+					},
+					"frame": {
+						"x": 1,
+						"y": 116,
+						"w": 68,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/attack/wizard_2_attack_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 92
+					},
+					"frame": {
+						"x": 1,
+						"y": 116,
+						"w": 68,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/attack/wizard_2_attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 1,
+						"y": 210,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/jump/wizard_2_jump_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 1,
+						"y": 304,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "peasant/attack/peasant_attack2_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 123,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 123,
+						"h": 83
+					},
+					"frame": {
+						"x": 1,
+						"y": 398,
+						"w": 123,
+						"h": 83
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 65,
+						"y": 210,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 65,
+						"y": 210,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 71,
+						"y": 116,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 65,
+						"y": 304,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "princess/attack/princess_attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 83
+					},
+					"frame": {
+						"x": 126,
+						"y": 398,
+						"w": 65,
+						"h": 83
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 81,
+						"y": 1,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 81,
+						"y": 1,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 129,
+						"y": 210,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 129,
+						"y": 304,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/standing/wizard_2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 135,
+						"y": 95,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 145,
+						"y": 1,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 145,
+						"y": 1,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 193,
+						"y": 189,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 92
+					},
+					"frame": {
+						"x": 199,
+						"y": 95,
+						"w": 62,
+						"h": 92
+					}
+				},
+				{
+					"filename": "wizard_2/hit/wizard_2_hit_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 89
+					},
+					"frame": {
+						"x": 209,
+						"y": 1,
+						"w": 65,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/crouch/wizard_2_crouch_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 193,
+						"y": 283,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/die/wizard_2_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 193,
+						"y": 374,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/hit/wizard_2_hit_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 257,
+						"y": 189,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/jump/wizard_2_jump_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 263,
+						"y": 92,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/jump/wizard_2_jump_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 276,
+						"y": 1,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 257,
+						"y": 280,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "wizard_2/walk/wizard_2_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 89
+					},
+					"frame": {
+						"x": 257,
+						"y": 371,
+						"w": 62,
+						"h": 89
+					}
+				},
+				{
+					"filename": "peasant/jump/peasant_jump_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 89
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 89
+					},
+					"frame": {
+						"x": 321,
+						"y": 183,
+						"w": 50,
+						"h": 89
+					}
+				},
+				{
+					"filename": "peasant/attack/peasant_attack2_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 86
+					},
+					"frame": {
+						"x": 327,
+						"y": 92,
+						"w": 77,
+						"h": 86
+					}
+				},
+				{
+					"filename": "wizard_2/die/wizard_2_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 74,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 74,
+						"h": 86
+					},
+					"frame": {
+						"x": 340,
+						"y": 1,
+						"w": 74,
+						"h": 86
+					}
+				},
+				{
+					"filename": "princess/jump/princess_jump_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 86
+					},
+					"frame": {
+						"x": 321,
+						"y": 274,
+						"w": 62,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/attack/peasant_attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 59,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 59,
+						"h": 86
+					},
+					"frame": {
+						"x": 373,
+						"y": 180,
+						"w": 59,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/attack/peasant_attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 86
+					},
+					"frame": {
+						"x": 406,
+						"y": 89,
+						"w": 53,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 416,
+						"y": 1,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 416,
+						"y": 1,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 416,
+						"y": 1,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 416,
+						"y": 1,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 321,
+						"y": 362,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 321,
+						"y": 362,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "wizard_2/die/wizard_2_die_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 92,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 92,
+						"h": 23
+					},
+					"frame": {
+						"x": 321,
+						"y": 450,
+						"w": 92,
+						"h": 23
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 373,
+						"y": 362,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 385,
+						"y": 268,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/standing/peasant.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 434,
+						"y": 177,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 461,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 461,
+						"y": 89,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 468,
+						"y": 1,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 86
+					},
+					"frame": {
+						"x": 468,
+						"y": 1,
+						"w": 50,
+						"h": 86
+					}
+				},
+				{
+					"filename": "skeleton/jump/skeleton_jump_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 86
+					},
+					"frame": {
+						"x": 425,
+						"y": 356,
+						"w": 47,
+						"h": 86
+					}
+				},
+				{
+					"filename": "knight/jump/knight_jump_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 86
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 86
+					},
+					"frame": {
+						"x": 437,
+						"y": 265,
+						"w": 41,
+						"h": 86
+					}
+				},
+				{
+					"filename": "princess/attack/princess_attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 474,
+						"y": 353,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 480,
+						"y": 265,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 480,
+						"y": 265,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 480,
+						"y": 265,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 480,
+						"y": 265,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 486,
+						"y": 177,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 486,
+						"y": 177,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 513,
+						"y": 89,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 513,
+						"y": 89,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/standing/princess.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 520,
+						"y": 1,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/walk/princess.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 520,
+						"y": 1,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 538,
+						"y": 350,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 538,
+						"y": 350,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/die/peasant_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 47
+					},
+					"frame": {
+						"x": 538,
+						"y": 435,
+						"w": 83,
+						"h": 47
+					}
+				},
+				{
+					"filename": "peasant/die/peasant_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 47
+					},
+					"frame": {
+						"x": 538,
+						"y": 435,
+						"w": 83,
+						"h": 47
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 544,
+						"y": 262,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 544,
+						"y": 262,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "wizard_2/jump/wizard_2_jump_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 83
+					},
+					"frame": {
+						"x": 602,
+						"y": 347,
+						"w": 62,
+						"h": 83
+					}
+				},
+				{
+					"filename": "wizard_2/die/wizard_2_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 95,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 95,
+						"h": 50
+					},
+					"frame": {
+						"x": 623,
+						"y": 432,
+						"w": 95,
+						"h": 50
+					}
+				},
+				{
+					"filename": "knight/attack/knight_attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 59,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 59,
+						"h": 83
+					},
+					"frame": {
+						"x": 550,
+						"y": 174,
+						"w": 59,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/attack/skeleton_attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 59,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 59,
+						"h": 83
+					},
+					"frame": {
+						"x": 608,
+						"y": 259,
+						"w": 59,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/die/peasant_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 83
+					},
+					"frame": {
+						"x": 666,
+						"y": 344,
+						"w": 56,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/hit/peasant_hit_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 83
+					},
+					"frame": {
+						"x": 666,
+						"y": 344,
+						"w": 56,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/die/skeleton_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 50
+					},
+					"frame": {
+						"x": 720,
+						"y": 429,
+						"w": 80,
+						"h": 50
+					}
+				},
+				{
+					"filename": "skeleton/die/skeleton_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 50
+					},
+					"frame": {
+						"x": 720,
+						"y": 429,
+						"w": 80,
+						"h": 50
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 83
+					},
+					"frame": {
+						"x": 577,
+						"y": 86,
+						"w": 56,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/die/peasant_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 584,
+						"y": 1,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/hit/peasant_hit_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 584,
+						"y": 1,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/jump/peasant_jump_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 611,
+						"y": 171,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/jump/peasant_jump_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 83
+					},
+					"frame": {
+						"x": 611,
+						"y": 171,
+						"w": 53,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/crouch/peasant_crouch_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 83
+					},
+					"frame": {
+						"x": 635,
+						"y": 86,
+						"w": 50,
+						"h": 83
+					}
+				},
+				{
+					"filename": "peasant/walk/peasant_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 83
+					},
+					"frame": {
+						"x": 639,
+						"y": 1,
+						"w": 50,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/attack/skeleton_attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 83
+					},
+					"frame": {
+						"x": 666,
+						"y": 171,
+						"w": 50,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/attack/knight_attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 687,
+						"y": 86,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/standing/knight.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 691,
+						"y": 1,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 669,
+						"y": 256,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 669,
+						"y": 256,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 669,
+						"y": 256,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 669,
+						"y": 256,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 718,
+						"y": 171,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 718,
+						"y": 171,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 736,
+						"y": 86,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 736,
+						"y": 86,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/standing/skeleton.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 740,
+						"y": 1,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 718,
+						"y": 256,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 718,
+						"y": 256,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 724,
+						"y": 341,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 83
+					},
+					"frame": {
+						"x": 724,
+						"y": 341,
+						"w": 47,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 83
+					},
+					"frame": {
+						"x": 767,
+						"y": 171,
+						"w": 44,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 83
+					},
+					"frame": {
+						"x": 767,
+						"y": 171,
+						"w": 44,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 83
+					},
+					"frame": {
+						"x": 785,
+						"y": 86,
+						"w": 44,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 83
+					},
+					"frame": {
+						"x": 785,
+						"y": 86,
+						"w": 44,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 789,
+						"y": 1,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 789,
+						"y": 1,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 789,
+						"y": 1,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 789,
+						"y": 1,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 767,
+						"y": 256,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 767,
+						"y": 256,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 773,
+						"y": 341,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_008.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 41,
+						"h": 83
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 41,
+						"h": 83
+					},
+					"frame": {
+						"x": 773,
+						"y": 341,
+						"w": 41,
+						"h": 83
+					}
+				},
+				{
+					"filename": "wizard_2/die/wizard_2_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 101,
+						"h": 56
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 101,
+						"h": 56
+					},
+					"frame": {
+						"x": 802,
+						"y": 426,
+						"w": 101,
+						"h": 56
+					}
+				},
+				{
+					"filename": "princess/crouch/princess_crouch_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 810,
+						"y": 256,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/die/princess_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 813,
+						"y": 171,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/hit/princess_hit_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 813,
+						"y": 171,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/die/princess_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 831,
+						"y": 86,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/hit/princess_hit_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 831,
+						"y": 86,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/jump/princess_jump_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 832,
+						"y": 1,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/jump/princess_jump_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 832,
+						"y": 1,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 816,
+						"y": 338,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/walk/princess_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 80
+					},
+					"frame": {
+						"x": 874,
+						"y": 253,
+						"w": 62,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 80
+					},
+					"frame": {
+						"x": 877,
+						"y": 168,
+						"w": 56,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 80
+					},
+					"frame": {
+						"x": 895,
+						"y": 83,
+						"w": 56,
+						"h": 80
+					}
+				},
+				{
+					"filename": "peasant/attack/peasant_attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 80
+					},
+					"frame": {
+						"x": 896,
+						"y": 1,
+						"w": 53,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/die/skeleton_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 80
+					},
+					"frame": {
+						"x": 951,
+						"y": 1,
+						"w": 53,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/hit/skeleton_hit_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 80
+					},
+					"frame": {
+						"x": 951,
+						"y": 1,
+						"w": 53,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/jump/skeleton_jump_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 80
+					},
+					"frame": {
+						"x": 935,
+						"y": 165,
+						"w": 53,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/jump/skeleton_jump_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 80
+					},
+					"frame": {
+						"x": 935,
+						"y": 165,
+						"w": 53,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/die/knight_die_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 953,
+						"y": 83,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/hit/knight_hit_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 953,
+						"y": 83,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/jump/knight_jump_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 880,
+						"y": 335,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/jump/knight_jump_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 880,
+						"y": 335,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/die/princess_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 62
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 62
+					},
+					"frame": {
+						"x": 905,
+						"y": 417,
+						"w": 80,
+						"h": 62
+					}
+				},
+				{
+					"filename": "princess/die/princess_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 62
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 62
+					},
+					"frame": {
+						"x": 905,
+						"y": 417,
+						"w": 80,
+						"h": 62
+					}
+				},
+				{
+					"filename": "knight/walk/knight_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 932,
+						"y": 335,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/die/skeleton_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 938,
+						"y": 247,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/hit/skeleton_hit_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 938,
+						"y": 247,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/walk/skeleton_walk_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 80
+					},
+					"frame": {
+						"x": 984,
+						"y": 329,
+						"w": 50,
+						"h": 80
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 71
+					},
+					"frame": {
+						"x": 987,
+						"y": 411,
+						"w": 68,
+						"h": 71
+					}
+				},
+				{
+					"filename": "knight/die/knight_die_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 80
+					},
+					"frame": {
+						"x": 990,
+						"y": 165,
+						"w": 47,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/hit/knight_hit_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 80
+					},
+					"frame": {
+						"x": 990,
+						"y": 165,
+						"w": 47,
+						"h": 80
+					}
+				},
+				{
+					"filename": "skeleton/crouch/skeleton_crouch_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 80
+					},
+					"frame": {
+						"x": 1005,
+						"y": 83,
+						"w": 47,
+						"h": 80
+					}
+				},
+				{
+					"filename": "knight/crouch/knight_crouch_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 80
+					},
+					"frame": {
+						"x": 1006,
+						"y": 1,
+						"w": 44,
+						"h": 80
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 77
+					},
+					"frame": {
+						"x": 1052,
+						"y": 1,
+						"w": 65,
+						"h": 77
+					}
+				},
+				{
+					"filename": "princess/attack/princess_attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 77
+					},
+					"frame": {
+						"x": 990,
+						"y": 247,
+						"w": 62,
+						"h": 77
+					}
+				},
+				{
+					"filename": "wizard_2/crouch/wizard_2_crouch_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 77
+					},
+					"frame": {
+						"x": 1039,
+						"y": 165,
+						"w": 62,
+						"h": 77
+					}
+				},
+				{
+					"filename": "peasant/jump/peasant_jump_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 77
+					},
+					"frame": {
+						"x": 1054,
+						"y": 80,
+						"w": 53,
+						"h": 77
+					}
+				},
+				{
+					"filename": "skeleton/attack/skeleton_attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 77
+					},
+					"frame": {
+						"x": 1036,
+						"y": 326,
+						"w": 53,
+						"h": 77
+					}
+				},
+				{
+					"filename": "knight/attack/knight_attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 77
+					},
+					"frame": {
+						"x": 1057,
+						"y": 405,
+						"w": 50,
+						"h": 77
+					}
+				},
+				{
+					"filename": "wizard_2/run/wizard_2_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 74
+					},
+					"frame": {
+						"x": 1054,
+						"y": 244,
+						"w": 68,
+						"h": 74
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 74
+					},
+					"frame": {
+						"x": 1103,
+						"y": 159,
+						"w": 62,
+						"h": 74
+					}
+				},
+				{
+					"filename": "princess/jump/princess_jump_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 74
+					},
+					"frame": {
+						"x": 1109,
+						"y": 80,
+						"w": 62,
+						"h": 74
+					}
+				},
+				{
+					"filename": "skeleton/jump/skeleton_jump_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 74
+					},
+					"frame": {
+						"x": 1119,
+						"y": 1,
+						"w": 53,
+						"h": 74
+					}
+				},
+				{
+					"filename": "knight/jump/knight_jump_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 74
+					},
+					"frame": {
+						"x": 1091,
+						"y": 320,
+						"w": 50,
+						"h": 74
+					}
+				},
+				{
+					"filename": "peasant/run/peasant_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 71
+					},
+					"frame": {
+						"x": 1124,
+						"y": 235,
+						"w": 65,
+						"h": 71
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 71
+					},
+					"frame": {
+						"x": 1167,
+						"y": 156,
+						"w": 62,
+						"h": 71
+					}
+				},
+				{
+					"filename": "princess/die/princess_die_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 62
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 62
+					},
+					"frame": {
+						"x": 1231,
+						"y": 1,
+						"w": 80,
+						"h": 62
+					}
+				},
+				{
+					"filename": "skeleton/die/skeleton_die_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 50
+					},
+					"frame": {
+						"x": 1231,
+						"y": 65,
+						"w": 80,
+						"h": 50
+					}
+				},
+				{
+					"filename": "knight/die/knight_die_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 47
+					},
+					"frame": {
+						"x": 1231,
+						"y": 117,
+						"w": 80,
+						"h": 47
+					}
+				},
+				{
+					"filename": "knight/die/knight_die_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 47
+					},
+					"frame": {
+						"x": 1231,
+						"y": 117,
+						"w": 80,
+						"h": 47
+					}
+				},
+				{
+					"filename": "knight/die/knight_die_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 47
+					},
+					"frame": {
+						"x": 1231,
+						"y": 166,
+						"w": 80,
+						"h": 47
+					}
+				},
+				{
+					"filename": "peasant/crouch/peasant_crouch_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 71
+					},
+					"frame": {
+						"x": 1174,
+						"y": 1,
+						"w": 53,
+						"h": 71
+					}
+				},
+				{
+					"filename": "skeleton/crouch/skeleton_crouch_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 68
+					},
+					"frame": {
+						"x": 1174,
+						"y": 74,
+						"w": 50,
+						"h": 68
+					}
+				},
+				{
+					"filename": "princess/run/princess_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 71,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 71,
+						"h": 68
+					},
+					"frame": {
+						"x": 1231,
+						"y": 215,
+						"w": 71,
+						"h": 68
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 71
+					},
+					"frame": {
+						"x": 1109,
+						"y": 396,
+						"w": 62,
+						"h": 71
+					}
+				},
+				{
+					"filename": "knight/run/knight_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 68
+					},
+					"frame": {
+						"x": 1143,
+						"y": 308,
+						"w": 65,
+						"h": 68
+					}
+				},
+				{
+					"filename": "peasant/die/peasant_die_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 83,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 83,
+						"h": 47
+					},
+					"frame": {
+						"x": 1210,
+						"y": 285,
+						"w": 83,
+						"h": 47
+					}
+				},
+				{
+					"filename": "skeleton/run/skeleton_run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 65,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 65,
+						"h": 68
+					},
+					"frame": {
+						"x": 1173,
+						"y": 378,
+						"w": 65,
+						"h": 68
+					}
+				},
+				{
+					"filename": "princess/crouch/princess_crouch_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 68
+					},
+					"frame": {
+						"x": 1240,
+						"y": 334,
+						"w": 62,
+						"h": 68
+					}
+				},
+				{
+					"filename": "knight/crouch/knight_crouch_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 47,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 47,
+						"h": 68
+					},
+					"frame": {
+						"x": 1240,
+						"y": 404,
+						"w": 47,
+						"h": 68
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:c064bac2c4a3cc0199f82ddd1cf6f04a:d2bf42ae74b5ad50fe76295c232fe369:a5fe7db4b869eb0f3e0b2940b9577ea8$"
+	}
+}
